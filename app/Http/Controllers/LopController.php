@@ -20,13 +20,13 @@ class LopController extends Controller
 
     public function create()
     {
-        return view('lop.add');
+        return view('admin.lop.add');
     }
 
     public function index()
     {
         $lops = $this->lop->paginate(5);
-        return view('lop.index', compact('lops'));
+        return view('admin.lop.index', compact('lops'));
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class LopController extends Controller
     public function edit($MaLop, Request $request)
     {
         $lop = $this->lop->find($MaLop);
-        return view('lop.edit', compact('lop'));
+        return view('admin.lop.edit', compact('lop'));
     }
 
     public function update($MaLop, Request $request)

@@ -155,8 +155,11 @@
           </ul>
         </template>
       </li>
-      <!-- Profile menu -->
       <li class="relative">
+        <p>Nguyễn Văn Trí</p>
+      </li>
+      <!-- Profile menu -->
+      <li class="relative employee-avatar">
         <button
           class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
           @click="toggleProfileMenu"

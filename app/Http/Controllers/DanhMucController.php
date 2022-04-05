@@ -16,13 +16,13 @@ class DanhMucController extends Controller
   public function create()
   {
     $htmlOption = $this->getDanhMuc($danhMucChaId = '');
-    return view('danhmuc.add', compact('htmlOption'));
+    return view('admin.danhmuc.add', compact('htmlOption'));
   }
 
   public function index()
   {
     $danhmucs = $this->danhmuc->paginate(5);
-    return view('danhmuc.index', compact('danhmucs'));
+    return view('admin.danhmuc.index', compact('danhmucs'));
   }
 
   public function store(Request $request)
@@ -47,7 +47,7 @@ class DanhMucController extends Controller
   {
     $danhmuc = $this->danhmuc->find($danhMuc_id);
     $htmlOption = $this->getDanhMuc($danhmuc->danhMucCha_id);
-    return view('danhmuc.edit', compact('danhmuc', 'htmlOption'));
+    return view('admin.danhmuc.edit', compact('danhmuc', 'htmlOption'));
   }
 
   public function update($danhMuc_id, Request $request)
