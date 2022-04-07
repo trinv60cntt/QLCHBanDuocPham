@@ -155,18 +155,16 @@
           </ul>
         </template>
       </li>
-      <li class="relative">
-        <p>Nguyễn Văn Trí</p>
-      </li>
       <!-- Profile menu -->
       <li class="relative employee-avatar">
         <button
-          class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+          class="flex items-center align-middle rounded-full focus:outline-none"
           @click="toggleProfileMenu"
           @keydown.escape="closeProfileMenu"
           aria-label="Account"
           aria-haspopup="true"
         >
+          <span class="mr-3 text-black dark:text-gray-200">Nguyễn Văn Trí</span>
           <img
             class="object-cover w-8 h-8 rounded-full"
             src="assets/img/tri.jpg"

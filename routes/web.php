@@ -86,5 +86,37 @@ Route::prefix('admin')->group(function () {
     ]);
   });
 
+  Route::prefix('nhasanxuats')->group(function () {
+    Route::get('/', [
+      'as' => 'nhasanxuats.index',
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@index'
+    ]);
+  
+    Route::get('/create', [
+      'as' => 'nhasanxuats.create',
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'nhasanxuats.store',
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@store'
+    ]);
+  
+    Route::get('/edit/{NSX_id}', [
+      'as' => 'nhasanxuats.edit',
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@edit'
+    ]);
+  
+    Route::post('/update/{NSX_id}', [
+      'as' => 'nhasanxuats.update',
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@update'
+    ]);
+  
+    Route::get('/delete/{NSX_id}', [
+      'as' => 'nhasanxuats.delete',
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@delete'
+    ]);
+  });
+
 });
 
