@@ -118,5 +118,36 @@ Route::prefix('admin')->group(function () {
     ]);
   });
 
+  Route::prefix('sanphams')->group(function () {
+    Route::get('/', [
+      'as' => 'sanphams.index',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@index'
+    ]);
+  
+    Route::get('/create', [
+      'as' => 'sanphams.create',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'sanphams.store',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@store'
+    ]);
+  
+    Route::get('/edit/{sanPham_id}', [
+      'as' => 'sanphams.edit',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@edit'
+    ]);
+  
+    Route::post('/update/{sanPham_id}', [
+      'as' => 'sanphams.update',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@update'
+    ]);
+  
+    Route::get('/delete/{sanPham_id}', [
+      'as' => 'sanphams.delete',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@delete'
+    ]);
+  });
 });
 
