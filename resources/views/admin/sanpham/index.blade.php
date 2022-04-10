@@ -9,7 +9,7 @@
 @endsection
 
 @section('js')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
     <script src="admins/sanpham/index.js"></script>
 @endsection
 

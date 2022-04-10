@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SanPhamsAddRequest;
+
 
 class AdminSanPhamController extends Controller
 {
@@ -70,7 +72,7 @@ class AdminSanPhamController extends Controller
     return $htmlOptionNSX;
   }
 
-  public function store(Request $request)
+  public function store(SanPhamsAddRequest $request)
   {
     try {
       DB::beginTransaction();
