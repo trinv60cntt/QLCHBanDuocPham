@@ -46,7 +46,7 @@
                               {{-- <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault"> --}}
                               <input name="remember_me" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer mr-2" type="checkbox" value="" id="flexCheckDefault3">
                               <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                                Remember me
+                                Ghi nhớ đăng nhập
                               </label>
                             </div>
                             <!-- You should use a button here, as the anchor is only used for the example  -->
@@ -73,7 +73,7 @@
                             <p class="mt-4">
                                 <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                                     href="./forgot-password.html">
-                                    Forgot your password?
+                                    Quên mật khẩu?
                                 </a>
                             </p>
                             {{-- <p class="mt-1">

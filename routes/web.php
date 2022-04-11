@@ -17,6 +17,12 @@ use App\Http\Controllers;
 Route::get('/admin', 'App\Http\Controllers\NhanVienController@loginAdmin');
 Route::post('/admin', 'App\Http\Controllers\NhanVienController@postLoginAdmin');
 
+// Route::get('/', function () {
+//   return view('home');
+// });
+
+Route::post('/', 'App\Http\Controllers\HomeController@index');
+
 Route::get('/home', function () {
   return view('home');
 });
@@ -147,6 +153,38 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{sanPham_id}', [
       'as' => 'sanphams.delete',
       'uses' => 'App\Http\Controllers\AdminSanPhamController@delete'
+    ]);
+  });
+
+  Route::prefix('users')->group(function () {
+    Route::get('/', [
+      'as' => 'users.index',
+      'uses' => 'App\Http\Controllers\AdminUserController@index'
+    ]);
+  
+    Route::get('/create', [
+      'as' => 'users.create',
+      'uses' => 'App\Http\Controllers\AdminUserController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'users.store',
+      'uses' => 'App\Http\Controllers\AdminUserController@store'
+    ]);
+  
+    Route::get('/edit/{id}', [
+      'as' => 'users.edit',
+      'uses' => 'App\Http\Controllers\AdminUserController@edit'
+    ]);
+  
+    Route::post('/update/{id}', [
+      'as' => 'users.update',
+      'uses' => 'App\Http\Controllers\AdminUserController@update'
+    ]);
+  
+    Route::get('/delete/{id}', [
+      'as' => 'users.delete',
+      'uses' => 'App\Http\Controllers\AdminUserController@delete'
     ]);
   });
 });
