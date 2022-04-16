@@ -17,15 +17,13 @@ use App\Http\Controllers;
 Route::get('/admin', 'App\Http\Controllers\NhanVienController@loginAdmin');
 Route::post('/admin', 'App\Http\Controllers\NhanVienController@postLoginAdmin');
 
-// Route::get('/', function () {
+Route::get('/home', 'App\Http\Controllers\HomeController@index');
+
+Route::get('/', 'App\Http\Controllers\HomeController@index');
+
+// Route::get('/home', function () {
 //   return view('home');
 // });
-
-Route::post('/', 'App\Http\Controllers\HomeController@index');
-
-Route::get('/home', function () {
-  return view('home');
-});
 
 Route::prefix('admin')->group(function () {
   
