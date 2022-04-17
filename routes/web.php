@@ -17,10 +17,38 @@ use App\Http\Controllers;
 Route::get('/admin', 'App\Http\Controllers\NhanVienController@loginAdmin');
 Route::post('/admin', 'App\Http\Controllers\NhanVienController@postLoginAdmin');
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index');
+// Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
 Route::get('/', 'App\Http\Controllers\HomeController@index');
 
+Route::prefix('home')->group(function () {
+  Route::get('/', [
+    'as' => 'home.index',
+    'uses' => 'App\Http\Controllers\HomeController@index'
+  ]);
+
+  // Route::get('/details', [
+  //   'as' => 'home.details',
+  //   'uses' => 'App\Http\Controllers\HomeController@details'
+  // ]);
+
+  Route::get('/giohang', [
+    'as' => 'home.giohang',
+    'uses' => 'App\Http\Controllers\HomeController@giohang'
+  ]);
+
+});
+
+
+
+Route::prefix('menu')->group(function () {
+
+  Route::get('/details/{sanPham_id}', [
+    'as' => 'menus.details',
+    'uses' => 'App\Http\Controllers\MenuController@details'
+  ]);
+
+});
 // Route::get('/home', function () {
 //   return view('home');
 // });

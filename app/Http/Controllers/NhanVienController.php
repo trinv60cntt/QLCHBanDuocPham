@@ -9,7 +9,7 @@ class NhanVienController extends Controller
   public function loginAdmin()
   {
     if (auth()->check()) {
-      return redirect()->to('home');
+      return view('admin.home');
     }
     // dd(bcrypt('123'));
     return view('login');
@@ -23,7 +23,7 @@ class NhanVienController extends Controller
       'email' => $request->email,
       'password' => $request->password
     ], $remember)) {
-      return redirect()->to('home');
+      return view('admin.home');
     }
     // dd($request->all());
   }

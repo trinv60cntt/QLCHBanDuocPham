@@ -26,7 +26,7 @@
             </a>
             <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
-                    <table class="w-full whitespace-no-wrap">
+                    <table class="w-full">
                         <thead>
                             <tr
                                 class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
@@ -46,29 +46,29 @@
                             ?>
                             @foreach ($sanphams as $sanpham)
                                 <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3 text-sm">
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ $i++ }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm">
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         <img src="storage/sanpham/1/{{ $sanpham->hinhAnh }}" alt="San pham"
                                             class="sanpham-img mx-auto">
                                     </td>
                                     <td class="px-4 py-3 text-sm">
                                         {{ $sanpham->tenSP }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm">
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ number_format($sanpham->donGia) }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm">
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ date('d/m/Y', $sanpham->created_at->timestamp) }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm">
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ $sanpham->banChay == 1 ? 'X' : '' }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm">
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap name-category">
                                         {{ optional($sanpham->danhmuc)->tenDM }}
                                     </td>
-                                    <td class="px-4 py-3">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         <div class="flex items-center space-x-4 text-sm">
 																					<a href="{{ route('sanphams.edit', ['sanPham_id' => $sanpham->sanPham_id]) }}"
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
