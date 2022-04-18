@@ -13,9 +13,10 @@ use App\Http\Controllers;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Login - Logout
 Route::get('/admin', 'App\Http\Controllers\NhanVienController@loginAdmin');
 Route::post('/admin', 'App\Http\Controllers\NhanVienController@postLoginAdmin');
+Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
 // Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
@@ -27,19 +28,12 @@ Route::prefix('home')->group(function () {
     'uses' => 'App\Http\Controllers\HomeController@index'
   ]);
 
-  // Route::get('/details', [
-  //   'as' => 'home.details',
-  //   'uses' => 'App\Http\Controllers\HomeController@details'
-  // ]);
-
   Route::get('/giohang', [
     'as' => 'home.giohang',
     'uses' => 'App\Http\Controllers\HomeController@giohang'
   ]);
 
 });
-
-
 
 Route::prefix('menu')->group(function () {
 
@@ -49,9 +43,6 @@ Route::prefix('menu')->group(function () {
   ]);
 
 });
-// Route::get('/home', function () {
-//   return view('home');
-// });
 
 Route::prefix('admin')->group(function () {
   

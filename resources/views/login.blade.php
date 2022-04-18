@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="assets/css/_mod-login.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="assets/js/init-alpine.js"></script>
 </head>
@@ -27,12 +28,13 @@
                     <div class="w-full">
                         <form action="" method="post">
                             @csrf
-                            <h1 class="mb-4 text-xl text-center font-semibold text-gray-700 dark:text-gray-200">
+                            <h1 class="mb-3 text-xl text-center font-semibold text-gray-700 dark:text-gray-200">
                                 Chào mừng bạn trở lại!
                             </h1>
+                            @include('errors.note')
                             <label class="block text-sm">
                                 <span class="text-gray-700 dark:text-gray-400">Email</span>
-                                <input name="email"
+                                <input name="email" value="{{ old('email') }}"
                                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                     placeholder="Nhập email..." />
                             </label>
@@ -44,7 +46,7 @@
                             </label>
                             <div class="form-check mt-4">
                               {{-- <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault"> --}}
-                              <input name="remember_me" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer mr-2" type="checkbox" value="" id="flexCheckDefault3">
+                              <input name="remember_me" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer mr-2" type="checkbox" value="Remember Me" id="flexCheckDefault3">
                               <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
                                 Ghi nhớ đăng nhập
                               </label>

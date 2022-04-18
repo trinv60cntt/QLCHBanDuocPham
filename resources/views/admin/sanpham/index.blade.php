@@ -41,13 +41,10 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
-                            <?php
-                            $i = 1;
-                            ?>
                             @foreach ($sanphams as $sanpham)
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ $i++ }}
+                                        {{ $loop->index + 1 }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         <img src="storage/sanpham/1/{{ $sanpham->hinhAnh }}" alt="San pham"

@@ -260,3 +260,12 @@
   padding-bottom: 5px;
   margin-top: 10px;
 }
+
+.alert-error {
+  color: #78261f;
+  background-color: #fadbd8;
+  border-color: #f8ccc8;
+  text-align: center;
+  margin: 0 auto;
+  height: 35px;
+}

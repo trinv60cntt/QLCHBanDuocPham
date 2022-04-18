@@ -24,6 +24,8 @@ class NhanVienController extends Controller
       'password' => $request->password
     ], $remember)) {
       return view('admin.home');
+    } else {
+      return back()->withInput()->with('error', '• Tài khoản hoặc mật khẩu chưa đúng');
     }
     // dd($request->all());
   }
