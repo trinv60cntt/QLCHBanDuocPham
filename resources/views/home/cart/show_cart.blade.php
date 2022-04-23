@@ -50,7 +50,9 @@
               </td>
               <td class="p-4 px-6 text-center whitespace-nowrap">
                 <div>
-                  <button class="button-count">
+                  <form action="{{ URL::to('/update-cart-quantity') }}" method="post">
+                    {{ csrf_field() }}
+                  <a class="button-count">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="inline-flex w-6 h-6 text-red-600"
@@ -65,16 +67,16 @@
                         d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                  </button>
+                  </a>
                   <input
                     type="text"
-                    name="qty"
+                    name="cart_quantity"
                     value="{{ $v_content->qty }}"
                     min="1"
                     data-dvt="2"
                     class="number-product w-12 text-center bg-gray-100 outline-none"
                   />
-                  <button class="button-count">
+                  <a class="button-count">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="inline-flex w-6 h-6 text-green-600"
@@ -89,14 +91,17 @@
                         d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                  </button>
+                  </a>
+                  <input type="hidden" value="{{ $v_content->rowId }}" name="rowId_cart">
+                  <input type="submit" value="Cập nhật" name="update_qty" >
+                  </form>
                 </div>
               </td>
               <td class="p-4 px-6 text-center whitespace-nowrap">{{ $v_content->qty }} x {{ number_format($v_content->price,0, ',', '.') }}</td>
               <td class="p-4 px-6 text-center whitespace-nowrap">
                 <?php
                   $subtotal = $v_content->price * $v_content->qty;
-                  echo $subtotal.'đ'; 
+                  echo number_format($subtotal, 0, ',', '.').'đ'; 
                 ?>
               </td>
               <td class="p-4 px-6 text-center whitespace-nowrap">
@@ -210,7 +215,7 @@
             <h3 class="text-xl font-bold text-blue-600">THÔNG TIN ĐƠN HÀNG</h3>
             <div class="flex justify-between px-4">
               <span class="font-bold">Tổng tiền</span>
-              <span class="font-bold">{{ Cart::total() }}đ</span>
+              <span class="font-bold">{{ Cart::priceTotal(0, ',', '.') }}đ</span>
             </div>
     
             <div class="flex justify-between px-4">
@@ -234,7 +239,7 @@
             >
               <span class="text-xl font-bold">Cần thanh toán</span>
               <span class="text-2xl font-bold text-blue-800">
-                {{ Cart::total() }}đ
+                {{ number_format(Cart::totalFloat() + 15000, 0, ',', '.')}}đ
               </span>
             </div>
           </div>
@@ -250,7 +255,9 @@
         </div>
 
         <div class="mt-4">
+          <a href="{{ URL::to('/login-checkout') }}">Đặt hàng</a>
           <button
+            href="{{ URL::to('/login-checkout') }}"
             class="
               w-full
               py-2

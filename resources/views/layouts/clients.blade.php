@@ -85,11 +85,34 @@
                     </a>
                 </div>
             </div>
-            <div class="border-login flex"> 
-              <span class="border-avatar"><i class="fas fa-user"></i></span>
-              <p class="text-black font-medium">Đăng nhập / Đăng ký</p> 
-            </div>
-            <a href="{{ route('home.giohang') }}">
+            <?php
+              $customer_id = Session::get('khachhang_id');
+              // dd($customer_id);
+              if($customer_id == NULL) {
+
+              
+            ?>
+            <a href="{{ URL::to('/login-checkout') }}">
+              <div class="border-login flex"> 
+                <span class="border-avatar"><i class="fas fa-user"></i></span>
+                <p class="text-black font-medium">Đăng nhập / Đăng ký</p> 
+              </div>
+            </a>
+
+            <?php 
+              }else {
+            ?>
+            <a href="{{ URL::to('/logout-checkout') }}">
+              <div class="border-login flex"> 
+                <span class="border-avatar"><i class="fas fa-user"></i></span>
+                <p class="text-black font-medium">Nguyễn Văn Trí</p> 
+              </div>
+            </a>
+            <?php
+              }
+            ?>
+
+            <a href="{{ URL::to('/show-cart') }}">
               <div class="text-white flex ml-5">
                 <i class="fas fa-shopping-cart text-3xl"></i>
                 <span class="badge">0</span>

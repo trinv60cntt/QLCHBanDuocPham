@@ -269,3 +269,17 @@
   margin: 0 auto;
   height: 35px;
 }
+
+.user-form {
+  padding: 45px 75px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: solid 1px #e5e5e5;
+}
+
+.form-input {
+  background-color: #fff;
+  border-width: 1px;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+}
