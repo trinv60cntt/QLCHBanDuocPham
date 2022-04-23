@@ -19,7 +19,7 @@ class HomeController extends Controller
   //   return view('home.detailsSanPham');
   // }
 
-  public function giohang() {
-    return view('home.indexGioHang');
-  }
+  // public function giohang() {
+  //   return view('home.indexGioHang');
+  // }
 }

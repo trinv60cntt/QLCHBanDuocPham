@@ -51,24 +51,29 @@
             </table>
           </div>
 
+          <form action="{{ URL::to('/save-cart') }}" method="post">
+            {{ csrf_field() }}
           <div class="detail-quantity flex mt-5">
             <p class="font-medium">Chọn số lượng</p>
             <div class="flex ml-4">
-              <button id="botSL" class="input-group-addon input-minus">
+              <a id="botSL" class="input-group-addon input-minus">
                 <span class="fas fa-minus" style="margin-top: 7px" aria-hidden="true"></span>
-              </button>
+              </a>
               <input type="text" 
               class="input-quantity text-center text-base font-bold" 
-              name="quantity" id="quantity" value="1">
+              name="qty" id="quantity" value="1">
+              <input type="hidden"
+              name="productid_hidden" id="quantity" value="{{ $sanpham->sanPham_id }}">
             </div>
-            <button id="themSL" class="input-group-addon input-plus">
+            <a id="themSL" class="input-group-addon input-plus">
               <span class="fas fa-plus" style="margin-top: 7px" aria-hidden="true"></span>
-            </button>
+            </a>
           </div>
 
           <div class="add-to-cart mt-5">
-            <a href="#" class="btn text-xl">Thêm vào giỏ hàng</a>
+            <button type="submit" class="btn text-xl">Thêm vào giỏ hàng</button>
           </div>
+        </form>
         </div>
       </div>
     </div>
