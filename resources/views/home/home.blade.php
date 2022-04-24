@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="module mod-testimonial">
-        <img src="assets/img/banner-1.png" alt="banner 1">
+        <img src="assets/img/banner-1.png" alt="banner 1" class="w-full">
     </section>
 
     <section class="module mod-category my-12">

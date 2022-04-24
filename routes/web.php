@@ -204,6 +204,38 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminUserController@delete'
     ]);
   });
+
+  Route::prefix('hoadons')->group(function () {
+    Route::get('/', [
+      'as' => 'hoadons.index',
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@index'
+    ]);
+  
+    // Route::get('/create', [
+    //   'as' => 'sanphams.create',
+    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@create'
+    // ]);
+  
+    // Route::post('/store', [
+    //   'as' => 'sanphams.store',
+    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@store'
+    // ]);
+  
+    // Route::get('/edit/{sanPham_id}', [
+    //   'as' => 'sanphams.edit',
+    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@edit'
+    // ]);
+  
+    // Route::post('/update/{sanPham_id}', [
+    //   'as' => 'sanphams.update',
+    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@update'
+    // ]);
+  
+    // Route::get('/delete/{sanPham_id}', [
+    //   'as' => 'sanphams.delete',
+    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@delete'
+    // ]);
+  });
 });
 
 
@@ -217,8 +249,10 @@ Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delet
 Route::get('/login-checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
 Route::get('/logout-checkout', 'App\Http\Controllers\CheckoutController@logout_checkout');
 Route::get('/register-checkout', 'App\Http\Controllers\CheckoutController@register_checkout');
+Route::post('/order-place', 'App\Http\Controllers\CheckoutController@order_place');
 Route::post('/add-customer', 'App\Http\Controllers\CheckoutController@add_customer');
 Route::post('/login-customer', 'App\Http\Controllers\CheckoutController@login_customer');
 Route::get('/checkout', 'App\Http\Controllers\CheckoutController@checkout');
+Route::get('/announceGioHang', 'App\Http\Controllers\CheckoutController@announceGioHang');
 
 // 

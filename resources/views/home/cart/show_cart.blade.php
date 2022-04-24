@@ -168,13 +168,14 @@
         </div> --}}
 
         <div class="detail-line my-4"></div>
-
+        <form action="{{ URL::to('/order-place') }}" method="post">
+          @csrf
         <div class="info-address bg-white">
           <div class="p-4 rounded-md shadow">
             <h3 class="text-xl font-bold"><span class="text-blue-600 text-2xl">01</span> Địa chỉ giao hàng</h3> 
             <div class="px-4 pt-2">
               <p class="font-bold">Địa chỉ:</p>
-              <input name="tenSP" placeholder="Địa chỉ"
+              <input name="diaChi" placeholder="Địa chỉ"
               class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               type="text">
             </div>
@@ -189,18 +190,18 @@
             <div class="px-4 pt-2">
               <div class="row flex flex-wrap">
                 <div class="col w-1/2 pr-2">
-                  <input name="tenSP" placeholder="Nhập họ và tên"
+                  <input name="hoTenKH" placeholder="Nhập họ và tên"
                   class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text">
                 </div>
                 <div class="col w-1/2 pl-2">
-                  <input name="tenSP" placeholder="Nhập số điện thoại"
+                  <input name="sdt" placeholder="Nhập số điện thoại"
                   class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text">
                 </div>
               </div>
         
-              <input name="tenSP" placeholder="Nhập Email (Không bắt buộc)"
+              <input name="email" placeholder="Nhập Email"
               class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               type="text">
             </div>
@@ -255,7 +256,9 @@
         </div>
 
         <div class="mt-4">
-          <a href="{{ URL::to('/login-checkout') }}">Đặt hàng</a>
+    
+            <input type="submit" name="send_order_place" value="Đặt hàng">
+          </form>
           <button
             href="{{ URL::to('/login-checkout') }}"
             class="

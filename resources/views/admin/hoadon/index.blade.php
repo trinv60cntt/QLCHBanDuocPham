@@ -4,26 +4,14 @@
     <title>Trang chủ</title>
 @endsection
 
-@section('css')
-    <link rel="stylesheet" href="admins/sanpham/index.css">
-@endsection
-
-@section('js')
-    <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
-    <script src="admins/sanpham/index.js"></script>
-@endsection
-
 @section('content')
     <main class="h-full pb-16 overflow-y-auto">
         <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto py-4">
             <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-                Danh sách sản phẩm
+                DANH SÁCH ĐƠN ĐẶT HÀNG TRỰC TUYẾN
             </h4>
-            <a href="{{ route('sanphams.create') }}"
-                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Thêm sản phẩm
-            </a>
+      
             <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full">
@@ -31,43 +19,47 @@
                             <tr
                                 class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
                                 <th class="px-4 py-3">STT</th>
-                                <th class="px-4 py-3">Hình ảnh</th>
-                                <th class="px-4 py-3">Tên sản phẩm</th>
-                                <th class="px-4 py-3">Giá</th>
-                                <th class="px-4 py-3">Ngày thêm</th>
-                                <th class="px-4 py-3">Bán chạy</th>
-                                <th class="px-4 py-3">Danh mục</th>
+                                <th class="px-4 py-3">Họ tên</th>
+                                <th class="px-4 py-3">Tổng tiền</th>
+                                <th class="px-4 py-3">Ngày mua</th>
+                                <th class="px-4 py-3">Tình trạng</th>
+                                <th class="px-4 py-3">Shipper</th>
                                 <th class="px-4 py-3 text-left">Chức năng</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
-                            @foreach ($sanphams as $sanpham)
+                            @foreach ($hoadons as $hoadon)
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ $loop->index + 1 }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        <img src="storage/sanpham/1/{{ $sanpham->hinhAnh }}" alt="San pham"
-                                            class="sanpham-img mx-auto">
-                                    </td>
                                     <td class="px-4 py-3 text-sm">
-                                        {{ $sanpham->tenSP }}
+                                        {{ $hoadon->hoTenKH }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ number_format($sanpham->donGia) }}
+                                      {{ $hoadon->tongTien }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ date('d/m/Y', $sanpham->created_at->timestamp) }}
+                                        {{ date('d/m/Y', strtotime($hoadon->created_at)) }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ $sanpham->banChay == 1 ? 'X' : '' }}
+                                      <?php
+                                        if ($hoadon->tinhTrang == 1)
+                                          echo 'Đơn chờ kiểm';
+                                        else if ($hoadon->tinhTrang == 2)
+                                          echo 'Đã giao hàng';
+                                        else
+                                          echo 'Đơn hủy';
+                                      ?>
                                     </td>
-                                    <td class="px-4 py-3 text-sm whitespace-nowrap name-category">
-                                        {{ optional($sanpham->danhmuc)->tenDM }}
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
+                                      Chưa có
                                     </td>
+
                                     <td class="px-4 py-3 whitespace-nowrap">
                                         <div class="flex items-center space-x-4 text-sm">
-																					<a href="{{ route('sanphams.edit', ['sanPham_id' => $sanpham->sanPham_id]) }}"
+                                            <a href="#">Xem</a>
+                                            <a href="#"
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Edit">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -78,7 +70,7 @@
                                                 </svg>
                                             </a>
                                             <a href="#"
-                                                data-url="{{ route('sanphams.delete', ['sanPham_id' => $sanpham->sanPham_id]) }}"
+                                                data-url="# "
                                                 class="js-action-delete flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Delete">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -87,7 +79,7 @@
                                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                         clip-rule="evenodd"></path>
                                                 </svg>
-                                            </a>
+                                              </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -100,12 +92,12 @@
 
 
                     {{-- <span class="flex items-center col-span-3">
-                        Showing 21-30 of 100
-                    </span>
-                    <span class="col-span-2"></span> --}}
+                  Showing 21-30 of 100
+              </span>
+              <span class="col-span-2"></span> --}}
                     <!-- Pagination -->
                     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                        {{ $sanphams->links() }}
+                        {{ $hoadons->links() }}
 
                     </span>
                 </div>

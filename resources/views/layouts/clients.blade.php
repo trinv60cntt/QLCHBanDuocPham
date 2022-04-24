@@ -87,6 +87,8 @@
             </div>
             <?php
               $customer_id = Session::get('khachhang_id');
+              $hoKH = Session::get('hoKH');
+              $tenKH = Session::get('tenKH');
               // dd($customer_id);
               if($customer_id == NULL) {
 
@@ -105,7 +107,7 @@
             <a href="{{ URL::to('/logout-checkout') }}">
               <div class="border-login flex"> 
                 <span class="border-avatar"><i class="fas fa-user"></i></span>
-                <p class="text-black font-medium">Nguyễn Văn Trí</p> 
+                <p class="text-black font-medium">{{ $hoKH }} {{ $tenKH }}</p> 
               </div>
             </a>
             <?php

@@ -44,6 +44,34 @@ class CheckoutController extends Controller
     return Redirect::to('/login-checkout');
   }
 
+  public function order_place(Request $request) {
+    // insert order
+    $order_data = array(); 
+    $order_data['hoTenKH'] = $request->hoTenKH;
+    $order_data['sdt'] = $request->sdt;
+    $order_data['diaChi'] = $request->diaChi;
+    $order_data['email'] = $request->email;
+    $order_data['ghiChu'] = $request->ghiChu;
+    $order_data['tongTien'] = Cart::totalFloat() + 15000;
+    $order_data['tinhTrang'] = 1;
+    $order_data['created_at'] =new \DateTime();
+    $order_id = DB::table('hoadon')->insertGetId($order_data);
+
+    // insert order details
+    $content = Cart::content();
+    foreach($content as $v_content) {
+      $order_d_data = array(); 
+      $order_d_data['hoaDon_id'] = $order_id;
+      $order_d_data['sanPham_id'] = $v_content->id;
+      $order_d_data['soLuong'] = $v_content->qty;
+  
+      DB::table('chitiethd')->insert($order_d_data);
+    }
+
+    Cart::destroy();
+    return Redirect::to('/announceGioHang');
+  }
+
   public function logout_checkout() {
     Session::flush();
     return Redirect::to('/login-checkout');
@@ -56,11 +84,17 @@ class CheckoutController extends Controller
     
     if($result) {
       Session::put('khachhang_id', $result->khachhang_id);
+      Session::put('hoKH', $result->hoKH);
+      Session::put('tenKH', $result->tenKH);
       return Redirect::to('/home');
     } else {
       return Redirect::to('/login-checkout');
     }
- 
   }
+
+  public function announceGioHang() {
+    return view('home.announceGioHang');
+  }
+
 
 }
