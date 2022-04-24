@@ -210,6 +210,11 @@ Route::prefix('admin')->group(function () {
       'as' => 'hoadons.index',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@index'
     ]);
+
+    Route::get('/details/{hoaDon_id}', [
+      'as' => 'hoadons.details',
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@details'
+    ]);
   
     // Route::get('/create', [
     //   'as' => 'sanphams.create',
