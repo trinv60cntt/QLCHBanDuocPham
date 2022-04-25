@@ -86,6 +86,9 @@ class CheckoutController extends Controller
       Session::put('khachhang_id', $result->khachhang_id);
       Session::put('hoKH', $result->hoKH);
       Session::put('tenKH', $result->tenKH);
+      Session::put('diaChi', $result->diaChi);
+      Session::put('email', $result->email);
+      Session::put('sdt', $result->sdt);
       return Redirect::to('/home');
     } else {
       return Redirect::to('/login-checkout');

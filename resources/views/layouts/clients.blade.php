@@ -117,7 +117,7 @@
             <a href="{{ URL::to('/show-cart') }}">
               <div class="text-white flex ml-5">
                 <i class="fas fa-shopping-cart text-3xl"></i>
-                <span class="badge">0</span>
+                <span class="badge">{{ Cart::count() }}</span>
                 <p class="pt-3 pl-1">Giỏ hàng</p>
               </div>
             </a>

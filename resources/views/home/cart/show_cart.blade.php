@@ -6,14 +6,26 @@
 
 @section('js')
     <script src="clients/detailsSanPham/cart.js"></script>
+    <script type="text/javascript">
+      function updateCart(qty, rowId) {
+        $.get(
+          '{{ asset('/update') }}',
+          {qty: qty,rowId:rowId },
+          function () {
+            location.reload();
+          }
+        );
+      }
+    </script>
 @endsection
 
 @section('content')
   <section class="mod mod-cart py-10">
     <div class="container p-8 mx-auto">
       <div class="w-full overflow-x-auto">
+        @if(Cart::count() >= 1)
         <div class="my-2">
-          <h3 class="text-xl font-bold tracking-wider">CÓ 3 SẢN PHẨM TRONG GIỎ HÀNG</h3>
+          <h3 class="text-xl font-bold tracking-wider">CÓ {{ Cart::count() }} SẢN PHẨM TRONG GIỎ HÀNG</h3>
         </div>
         <div class="detail-line"></div>
         <?php
@@ -32,7 +44,6 @@
           </thead>
           <tbody>
             @foreach($content as $v_content)
-        
             <tr class="js-product-count">
               <td>
                 <div class="flex justify-center">
@@ -74,6 +85,7 @@
                     value="{{ $v_content->qty }}"
                     min="1"
                     data-dvt="2"
+                    {{-- onchange="updateCart(this.value, '{{ $v_content->rowId }}')" --}}
                     class="number-product w-12 text-center bg-gray-100 outline-none"
                   />
                   <a class="button-count">
@@ -128,54 +140,26 @@
       
           </tbody>
         </table>
-        {{-- <div class="lg:w-2/4">
-          <div class="mt-4">
-            <div class="px-4 py-4 rounded-md">
-              <label for="coupon code" class="font-semibold text-gray-600"
-                >Coupon Code</label
-              >
-              <input
-                type="text"
-                placeholder="coupon code"
-                value="LARA#234"
-                class="
-                  w-full
-                  px-2
-                  py-2
-                  border border-blue-600
-                  rounded-md
-                  outline-none
-                "
-              />
-              <span class="block text-green-600"
-                >Coupon code applied successfully</span
-              >
-              <button
-                class="
-                  px-6
-                  py-2
-                  mt-2
-                  text-sm text-indigo-100
-                  bg-indigo-600
-                  rounded-md
-                  hover:bg-indigo-700
-                "
-              >
-                Apply
-              </button>
-            </div>
-          </div>
-        </div> --}}
 
         <div class="detail-line my-4"></div>
         <form action="{{ URL::to('/order-place') }}" method="post">
           @csrf
+          <?php
+          $customer_id = Session::get('khachhang_id');
+          $hoKH = Session::get('hoKH');
+          $tenKH = Session::get('tenKH');
+          $diaChi = Session::get('diaChi');
+          $email = Session::get('email');
+          $sdt = Session::get('sdt');
+          $hoTenKH = $hoKH . ' ' .$tenKH;
+          ?>
         <div class="info-address bg-white">
           <div class="p-4 rounded-md shadow">
             <h3 class="text-xl font-bold"><span class="text-blue-600 text-2xl">01</span> Địa chỉ giao hàng</h3> 
             <div class="px-4 pt-2">
               <p class="font-bold">Địa chỉ:</p>
-              <input name="diaChi" placeholder="Địa chỉ"
+              <input name="diaChi" placeholder="Địa chỉ" 
+              value="{{ $diaChi }}"
               class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               type="text">
             </div>
@@ -191,17 +175,20 @@
               <div class="row flex flex-wrap">
                 <div class="col w-1/2 pr-2">
                   <input name="hoTenKH" placeholder="Nhập họ và tên"
+                  value="{{ trim($hoTenKH) }}"
                   class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text">
                 </div>
                 <div class="col w-1/2 pl-2">
                   <input name="sdt" placeholder="Nhập số điện thoại"
+                  value="{{ $sdt }}"
                   class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text">
                 </div>
               </div>
         
               <input name="email" placeholder="Nhập Email"
+              value="{{ $email }}"
               class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               type="text">
             </div>
@@ -257,23 +244,21 @@
 
         <div class="mt-4">
     
-            <input type="submit" name="send_order_place" value="Đặt hàng">
+            <input type="submit" name="send_order_place" value="Xác nhận đặt hàng" class="
+            w-full
+            py-2
+            text-center text-white
+            bg-blue-500
+            rounded-md
+            shadow
+            hover:bg-blue-600
+          "> 
           </form>
-          <button
-            href="{{ URL::to('/login-checkout') }}"
-            class="
-              w-full
-              py-2
-              text-center text-white
-              bg-blue-500
-              rounded-md
-              shadow
-              hover:bg-blue-600
-            "
-          >
-            Xác nhận đặt hàng
-          </button>
+  
         </div>
+        @else
+        Giỏ hàng rỗng
+        @endif
       </div>
     </div>
   </section>

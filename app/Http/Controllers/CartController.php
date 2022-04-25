@@ -46,4 +46,9 @@ class CartController extends Controller
     Cart::update($rowId, $qty);
     return Redirect::to('/show-cart');
   }
+
+  // public function getUpdateCart(Request $request) {
+  //   Cart::update($request->rowId_cart, $request->cart_quantity);
+
+  // }
 }
