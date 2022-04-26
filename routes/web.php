@@ -250,6 +250,7 @@ Route::post('/save-cart', 'App\Http\Controllers\CartController@save_cart');
 Route::get('/show-cart', 'App\Http\Controllers\CartController@show_cart');
 Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delete_to_cart');
 Route::get('/update', 'App\Http\Controllers\CartController@getUpdateCart');
+Route::get('/update/{rowId}', 'App\Http\Controllers\CartController@update');
 
 // Checkout
 Route::get('/login-checkout', 'App\Http\Controllers\CheckoutController@login_checkout');

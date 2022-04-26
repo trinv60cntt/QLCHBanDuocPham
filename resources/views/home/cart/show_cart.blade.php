@@ -7,15 +7,16 @@
 @section('js')
     <script src="clients/detailsSanPham/cart.js"></script>
     <script type="text/javascript">
-      function updateCart(qty, rowId) {
-        $.get(
-          '{{ asset('/update') }}',
-          {qty: qty,rowId:rowId },
-          function () {
-            location.reload();
-          }
-        );
-      }
+
+      // function updateCart(qty, rowId) {
+      //   $.get(
+      //     '{{ asset('/update') }}',
+      //     {qty: qty,rowId:rowId },
+      //     function () {
+      //       location.reload();
+      //     }
+      //   );
+      // }
 
       function addQty(rowId) {
         const qty = (parseInt)($('.number-product').val()) + 1;
@@ -40,6 +41,32 @@
           }
         );
       }
+
+      // ----------------
+      $(document).ready(function () {
+        <?php for($i=1;$i<20;$i++){?>
+          $('#upCart<?php echo $i;?>').on('change keyup', function(){
+            var newqty = $('#upCart<?php echo $i;?>').val();
+            var rowId = $('#rowId<?php echo $i;?>').val();
+
+            if(newqty <=0){ alert('enter only valid qty') }
+            else {
+              $.ajax({
+                  type: 'get',
+                  dataType: 'html',
+                  url: '<?php echo url('/update');?>/'+rowId,
+                  data: "qty=" + newqty + "& rowId=" + rowId,
+                  success: function (response) {
+                      // console.log(response);
+                      $('#updateDiv').html(response);
+                  }
+              });
+            }
+          });
+        <?php } ?>
+        const qtyProduct = $('.qty-product').text();
+        $('.badge').text(qtyProduct);
+      });
     </script>
 @endsection
 
@@ -48,13 +75,15 @@
     <div class="container p-8 mx-auto">
       <div class="w-full overflow-x-auto">
         @if(Cart::count() >= 1)
-        <div class="my-2">
-          <h3 class="text-xl font-bold tracking-wider">CÓ {{ Cart::count() }} SẢN PHẨM TRONG GIỎ HÀNG</h3>
-        </div>
-        <div class="detail-line"></div>
-        <?php
+        <div id="updateDiv">
+          <?php
         $content = Cart::content();
         ?>
+        <div class="my-2">
+          <h3 class="text-xl font-bold tracking-wider">CÓ <span class="qty-product">{{ Cart::count() }}</span> SẢN PHẨM TRONG GIỎ HÀNG</h3>
+        </div>
+        <div class="detail-line"></div>
+  
         <table class="table-cart w-full shadow-lg mt-3">
           <thead>
             <tr class="bg-headline text-white">
@@ -67,6 +96,7 @@
             </tr>
           </thead>
           <tbody>
+            <?php $count =1;?>
             @foreach($content as $v_content)
             <tr class="js-product-count">
               <td>
@@ -109,8 +139,8 @@
                     value="{{ $v_content->qty }}"
                     min="1"
                     data-dvt="2"
-                    onchange="updateCart(this.value, '{{ $v_content->rowId }}')"
-                    id="qty-product"
+            
+                    id="upCart<?php echo $count;?>"
                     class="number-product w-12 text-center bg-gray-100 outline-none"
                   />
                   <a class="button-count" onclick="addQty('{{ $v_content->rowId }}')">
@@ -129,7 +159,7 @@
                       />
                     </svg>
                   </a>
-                  <input type="hidden" value="{{ $v_content->rowId }}" name="rowId_cart">
+                  <input type="hidden" id="rowId<?php echo $count;?>"  value="{{ $v_content->rowId }}" name="rowId_cart">
                   </form>
                 </div>
               </td>
@@ -159,12 +189,12 @@
                 </a>
               </td>
             </tr>
-
+            <?php $count++;?>
             @endforeach
       
           </tbody>
         </table>
-
+        </div>
         <div class="detail-line my-4"></div>
         <form action="{{ URL::to('/order-place') }}" method="post">
           @csrf

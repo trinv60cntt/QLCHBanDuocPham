@@ -43,4 +43,13 @@ class CartController extends Controller
   public function getUpdateCart(Request $request) {
     Cart::update($request->rowId, $request->qty);
   }
+
+  public function update(Request $request, $rowId) {
+    $qty = $request->qty;
+    $rowId = $request->rowId;
+    Cart::update($rowId, $qty);
+    
+    $content = Cart::content();
+    return view('home.cart.upCart', compact('content'));
+  }
 }
