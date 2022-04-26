@@ -245,7 +245,7 @@ Route::prefix('admin')->group(function () {
 
 
 // Cart 
-Route::post('/update-cart-quantity', 'App\Http\Controllers\CartController@update_cart_quantity');
+// Route::post('/update-cart-quantity', 'App\Http\Controllers\CartController@update_cart_quantity');
 Route::post('/save-cart', 'App\Http\Controllers\CartController@save_cart');
 Route::get('/show-cart', 'App\Http\Controllers\CartController@show_cart');
 Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delete_to_cart');

@@ -1,6 +1,6 @@
 $(document).ready(
   function () {
-    console.log('abc');
+    // console.log('abc');
     var btn_count = $('.js-product-count')
     btn_count.each(function () {
       var btn = $(this).find('.button-count'),
@@ -36,7 +36,7 @@ $(document).ready(
       btn.last().off().click(function () {
 
           var that = $(this), data = that.data();
-          console.log(data);
+          // console.log(data);
           num = parseInt(input.val());
           // that.addClass('disabled');
 

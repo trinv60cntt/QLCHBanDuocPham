@@ -16,6 +16,30 @@
           }
         );
       }
+
+      function addQty(rowId) {
+        const qty = (parseInt)($('.number-product').val()) + 1;
+        console.log(typeof qty);
+        console.log(qty);
+        $.get(
+          '{{ asset('/update') }}',
+          {qty: qty,rowId:rowId },
+          function () {
+            location.reload();
+          }
+        );
+      }
+
+      function minusQty(rowId) {
+        const qty = (parseInt)($('.number-product').val()) - 1;
+        $.get(
+          '{{ asset('/update') }}',
+          {qty: qty,rowId:rowId },
+          function () {
+            location.reload();
+          }
+        );
+      }
     </script>
 @endsection
 
@@ -63,7 +87,7 @@
                 <div>
                   <form action="{{ URL::to('/update-cart-quantity') }}" method="post">
                     {{ csrf_field() }}
-                  <a class="button-count">
+                  <a class="button-count" onclick="minusQty('{{ $v_content->rowId }}')">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="inline-flex w-6 h-6 text-red-600"
@@ -85,10 +109,11 @@
                     value="{{ $v_content->qty }}"
                     min="1"
                     data-dvt="2"
-                    {{-- onchange="updateCart(this.value, '{{ $v_content->rowId }}')" --}}
+                    onchange="updateCart(this.value, '{{ $v_content->rowId }}')"
+                    id="qty-product"
                     class="number-product w-12 text-center bg-gray-100 outline-none"
                   />
-                  <a class="button-count">
+                  <a class="button-count" onclick="addQty('{{ $v_content->rowId }}')">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="inline-flex w-6 h-6 text-green-600"
@@ -105,7 +130,6 @@
                     </svg>
                   </a>
                   <input type="hidden" value="{{ $v_content->rowId }}" name="rowId_cart">
-                  <input type="submit" value="Cập nhật" name="update_qty" >
                   </form>
                 </div>
               </td>
