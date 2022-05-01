@@ -215,6 +215,11 @@ Route::prefix('admin')->group(function () {
       'as' => 'hoadons.details',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@details'
     ]);
+
+    Route::get('/delete/{hoaDon_id}', [
+      'as' => 'hoadons.delete',
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@delete'
+    ]);
   
     // Route::get('/create', [
     //   'as' => 'sanphams.create',

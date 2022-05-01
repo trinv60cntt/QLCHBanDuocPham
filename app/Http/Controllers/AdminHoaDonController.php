@@ -7,7 +7,7 @@ use App\Models\HoaDon;
 use App\Models\SanPham;
 use App\Models\ChiTietHD;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Log;
 class AdminHoaDonController extends Controller
 {
   public function __construct(
@@ -40,5 +40,20 @@ class AdminHoaDonController extends Controller
     return view('admin.hoadon.details', compact('chitiethd', 'hoadon', 'order_d_by_id'));
   }
 
+  public function delete($hoaDon_id) {
+    try {
+      $this->hoadon->find($hoaDon_id)->delete();
+      return response()->json([
+        'code' => 200,
+        'message' => 'success'
+      ], 200);
 
+    } catch (\Exception $exception) {
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+      return response()->json([
+        'code' => 500,
+        'message' => 'fail'
+      ], 500);
+    }
+  }
 }

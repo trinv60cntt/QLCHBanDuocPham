@@ -4,7 +4,7 @@ function actionDelete(event) {
   let that = $(this);
 
   Swal.fire({
-    title: 'Bạn chắc chắn muốn xóa sản phẩm này ?',
+    title: 'Bạn chắc chắn muốn xóa hóa đơn này ?',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
