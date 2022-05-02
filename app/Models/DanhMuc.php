@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DanhMuc extends Model
 {
-    use SoftDeletes;
-    protected $primaryKey = 'danhMuc_id';
-    protected $fillable = ['tenDM', 'danhMucCha_id'];
-    protected $table = 'danh_mucs';
+	use SoftDeletes;
+	protected $primaryKey = 'danhMuc_id';
+	protected $fillable = ['tenDM', 'danhMucCha_id'];
+	protected $table = 'danh_mucs';
 
-    public function sanphams() {
-        return $this->hasMany('danhMuc_id');
-    }
+	public function sanphams()
+	{
+		return $this->hasMany('danhMuc_id');
+	}
 
+	public function categoryChildren() {
+		return $this->hasMany(DanhMuc::class, 'danhMucCha_id', 'danhMuc_id');
+	}
 }

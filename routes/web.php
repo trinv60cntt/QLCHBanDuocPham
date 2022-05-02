@@ -35,14 +35,26 @@ Route::prefix('home')->group(function () {
 
 });
 
+// Menu
 Route::prefix('menu')->group(function () {
+  Route::get('/', [
+    'as' => 'menus.index',
+    'uses' => 'App\Http\Controllers\MenuController@index'
+  ]);
 
   Route::get('/details/{sanPham_id}', [
     'as' => 'menus.details',
     'uses' => 'App\Http\Controllers\MenuController@details'
   ]);
 
+  Route::get('/{danhMuc_id}', [
+    'as' => 'menus.getCategory',
+    'uses' => 'App\Http\Controllers\MenuController@getCategory'
+  ]);
 });
+
+
+
 
 Route::prefix('admin')->group(function () {
   

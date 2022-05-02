@@ -12,6 +12,7 @@
     <base href="{{ asset('') }}">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
     <link rel="stylesheet" href="clientsAssets/css/style.css" />
+    <link rel="stylesheet" href="css/clients/style.css" />
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
     <!--Totally optional :) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -56,7 +57,7 @@
                 </li>
                 <li class="mr-3">
                     <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
-                        href="#">Sản phẩm</a>
+                        href="{{ route('menus.index') }}">Sản phẩm</a>
                 </li>
                 <li class="mr-3">
                     <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
