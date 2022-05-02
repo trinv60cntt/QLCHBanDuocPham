@@ -221,36 +221,43 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminHoaDonController@delete'
     ]);
   
-    // Route::get('/create', [
-    //   'as' => 'sanphams.create',
-    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@create'
-    // ]);
+  });
+
+  Route::prefix('khachhangs')->group(function () {
+    Route::get('/', [
+      'as' => 'khachhangs.index',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@index'
+    ]);
   
-    // Route::post('/store', [
-    //   'as' => 'sanphams.store',
-    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@store'
-    // ]);
+    Route::get('/create', [
+      'as' => 'khachhangs.create',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@create'
+    ]);
   
-    // Route::get('/edit/{sanPham_id}', [
-    //   'as' => 'sanphams.edit',
-    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@edit'
-    // ]);
+    Route::post('/store', [
+      'as' => 'khachhangs.store',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@store'
+    ]);
+  
+    Route::get('/edit/{khachhang_id}', [
+      'as' => 'khachhangs.edit',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@edit'
+    ]);
   
     // Route::post('/update/{sanPham_id}', [
-    //   'as' => 'sanphams.update',
+    //   'as' => 'khachhangs.update',
     //   'uses' => 'App\Http\Controllers\AdminSanPhamController@update'
     // ]);
   
-    // Route::get('/delete/{sanPham_id}', [
-    //   'as' => 'sanphams.delete',
-    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@delete'
-    // ]);
+    Route::get('/delete/{khachhang_id}', [
+      'as' => 'khachhangs.delete',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@delete'
+    ]);
   });
 });
 
 
 // Cart 
-// Route::post('/update-cart-quantity', 'App\Http\Controllers\CartController@update_cart_quantity');
 Route::post('/save-cart', 'App\Http\Controllers\CartController@save_cart');
 Route::get('/show-cart', 'App\Http\Controllers\CartController@show_cart');
 Route::get('/delete-to-cart/{rowId}', 'App\Http\Controllers\CartController@delete_to_cart');

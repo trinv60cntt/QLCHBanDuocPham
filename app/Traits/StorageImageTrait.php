@@ -12,7 +12,7 @@ trait StorageImageTrait
       $file = $request->$fieldName;
       $fileNameOrigin = $file->getClientOriginalName();
       // $fileNameHash = Str::random(20) . '.' . $file->getClientOriginalExtension();
-      $filePath = $request->file($fieldName)->storeAs('public/' . $foderName . '/' . auth()->id(), $fileNameOrigin);
+      $filePath = $request->file($fieldName)->storeAs('public/' . $foderName, $fileNameOrigin);
       // dd($filePath);
       // die();
       $dataUploadTrait = [

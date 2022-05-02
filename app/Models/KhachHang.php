@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class HoaDon extends Model
+class KhachHang extends Model
 {
-    // use HasFactory;
     use SoftDeletes;
     protected $guarded = [];
-    protected $primaryKey = 'hoaDon_id';
-    protected $table = 'hoadon';
-    public $timestamps = true;
+    protected $primaryKey = 'khachhang_id';
+    protected $table = 'khachhang';
 }
