@@ -23,9 +23,6 @@
         }
       })
 
-      if ( response == 'true' ) {
-        window.location.href = e.target.href
-      }
     </script>
 @endsection
 
@@ -64,8 +61,7 @@
                 <div class="news-content bg-gray p-5 flex flex-col shadow-lg">
                   <ul>
                     @foreach($category->categoryChildren as $childrentList)
-                    {{-- @php dd($childrentList) @endphp --}}
-                    <li><a href="{{ route('menus.getCategory', ['danhMuc_id' => $childrentList->danhMuc_id]) }}" class="mt-1">{{ $childrentList->tenDM }}</a></li>
+                    <li><a href="{{ route('menus.getCategory', ['danhMuc_id' => $childrentList->danhMuc_id]) }}" class="mt-1 cate-children">{{ $childrentList->tenDM }}</a></li>
                     @endforeach
                   </ul>
                 </div>

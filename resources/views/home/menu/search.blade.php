@@ -72,8 +72,9 @@
           </div>
         </div>
         <div class="col list-products w-3/4 px-4">
+          <h2 class="text-center text-3xl font-semibold mb-5">Kết quả tìm kiếm</h2>
           <div class="row">
-            @foreach ($sanphams as $sanpham)
+            @foreach ($search_product as $key => $sanpham)
             <div class="col w-1/4 product-item">
               <div class="border-product mr-5 mb-5 shadow-lg">
                 <div class="product-image">

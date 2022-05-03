@@ -20,7 +20,9 @@ Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
 // Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
+// FE
 Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::post('/autocomplete-ajax', 'App\Http\Controllers\HomeController@autocomplete_ajax');
 
 Route::prefix('home')->group(function () {
   Route::get('/', [
@@ -51,6 +53,12 @@ Route::prefix('menu')->group(function () {
     'as' => 'menus.getCategory',
     'uses' => 'App\Http\Controllers\MenuController@getCategory'
   ]);
+
+  Route::post('/tim-kiem', [
+    'as' => 'menus.search',
+    'uses' => 'App\Http\Controllers\MenuController@search'
+  ]);
+
 });
 
 

@@ -15,11 +15,23 @@ class HomeController extends Controller
     return view('home.home', compact('sanphams', 'sanPhamCovid'));
   }
 
-  // public function details() {
-  //   return view('home.detailsSanPham');
-  // }
+  public function autocomplete_ajax(Request $request) {
+    $data = $request->all();
 
-  // public function giohang() {
-  //   return view('home.indexGioHang');
-  // }
+    if($data['query']) {
+      $sanpham = SanPham::where('tenSP','LIKE','%'.$data['query'].'%')->get();
+
+      $output = '<ul style="display:block; position:relative">';
+
+      foreach($sanpham as $key => $val) {
+        $output .= '
+        <div class="flex"><i class="fas fa-search"></i><li class="li_search_ajax"><a href="#">'.$val->tenSP.'</a></li></div>
+        ';
+      }
+
+      $output .= '</ul>';
+      echo $output;
+    }
+  }
+
 }

@@ -43,7 +43,15 @@ class MenuController extends Controller
     return view('home.menu.list', compact('sanphams', 'categorys'));
   }
 
-//   public function giohang() {
-//     return view('home.indexGioHang');
-//   }
+
+  public function search(Request $request) {
+    $keywords = $request->keywords_submit;
+
+    $sanphams = $this->sanpham->latest()->get();
+    $categorys = Danhmuc::where('danhMucCha_id', 0)->get();
+
+    $search_product = DB::table('san_phams')->where('tenSP','like','%'. $keywords .'%')->get();
+
+    return view('home.menu.search', compact('sanphams', 'categorys'))->with('search_product',$search_product);
+  }
 }
