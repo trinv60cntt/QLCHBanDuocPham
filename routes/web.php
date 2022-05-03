@@ -264,14 +264,19 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminKhachHangController@edit'
     ]);
   
-    // Route::post('/update/{sanPham_id}', [
-    //   'as' => 'khachhangs.update',
-    //   'uses' => 'App\Http\Controllers\AdminSanPhamController@update'
-    // ]);
+    Route::post('/update/{khachhang_id}', [
+      'as' => 'khachhangs.update',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@update'
+    ]);
   
     Route::get('/delete/{khachhang_id}', [
       'as' => 'khachhangs.delete',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@delete'
+    ]);
+
+    Route::post('/tim-kiem', [
+      'as' => 'khachhangs.search',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@search'
     ]);
   });
 });

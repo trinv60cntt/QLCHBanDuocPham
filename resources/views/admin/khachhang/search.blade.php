@@ -24,8 +24,7 @@
                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Thêm khách hàng
             </a>
-            <form action="{{ URL::to('admin/khachhangs/tim-kiem') }}" method="post">
-                @csrf
+            <form action="" method="post">
                 <table style="margin: auto; width:350px;">
                     <tbody>
                     {{-- <tr>
@@ -69,7 +68,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
-                            @foreach ($khachhangs as $khachhang)
+                           @foreach ($search_customer as $key => $khachhang)
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ $loop->index + 1 }}
