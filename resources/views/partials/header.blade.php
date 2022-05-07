@@ -164,10 +164,10 @@
           aria-label="Account"
           aria-haspopup="true"
         >
-          <span class="mr-3 text-black dark:text-gray-200">{{ Auth::user()->name }}</span>
+          <span class="mr-3 text-black dark:text-gray-200">{{ Auth::user()->hotenNV }}</span>
           <img
             class="object-cover w-8 h-8 rounded-full"
-            src="assets/img/tri.jpg"
+            src="storage/nhanvien/{{ Auth::user()->hinhAnh }}"
             alt=""
             aria-hidden="true"
           />

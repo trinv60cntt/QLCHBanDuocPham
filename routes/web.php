@@ -14,8 +14,8 @@ use App\Http\Controllers;
 |
 */
 // Login - Logout
-Route::get('/admin', 'App\Http\Controllers\NhanVienController@loginAdmin');
-Route::post('/admin', 'App\Http\Controllers\NhanVienController@postLoginAdmin');
+Route::get('/admin', 'App\Http\Controllers\AdminNhanVienController@loginAdmin');
+Route::post('/admin', 'App\Http\Controllers\AdminNhanVienController@postLoginAdmin');
 Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
 // Route::get('/home', 'App\Http\Controllers\HomeController@index');
@@ -286,6 +286,43 @@ Route::prefix('admin')->group(function () {
     Route::post('/tim-kiem', [
       'as' => 'khachhangs.search',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@search'
+    ]);
+  });
+
+  Route::prefix('nhanviens')->group(function () {
+    Route::get('/', [
+      'as' => 'nhanviens.index',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@index'
+    ]);
+  
+    Route::get('/create', [
+      'as' => 'nhanviens.create',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'nhanviens.store',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@store'
+    ]);
+  
+    Route::get('/edit/{nhanvien_id}', [
+      'as' => 'nhanviens.edit',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@edit'
+    ]);
+  
+    Route::post('/update/{nhanvien_id}', [
+      'as' => 'nhanviens.update',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@update'
+    ]);
+  
+    Route::get('/delete/{nhanvien_id}', [
+      'as' => 'nhanviens.delete',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@delete'
+    ]);
+
+    Route::post('/tim-kiem', [
+      'as' => 'nhanviens.search',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@search'
     ]);
   });
 });
