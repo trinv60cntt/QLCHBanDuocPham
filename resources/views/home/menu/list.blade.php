@@ -38,13 +38,19 @@
           <div class="group-filter">
             <h2 class="font-semibold text-3xl">Bộ lọc</h2>
             <div class="my-5">
-              <h5 class="text-base my-2 font-semibold">Sắp xếp theo</h5>
-              <select name="danhMuc_id" class="form-select">
-                <option>Giá: Từ thấp đến cao</option>
-                <option>Giá: Từ cao xuống thấp</option>
-                <option>Đánh giá: Từ thấp đến cao</option>
-                <option>Đánh giá: Từ cao xuống thấp</option>
-              </select>
+              <label for="amount" class="text-base my-2 font-semibold">Sắp xếp theo</label>
+              <form action="" class="mt-3">
+                @csrf
+                <select name="sort" id="sort" class="form-select">
+                  <option value="{{ Request::url() }}?sort_by=none">--Lọc--</option>
+                  <option value="{{ Request::url() }}?sort_by=tang_dan">Giá: Từ thấp đến cao</option>
+                  <option value="{{ Request::url() }}?sort_by=giam_dan">Giá: Từ cao xuống thấp</option>
+                  <option value="{{ Request::url() }}?sort_by=kytu_az">Theo bảng chữ cái từ A-Z</option>
+                  <option value="{{ Request::url() }}?sort_by=kytu_za">Theo bảng chữ cái từ Z-A</option>
+                  <option>Đánh giá: Từ thấp đến cao</option>
+                  <option>Đánh giá: Từ cao xuống thấp</option>
+                </select>
+              </form>
             </div>
             <div class="flex flex-col">
               <h5 class="text-base my-2 font-semibold">Danh mục</h5>
@@ -73,17 +79,18 @@
         </div>
         <div class="col list-products w-3/4 px-4">
           <div class="row">
-            @foreach ($sanphams as $sanpham)
+            @foreach ($category_by_id as $cate)
+            {{-- @php dd($category_by_id) @endphp --}}
             <div class="col w-1/4 product-item">
               <div class="border-product mr-5 mb-5 shadow-lg">
                 <div class="product-image">
-                  <a href="{{ route('menus.details', ['sanPham_id' => $sanpham->sanPham_id]) }}"><img src="storage/sanpham/1/{{ $sanpham->hinhAnh }}" alt="ion muoi"></a>
+                  <a href="{{ route('menus.details', ['sanPham_id' => $cate->sanPham_id]) }}"><img src="storage/sanpham/1/{{ $cate->hinhAnh }}" alt="ion muoi"></a>
                 </div>
                 <div class="product-info text-left">
-                    <h3 class="truncate2 font-bold text-lg mb-5">{{  $sanpham->tenSP  }}</h3>
+                    <h3 class="truncate2 font-bold text-lg mb-5">{{  $cate->tenSP  }}</h3>
                     <span
-                    class="product-price text-lg font-medium">{{ str_replace(',', '.', number_format($sanpham->donGia)) }}đ</span>
-                    / {{ $sanpham->donViTinh }}
+                    class="product-price text-lg font-medium">{{ str_replace(',', '.', number_format($cate->donGia)) }}đ</span>
+                    / {{ $cate->donViTinh }}
                 </div>
               </div>
             </div>

@@ -26,7 +26,27 @@ class MenuController extends Controller
     $sanphams = $this->sanpham->latest()->get();
     $categorys = Danhmuc::where('danhMucCha_id', 0)->get();
 
-    return view('home.menu.index', compact('sanphams', 'categorys'));
+    if (isset($_GET['sort_by'])) {
+      $sort_by = $_GET['sort_by'];
+  
+      if($sort_by == 'giam_dan') {
+        $category_by_id = SanPham::orderBy('donGia', 'DESC')->paginate(12)->appends(request()->query());
+      } else if($sort_by == 'tang_dan') {
+        $category_by_id = SanPham::orderBy('donGia', 'ASC')->paginate(12)->appends(request()->query());
+      } else if($sort_by == 'kytu_za') {
+        $category_by_id = SanPham::orderBy('tenSP', 'DESC')->paginate(12)->appends(request()->query());
+      } else if($sort_by == 'kytu_az') {
+        $category_by_id = SanPham::orderBy('tenSP', 'ASC')->paginate(12)->appends(request()->query());
+      }
+      else {
+        $category_by_id = SanPham::orderBy('sanpham_id', 'DESC')->get();
+      }
+    }
+    else {
+      $category_by_id = SanPham::orderBy('sanpham_id', 'DESC')->get();
+    }
+
+    return view('home.menu.index', compact('sanphams', 'categorys', 'category_by_id'));
   }
 
 
@@ -40,7 +60,34 @@ class MenuController extends Controller
   {
     $categorys = Danhmuc::where('danhMucCha_id', 0)->get();
     $sanphams = SanPham::where('danhMuc_id', $danhMuc_id)->get();
-    return view('home.menu.list', compact('sanphams', 'categorys'));
+
+    // $category_by_id = $danhMuc_id;
+    if (isset($_GET['sort_by'])) {
+      $sort_by = $_GET['sort_by'];
+  
+      if($sort_by == 'giam_dan') {
+        // dd('1');
+        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)
+        ->orderBy('donGia', 'DESC')->paginate(6)->appends(request()->query());
+      } else if($sort_by == 'tang_dan') {
+        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)
+        ->orderBy('donGia', 'ASC')->paginate(6)->appends(request()->query());
+      } else if($sort_by == 'kytu_za') {
+        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)
+        ->orderBy('tenSP', 'DESC')->paginate(6)->appends(request()->query());
+      } else if($sort_by == 'kytu_az') {
+        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)
+        ->orderBy('tenSP', 'ASC')->paginate(6)->appends(request()->query());
+      }
+      else {
+        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)->orderBy('sanpham_id', 'DESC')->get();
+      }
+    }
+    else {
+      $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)->orderBy('sanpham_id', 'DESC')->get();
+    }
+    // dd($category_by_id);
+    return view('home.menu.list', compact('sanphams', 'categorys', 'category_by_id'));
   }
 
 

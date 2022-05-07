@@ -123,8 +123,8 @@ class AdminKhachHangController extends Controller
 
     $khachhangs = $this->khachhang->latest()->paginate(5);
 
-    $search_customer = DB::table('khachhang')->where('tenKH','like','%'. $keywords .'%')->get();
+    $search_customer = KhachHang::where(DB::raw("concat(hoKH, ' ', tenKH)"), 'LIKE', "%". $keywords. "%")->get();
 
-    return view('admin.khachhang.search', compact('khachhangs'))->with('search_customer',$search_customer);
+    return view('admin.khachhang.search', compact('khachhangs', 'search_customer'));
   }
 }

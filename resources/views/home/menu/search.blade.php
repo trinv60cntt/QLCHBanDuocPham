@@ -24,6 +24,13 @@
       })
 
     </script>
+    {{-- <script type="text/javascript">
+      setTimeout(() => {
+        $('html, body').animate({
+        scrollTop: $(".container").offset().top - 18
+        }, 700);
+      }, 500);
+    </script> --}}
 @endsection
 
 @section('content')
@@ -95,3 +102,4 @@
     </div>
   </section>
 @endsection
+

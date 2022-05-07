@@ -267,6 +267,23 @@
       </footer>
       @yield('js')
       <script type="text/javascript">
+        $(document).ready(function() {
+          $('#sort').on('change', function() {
+            var url = $(this).val();
+            if(url) {
+              window.location = url;
+            }
+            return false;
+          });
+        });
+      </script>
+        <script type="text/javascript">
+        //Javascript to toggle the menu
+        document.getElementById('nav-toggle').onclick = function(){
+          document.getElementById("nav-content").classList.toggle("hidden");
+        }
+      </script>
+      <script type="text/javascript">
         $('#keywords').keyup(function () {
           var query = $(this).val();
           // console.log(query);
@@ -289,7 +306,10 @@
         $(document).on('click', '.li_search_ajax', function() {
           $('#keywords').val($(this).text());
           $('#search_ajax').fadeOut();
+          $(".icon-search").trigger("click");
         });
+        // list-products
+    
       </script>
 </body>
 

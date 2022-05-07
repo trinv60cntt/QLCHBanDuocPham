@@ -20,6 +20,15 @@ Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
 // Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
+// BE
+Route::prefix('admin')->group(function () {
+  Route::get('/home', [
+    'as' => 'admin.home',
+    'uses' => 'App\Http\Controllers\AdminHomeController@home'
+  ]);
+
+});
+
 // FE
 Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::post('/autocomplete-ajax', 'App\Http\Controllers\HomeController@autocomplete_ajax');

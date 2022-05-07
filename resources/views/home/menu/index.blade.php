@@ -38,13 +38,19 @@
           <div class="group-filter">
             <h2 class="font-semibold text-3xl">Bộ lọc</h2>
             <div class="my-5">
-              <h5 class="text-base my-2 font-semibold">Sắp xếp theo</h5>
-              <select name="danhMuc_id" class="form-select">
-                <option>Giá: Từ thấp đến cao</option>
-                <option>Giá: Từ cao xuống thấp</option>
-                <option>Đánh giá: Từ thấp đến cao</option>
-                <option>Đánh giá: Từ cao xuống thấp</option>
-              </select>
+              <label for="amount" class="text-base my-2 font-semibold">Sắp xếp theo</label>
+              <form action="" class="mt-3">
+                @csrf
+                <select name="sort" id="sort" class="form-select">
+                  <option value="{{ Request::url() }}?sort_by=none">--Lọc--</option>
+                  <option value="{{ Request::url() }}?sort_by=tang_dan">Giá: Từ thấp đến cao</option>
+                  <option value="{{ Request::url() }}?sort_by=giam_dan">Giá: Từ cao xuống thấp</option>
+                  <option value="{{ Request::url() }}?sort_by=kytu_az">Theo bảng chữ cái từ A-Z</option>
+                  <option value="{{ Request::url() }}?sort_by=kytu_za">Theo bảng chữ cái từ Z-A</option>
+                  <option>Đánh giá: Từ thấp đến cao</option>
+                  <option>Đánh giá: Từ cao xuống thấp</option>
+                </select>
+              </form>
             </div>
             <div class="flex flex-col">
               <h5 class="text-base my-2 font-semibold">Danh mục</h5>
@@ -73,7 +79,7 @@
         </div>
         <div class="col list-products w-3/4 px-4">
           <div class="row">
-            @foreach ($sanphams as $sanpham)
+            @foreach ($category_by_id as $sanpham)
             <div class="col w-1/4 product-item">
               <div class="border-product mr-5 mb-5 shadow-lg">
                 <div class="product-image">

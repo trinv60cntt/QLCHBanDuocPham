@@ -25,7 +25,7 @@ class HomeController extends Controller
 
       foreach($sanpham as $key => $val) {
         $output .= '
-        <div class="flex"><i class="fas fa-search"></i><li class="li_search_ajax"><a href="#">'.$val->tenSP.'</a></li></div>
+        <div class="flex"><i class="fas fa-search"></i><li class="li_search_ajax cursor-pointer">'.$val->tenSP.'</li></div>
         ';
       }
 

@@ -68,7 +68,8 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
-                           @foreach ($search_customer as $key => $khachhang)
+                           @foreach ($search_customer as $khachhang)
+                                {{-- @php dd($search_customer); @endphp --}}
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ $loop->index + 1 }}

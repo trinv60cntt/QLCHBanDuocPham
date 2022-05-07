@@ -4,9 +4,9 @@
     <title>Thêm mới</title>
 @endsection
 
-{{-- @section('css') 
-    <link rel="stylesheet" href="admins/sanpham/add.css">
-@endsection --}}
+@section('css') 
+    <link rel="stylesheet" href="admins/khachhang/add.css">
+@endsection
 
 @section('content')
     <main class="h-full pb-16">
@@ -109,7 +109,7 @@
           formGroupSelector: '.form-group',
           errorSelector: '.form-message',
           rules: [
-            Validator.isRequired('.hoKH'),
+            Validator.isRequired('.hoKH', 'Họ khách hàng không được phép để trống'),
             Validator.isRequired('.tenKH'),
             Validator.isRequired('.ngaySinh'),
             Validator.isRequired('.diaChi'),

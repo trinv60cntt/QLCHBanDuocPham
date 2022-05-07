@@ -37,3 +37,31 @@
 .sanpham-img {
   max-width: 80px;
 }
+
+.header-logo {
+  max-width: 120px;
+  margin-left: 12px;
+}
+
+.fa-capsules {
+  font-size: 15px;
+  margin-left: 3px;
+}
+
+.fa-user-tie {
+  font-size: 16px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.fa-file-invoice-dollar {
+  font-size: 16px;
+  margin-left: 4px;
+  margin-right: 5px;
+}
+
+.fa-users-gear,
+.fa-users {
+  font-size: 15px;
+  margin-left: 2px;
+}
