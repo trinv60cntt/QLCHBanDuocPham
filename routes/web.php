@@ -325,6 +325,23 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminNhanVienController@search'
     ]);
   });
+
+  Route::prefix('thongkes')->group(function () {
+    Route::get('/', [
+      'as' => 'thongkes.doanhThu',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@doanhThu'
+    ]);
+  
+    Route::post('/filter-by-date', [
+      'as' => 'thongkes.filter_by_date',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@filter_by_date'
+    ]);
+
+    Route::post('/dashboard-filter', [
+      'as' => 'thongkes.dashboard-filter',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@dashboard_filter'
+    ]);
+  });
 });
 
 

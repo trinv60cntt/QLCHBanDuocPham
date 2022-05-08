@@ -40,6 +40,16 @@
       </div>
     </div>
     @yield('js')
+    
+    {{-- <script type="text/javascript">
+      $(document).ready(function(){
+        $('.link-sidebar').on('click', (event) => {
+          const $target = $(event.currentTarget)
+
+
+        });
+      });
+    </script> --}}
   </body>
 </html>
 

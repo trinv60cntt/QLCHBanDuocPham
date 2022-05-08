@@ -1,15 +1,15 @@
 <!-- Desktop sidebar -->
-<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 shadow-xl">
     <div class="py-4 text-gray-500 dark:text-gray-400">
         {{-- <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
             Nhà thuốc số 2
         </a> --}}
         <img src="clientsAssets/img/logo.png" alt="Pharmacy Number 2" class="header-logo">
         <ul class="mt-6">
-            <li class="relative px-6 py-3">
-                <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            <li class="relative px-6 py-3 active">
+                <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
-                <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                <a class="link-sidebar inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
                     href="{{ route('admin.home') }}">
                     <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -23,6 +23,8 @@
         </ul>
         <ul>
             <li class="relative px-6 py-3">
+            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            aria-hidden="true"></span>
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('nhasanxuats.index') }}">
                     <i class="fas fa-solid fa-user-tie"></i>
@@ -30,6 +32,8 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
+            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            aria-hidden="true"></span>
               <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ route('danhmucs.index') }}">
                   <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -42,6 +46,8 @@
               </a>
           </li>
           <li class="relative px-6 py-3">
+          <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{{ route('sanphams.index') }}">
                 <i class="fas fa-solid fa-capsules"></i>
@@ -49,6 +55,8 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
+          <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{{ route('hoadons.index') }}">
                 <i class="fas fa-solid fa-file-invoice-dollar"></i>
@@ -57,6 +65,8 @@
           </li>
           <hr class="sidebar-divider">
           <li class="relative px-6 py-3">
+          <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{{ route('khachhangs.index') }}">
                 <i class="fas fa-solid fa-users"></i>
@@ -65,13 +75,24 @@
           </li>
           
           <li class="relative px-6 py-3">
+          <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+            aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{{ route('nhanviens.index') }}">
                 <i class="fas fa-solid fa-users-gear"></i>
                 <span class="ml-4">Danh sách nhân viên</span>
             </a>
           </li>
-  
+          
+          <li class="relative px-6 py-3">
+            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"></span>
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                  href="{{ route('thongkes.doanhThu') }}">
+                  <i class="fas fa-solid fa-users-gear"></i>
+                  <span class="ml-4">Tổng doanh thu</span>
+              </a>
+            </li>
             {{-- <li class="relative px-6 py-3">
         <a
           class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -268,7 +289,7 @@
         </a>
         <ul class="mt-6">
             <li class="relative px-6 py-3">
-                <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
                 <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
                     href="index.html">
