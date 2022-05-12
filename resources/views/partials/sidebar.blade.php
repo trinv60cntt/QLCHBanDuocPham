@@ -1,11 +1,12 @@
 <!-- Desktop sidebar -->
-<aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 shadow-xl">
+<aside class="sidebar-admin z-20 hidden w-64 bg-white dark:bg-gray-800 md:block flex-shrink-0 shadow-xl">
     <div class="py-4 text-gray-500 dark:text-gray-400">
         {{-- <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
             Nhà thuốc số 2
         </a> --}}
         <img src="clientsAssets/img/logo.png" alt="Pharmacy Number 2" class="header-logo">
         <ul class="mt-6">
+          <hr class="sidebar-divider">
             <li class="relative px-6 py-3 active">
                 <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
@@ -22,6 +23,10 @@
             </li>
         </ul>
         <ul>
+          <hr class="sidebar-divider">
+          <div class="sidebar-heading">
+            CỬA HÀNG
+          </div>
             <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -64,6 +69,42 @@
             </a>
           </li>
           <hr class="sidebar-divider">
+          <div class="sidebar-heading">
+            THỐNG KÊ
+          </div>
+          <li class="relative px-6 py-3">
+            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"></span>
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                  href="{{ route('thongkes.doanhThu') }}">
+                  <i class="fas fa-solid fa-chart-column"></i>
+                  <span class="ml-4">Theo sản phẩm</span>
+              </a>
+          </li>
+
+          <li class="relative px-6 py-3">
+            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"></span>
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                  href="{{ route('thongkes.doanhThu') }}">
+                  <i class="fas fa-solid fa-chart-pie"></i>
+                  <span class="ml-4">Theo hình thức KD</span>
+              </a>
+          </li>
+
+          <li class="relative px-6 py-3">
+            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"></span>
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                  href="{{ route('thongkes.doanhThu') }}">
+                  <i class="fas fa-solid fa-chart-line"></i>
+                  <span class="ml-4">Tổng doanh thu</span>
+              </a>
+          </li>
+          <hr class="sidebar-divider">
+          <div class="sidebar-heading">
+            NGƯỜI DÙNG
+          </div>
           <li class="relative px-6 py-3">
           <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -84,15 +125,7 @@
             </a>
           </li>
           
-          <li class="relative px-6 py-3">
-            <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"></span>
-              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                  href="{{ route('thongkes.doanhThu') }}">
-                  <i class="fas fa-solid fa-users-gear"></i>
-                  <span class="ml-4">Tổng doanh thu</span>
-              </a>
-            </li>
+  
             {{-- <li class="relative px-6 py-3">
         <a
           class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"

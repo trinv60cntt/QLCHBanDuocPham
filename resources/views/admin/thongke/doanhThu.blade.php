@@ -12,11 +12,11 @@
 
 
 @section('content')
-<main class="h-full pb-16 overflow-y-auto">
+<main class="h-full pb-16">
   <!-- Remove everything INSIDE this div to a really blank page -->
   <div class="container px-6 mx-auto py-4">
       <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-          THỐNG KÊ ĐƠN HÀNG DOANH SỐ
+          THỐNG KÊ TỔNG DOANH THU THEO TỪNG NGÀY/THÁNG/NĂM
       </h4>
 
       <form autocomplete="off">
@@ -24,7 +24,7 @@
         <div class="flex">
           <div class="w-25p mr-3">
             <p class="mb-2">Từ ngày <input type="text" id="datepicker" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" ></p> 
-            <input type="button" id="btn-dashboard-filter" value="lọc kết quả" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" >
+            <input type="button" id="btn-dashboard-filter" value="Thống kê" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" >
           </div>
           
           <div class="w-25p mr-3">
@@ -107,7 +107,7 @@
       $('.dashboard-filter').change(function() {
         var dashboard_value = $(this).val();
         var _token = $('input[name="_token"]').val();
-        alert(dashboard_value);
+        
         $.ajax({
           url: "{{ url('admin/thongkes/dashboard-filter') }}",
           method: 'POST',

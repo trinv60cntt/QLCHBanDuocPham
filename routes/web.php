@@ -338,7 +338,7 @@ Route::prefix('admin')->group(function () {
     ]);
 
     Route::post('/dashboard-filter', [
-      'as' => 'thongkes.dashboard-filter',
+      'as' => 'thongkes.`dashboard_filter`',
       'uses' => 'App\Http\Controllers\AdminThongKeController@dashboard_filter'
     ]);
   });

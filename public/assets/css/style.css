@@ -65,3 +65,24 @@
   font-size: 15px;
   margin-left: 2px;
 }
+
+.fa-chart-line,
+.fa-chart-pie,
+.fa-chart-column
+{
+  font-size: 15px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.sidebar-heading {
+  padding: 5px 24px 0;
+  font-weight: 800;
+  font-size: .65rem;
+  color: #b7b9cc;
+}
+
+.sidebar-admin {
+  overflow-y: hidden;
+  min-height: 120vh;
+}

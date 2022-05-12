@@ -37,6 +37,16 @@
                   <td class="font-medium inline">Công dụng: </td>
                   <td class="inline">{{ $sanpham->congDung }}</td>
                 </tr>
+
+                <tr class="block mb-2">
+                  <td class="font-medium inline">Ngày sản xuất: </td>
+                  <td class="inline">{{ str_replace('-', '/', date('d-m-Y', strtotime($sanpham->ngaySanXuat))) }}</td>
+                </tr>
+
+                <tr class="block mb-2">
+                  <td class="font-medium inline">Hạn sử dụng: </td>
+                  <td class="inline">{{ str_replace('-', '/', date('d-m-Y', strtotime($sanpham->hanSuDung))) }}</td>
+                </tr>
                 
                 <tr class="block mb-2">
                   <td class="font-medium inline">Nhà sản xuất: </td>
@@ -74,6 +84,18 @@
             <button type="submit" class="btn text-xl">Thêm vào giỏ hàng</button>
           </div>
         </form>
+        </div>
+      </div>
+
+      <div class="mt-5 ml-4 comment-product py-3 px-4 bg-blue-200 rounded-t-2xl shadow-lg">
+        <div class="box-title text-xl">Bình luận</div>
+        <div class="bg-blue-200 p-4">
+          <div class="">
+            <textarea id="contentComment" data-text="" name="contentComment" class="w-full form-input form-input-lg" rows="3" placeholder="Nhập nội dung câu hỏi (Vui lòng gõ tiếng Việt có dấu)…" spellcheck="false"></textarea>
+            <div class="add-to-cart mt-3 flex justify-end">
+              <button type="submit" class="btn text-xl">Gửi bình luận</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

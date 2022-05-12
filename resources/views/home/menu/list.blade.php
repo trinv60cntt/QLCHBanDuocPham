@@ -43,10 +43,10 @@
                 @csrf
                 <select name="sort" id="sort" class="form-select">
                   <option value="{{ Request::url() }}?sort_by=none">--Lọc--</option>
-                  <option value="{{ Request::url() }}?sort_by=tang_dan">Giá: Từ thấp đến cao</option>
-                  <option value="{{ Request::url() }}?sort_by=giam_dan">Giá: Từ cao xuống thấp</option>
-                  <option value="{{ Request::url() }}?sort_by=kytu_az">Theo bảng chữ cái từ A-Z</option>
-                  <option value="{{ Request::url() }}?sort_by=kytu_za">Theo bảng chữ cái từ Z-A</option>
+                  <option value="{{ Request::url() }}?sort_by=tang_dan" @php if(strpos($_SERVER['REQUEST_URI'], "tang_dan")) echo "selected"; else echo ''; @endphp>Giá: Từ thấp đến cao</option>
+                  <option value="{{ Request::url() }}?sort_by=giam_dan" @php if(strpos($_SERVER['REQUEST_URI'], "giam_dan")) echo "selected"; else echo ''; @endphp>Giá: Từ cao xuống thấp</option>
+                  <option value="{{ Request::url() }}?sort_by=kytu_az" @php if(strpos($_SERVER['REQUEST_URI'], "kytu_az")) echo "selected"; else echo ''; @endphp>Theo bảng chữ cái từ A-Z</option>
+                  <option value="{{ Request::url() }}?sort_by=kytu_za" @php if(strpos($_SERVER['REQUEST_URI'], "kytu_za")) echo "selected"; else echo ''; @endphp>Theo bảng chữ cái từ Z-A</option>
                   <option>Đánh giá: Từ thấp đến cao</option>
                   <option>Đánh giá: Từ cao xuống thấp</option>
                 </select>
