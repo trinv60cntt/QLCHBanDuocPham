@@ -83,6 +83,14 @@
                     <div class="form-message text-red-600 mt-2"></div>
                 </div>
 
+                <div class="mb-6 w-40p">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nhóm nhân viên</label>
+                    <select name="vaiTro_id"
+                        class="w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
+                        {!! $htmlOptionVaiTro !!}
+                    </select>
+                </div>
+
                 <button type="submit" id="MyButton-nhanvien"
                     class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Thêm mới

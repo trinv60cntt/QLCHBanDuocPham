@@ -6,19 +6,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NhanVien;
+use App\Models\VaiTro;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\StorageImageTrait;
+use App\Components\VaiTroRecursive;
+
 
 class AdminNhanVienController extends Controller
 {
   use StorageImageTrait;
 
   private $nhanvien;
-  public function __construct(NhanVien $nhanvien)
+  public function __construct(NhanVien $nhanvien, VaiTro $vaitro)
   {
     $this->nhanvien = $nhanvien;
+    $this->vaitro = $vaitro;
   }
 
   public function index()
@@ -29,7 +33,16 @@ class AdminNhanVienController extends Controller
 
   public function create()
   {
-    return view('admin.nhanvien.add');
+    $htmlOptionVaiTro = $this->getVaiTro($vaiTro_id_fk = '');
+    return view('admin.nhanvien.add', compact('htmlOptionVaiTro'));
+  }
+
+  public function getVaiTro($vaiTro_id_fk)
+  {
+    $data = $this->vaitro->all();
+    $recursiveVaiTro = new VaiTroRecursive($data);
+    $htmlOptionVaiTro = $recursiveVaiTro->VaiTroRecursive($vaiTro_id_fk);
+    return $htmlOptionVaiTro;
   }
 
   public function store(Request $request)
@@ -43,6 +56,7 @@ class AdminNhanVienController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'sdt' => $request->sdt,
+        'vaiTro_id' => $request->vaiTro_id,
       ];
       // dd($request);
       if ($request->gioiTinh == 1) {
@@ -142,6 +156,7 @@ class AdminNhanVienController extends Controller
   {
     // dd($request->has('remember_me'));
     $remember = $request->has('remember_me') ? true : false;
+    // dd(bcrypt($request->password));
     if (auth()->attempt([
       'email' => $request->email,
       'password' => $request->password

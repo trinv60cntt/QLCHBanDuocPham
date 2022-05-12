@@ -24,8 +24,10 @@ class Nhanvien extends Migration
             $table->string('password');
             $table->string('sdt');
             $table->string('hinhAnh');
+            $table->integer('vaiTro_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

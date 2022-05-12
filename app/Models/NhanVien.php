@@ -46,4 +46,8 @@ class NhanVien extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function vaitro() {
+        return $this->belongsTo(VaiTro::class, 'vaiTro_id');
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnDeletedAtTableNhanvien extends Migration
+class CreateTableVaitroNhanvien extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddColumnDeletedAtTableNhanvien extends Migration
      */
     public function up()
     {
-        Schema::table('nhanvien', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::create('vaitro_nhanvien', function (Blueprint $table) {
+			$table->bigIncrements('vaitro_nhanvien_id');
+			$table->integer('nhanvien_id');
+			$table->integer('vaiTro_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddColumnDeletedAtTableNhanvien extends Migration
      */
     public function down()
     {
-        Schema::table('nhanvien', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('vaitro_nhanvien');
     }
 }

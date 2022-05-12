@@ -342,6 +342,39 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminThongKeController@dashboard_filter'
     ]);
   });
+
+  Route::prefix('vaitros')->group(function () {
+    Route::get('/', [
+      'as' => 'vaitros.index',
+      'uses' => 'App\Http\Controllers\AdminVaiTroController@index'
+    ]);
+  
+    Route::get('/create', [
+      'as' => 'vaitros.create',
+      'uses' => 'App\Http\Controllers\AdminVaiTroController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'vaitros.store',
+      'uses' => 'App\Http\Controllers\AdminVaiTroController@store'
+    ]);
+  
+    Route::get('/edit/{vaiTro_id}', [
+      'as' => 'vaitros.edit',
+      'uses' => 'App\Http\Controllers\AdminVaiTroController@edit'
+    ]);
+  
+    Route::post('/update/{vaiTro_id}', [
+      'as' => 'vaitros.update',
+      'uses' => 'App\Http\Controllers\AdminVaiTroController@update'
+    ]);
+  
+    Route::get('/delete/{vaiTro_id}', [
+      'as' => 'vaitros.delete',
+      'uses' => 'App\Http\Controllers\AdminVaiTroController@delete'
+    ]);
+
+  });
 });
 
 

@@ -15,8 +15,9 @@ class CreateVaiTroSeeder extends Seeder
   public function run()
   {
     DB::table('vai_tros')->insert([
-      ['tenVT' => 'admin', 'moTa' => 'Quản trị hệ thống'],
-      ['tenVT' => 'nhanvien', 'moTa' => 'Nhân viên'],
+      ['tenVT' => 'ADMIN', 'moTa' => 'Quản trị hệ thống'],
+      ['tenVT' => 'NHANVIENBANHANG', 'moTa' => 'Nhân viên bán hàng'],
+      ['tenVT' => 'SHIPPER', 'moTa' => 'Nhân viên giao hàng'],
     ]);
   }
 }
