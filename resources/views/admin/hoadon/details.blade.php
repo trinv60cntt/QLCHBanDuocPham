@@ -39,18 +39,33 @@
                         </div>
 
                         <div class="col w-50p flex mt-1">
-                            <p><span class="font-bold">Nhân viên giao hàng:</span> Phan Thanh Hà</p>
+                            <p><span class="font-bold">Nhân viên giao hàng:</span>    
+                            @if($hoadon->nhanvien_id === NULL)
+                                Chưa có
+                            @endif
+                                {{ optional($hoadon->nhanvien)->hotenNV }}</p>
                         </div>
 
                         <div class="col w-50p flex mt-1">
                             <p><span class="font-bold">Tình trạng đơn:</span>
                                 <?php
-                                if ($hoadon->tinhTrang == 1) {
-                                    echo 'Đơn chờ kiểm';
-                                } elseif ($hoadon->tinhTrang == 2) {
-                                    echo 'Đã giao hàng';
-                                } else {
-                                    echo 'Đơn hủy';
+                                switch ($hoadon->tinhTrang)
+                                {
+                                    case 1:
+                                        echo 'Đơn chờ kiểm';
+                                        break;
+                                    case 2:
+                                        echo 'Đã giao cho shipper';
+                                        break;
+                                    case 3:
+                                        echo 'Đã giao hàng';
+                                        break;
+                                    case 4:
+                                        echo 'Đã nhận tiền từ shipper';
+                                    break;
+                                    default:
+                                        echo 'Đơn hủy';
+                                    break;
                                 }
                                 ?>
                             </p>

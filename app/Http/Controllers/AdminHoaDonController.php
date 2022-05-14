@@ -6,24 +6,79 @@ use Illuminate\Http\Request;
 use App\Models\HoaDon;
 use App\Models\SanPham;
 use App\Models\ChiTietHD;
+use App\Models\NhanVien;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Components\NhanVienRecursive;
+
 class AdminHoaDonController extends Controller
 {
   public function __construct(
     HoaDon $hoadon,
     SanPham $sanpham,
-    ChiTietHD $chitiethd
+    ChiTietHD $chitiethd,
+    Nhanvien $nhanvien
   ) {
     $this->hoadon = $hoadon;
     $this->chitiethd = $chitiethd;
     $this->sanpham = $sanpham;
+    $this->nhanvien = $nhanvien;
   }
 
   public function index()
   {
     $hoadons = $this->hoadon->latest()->paginate(5);
     return view('admin.hoadon.index', compact('hoadons'));
+  }
+
+  public function edit($hoaDon_id) {
+    $hoadon = $this->hoadon->find($hoaDon_id);
+    $htmlOptionNhanVien = $this->getShipper($hoadon->nhanvien_id);
+    return view('admin.hoadon.edit', compact('hoadon', 'htmlOptionNhanVien'));
+  }
+
+  public function getShipper($nhanvien_id_fk)
+  {
+    $data = $this->nhanvien->where('vaiTro_id', 7)->get();
+    $recursiveNhanVien = new NhanVienRecursive($data);
+    $htmlOptionNhanVien = $recursiveNhanVien->NhanvienRecursive($nhanvien_id_fk);
+    return $htmlOptionNhanVien;
+  }
+
+  public function update(Request $request, $hoaDon_id) {
+    try {
+      DB::beginTransaction();
+      $dataProductUpdate = [
+        'nhanvien_id' => $request->nhanvien_id,
+      ];
+      switch ($request->tinhTrang)
+      {
+        case 0:
+          $dataProductUpdate['tinhTrang'] = 0;
+          break;
+        case 1:
+          $dataProductUpdate['tinhTrang'] = 1;
+          break;
+        case 2:
+          $dataProductUpdate['tinhTrang'] = 2;
+          break;
+        case 3:
+          $dataProductUpdate['tinhTrang'] = 3;
+        break;
+        default:
+          $dataProductUpdate['tinhTrang'] = 4;
+        break;
+      }
+
+      $this->hoadon->find($hoaDon_id)->update($dataProductUpdate);
+      $hoadon = $this->hoadon->find($hoaDon_id);
+
+      DB::commit();
+      return redirect()->route('hoadons.index');
+    } catch (\Exception $exception) {
+      DB::rollBack();
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+    }
   }
 
   public function details($hoaDon_id) {

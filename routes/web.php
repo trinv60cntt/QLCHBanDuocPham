@@ -242,6 +242,16 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminHoaDonController@index'
     ]);
 
+    Route::get('/edit/{hoaDon_id}', [
+      'as' => 'hoadons.edit',
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@edit'
+    ]);
+  
+    Route::post('/update/{hoaDon_id}', [
+      'as' => 'hoadons.update',
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@update'
+    ]);
+
     Route::get('/details/{hoaDon_id}', [
       'as' => 'hoadons.details',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@details'

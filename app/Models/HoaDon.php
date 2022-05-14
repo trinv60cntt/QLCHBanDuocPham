@@ -14,4 +14,8 @@ class HoaDon extends Model
     protected $primaryKey = 'hoaDon_id';
     protected $table = 'hoadon';
     public $timestamps = true;
+
+    public function nhanvien() {
+        return $this->belongsTo(NhanVien::class, 'nhanvien_id');
+    }
 }

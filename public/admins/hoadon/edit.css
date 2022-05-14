@@ -1,0 +1,26 @@
+.info-details-edit {
+  max-width: 400px;
+}
+
+label {
+  margin-right: 20px;
+}
+
+.radio-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+/* .radio-status input {
+  margin-right: 20px;
+  margin-left: 10px;
+} */
+
+.w-2p6 {
+  width: 33.333333%;
+}
+
+.w-4p6 {
+  width: 66.666667%
+}
+
