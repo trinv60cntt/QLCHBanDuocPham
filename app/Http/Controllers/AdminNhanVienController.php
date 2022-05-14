@@ -81,8 +81,9 @@ class AdminNhanVienController extends Controller
 
   public function edit($nhanvien_id) {
     $nhanvien = $this->nhanvien->find($nhanvien_id);
-
-    return view('admin.nhanvien.edit', compact('nhanvien'));
+    $htmlOptionVaiTro = $this->getVaiTro($nhanvien->vaiTro_id);
+    
+    return view('admin.nhanvien.edit', compact('nhanvien', 'htmlOptionVaiTro'));
   }
 
   public function update(Request $request, $nhanvien_id) {
@@ -95,6 +96,7 @@ class AdminNhanVienController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'sdt' => $request->sdt,
+        'vaiTro_id' => $request->vaiTro_id,
       ];
       if ($request->gioiTinh == 1) {
         $dataProductUpdate['gioiTinh'] = 1;

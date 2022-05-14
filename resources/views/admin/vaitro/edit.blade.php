@@ -16,13 +16,13 @@
 @section('content')
     <main class="h-full pb-16">
         <div class="container px-6 mx-auto py-4">
-            <form action="{{ route('vaitros.store') }}" method="post" enctype="multipart/form-data" id="form-nhanvien">
+            <form action="{{ route('vaitros.update', ['vaiTro_id' => $vaitro->vaiTro_id]) }}" method="post" enctype="multipart/form-data" id="form-nhanvien">
                 @csrf
                 <div class="mb-6 w-40p form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mã nhóm nhân viên</label>
                     <input name="tenVT" placeholder="Nhập mã nhóm nhân vien"
                         class="@error('tenVT') error @enderror tenVT w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                        value="{{ old('tenVT') }}"
+                        value="{{ $vaitro->tenVT }}"
                         type="text">
                     <div class="form-message text-red-600 mt-2"></div>
                 </div>
@@ -31,17 +31,17 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên nhóm nhân viên</label>
                     <input name="moTa" placeholder="Nhập tên nhóm nhân vien"
                         class="@error('moTa') error @enderror moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                        value="{{ old('moTa') }}"
+                        value="{{ $vaitro->moTa }}"
                         type="text">
                     <div class="form-message text-red-600 mt-2"></div>
                 </div>
 
                 <div class="checkall-wrap p-3">
-                    <label>
-                        <input type="checkbox" class="checkall">
-                        Chọn tất cả
-                    </label>
-                </div>
+                  <label>
+                      <input type="checkbox" class="checkall">
+                      Chọn tất cả
+                  </label>
+              </div>
                 @foreach($quyenCha as $quyenChaItem)
                 <div class="card mb-6 bg-purple-600 text-white rounded-lg">
                     <div class="p-3">
@@ -54,7 +54,9 @@
                     @foreach($quyenChaItem->quyenChildren as $quyenChildrenItem)
                         <div class="p-3">
                             <label>
-                                <input type="checkbox" class="checkbox-children" name="quyen_id[]" value="{{ $quyenChildrenItem->quyen_id }}">
+                                <input type="checkbox" class="checkbox-children" name="quyen_id[]"
+                                {{ $quyensChecked->contains('quyen_id', $quyenChildrenItem->quyen_id) ? 'checked' : '' }}
+                                value="{{ $quyenChildrenItem->quyen_id }}">
                             </label>
                             {{ $quyenChildrenItem->tenQuyen }}
                         </div>

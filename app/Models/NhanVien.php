@@ -50,4 +50,15 @@ class NhanVien extends Authenticatable
     public function vaitro() {
         return $this->belongsTo(VaiTro::class, 'vaiTro_id');
     }
+
+    public function checkQuyenAccess($quyenCheck) {
+        $vaitros = auth()->user()->vaitro;
+        $quyens = $vaitros->quyens;
+        if($quyens->contains('key_code', $quyenCheck)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

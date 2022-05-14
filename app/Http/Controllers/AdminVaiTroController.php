@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\VaiTro;
+use App\Models\Quyen;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Traits\StorageImageTrait;
@@ -13,9 +14,11 @@ class AdminVaiTroController extends Controller
   use StorageImageTrait;
 
   public function __construct(
-    VaiTro $vaitro
+    VaiTro $vaitro,
+    Quyen $quyen
   ) {
     $this->vaitro = $vaitro;
+    $this->quyen = $quyen;
   }
 
   public function index()
@@ -26,26 +29,40 @@ class AdminVaiTroController extends Controller
 
   public function create()
   {
-    return view('admin.vaitro.add');
+    $quyenCha = $this->quyen->where('parent_id', 0)->get();
+    // dd($quyenCha);
+    return view('admin.vaitro.add', compact('quyenCha'));
   }
 
   public function store(Request $request)
   {
-    try {
-      DB::beginTransaction();
-      $dataProductCreate = [
-        'tenVT' => $request->tenVT,
-        'moTa' => $request->moTa,
-      ];
-      
-      $vaitro = $this->vaitro->create($dataProductCreate);
+    $role = $this->vaitro->create([
+      'tenVT' => $request->tenVT,
+      'moTa' => $request->moTa,
+    ]);
 
-      DB::commit();
-      return redirect()->route('vaitros.index');
-    } catch (\Exception $exception) {
-      DB::rollBack();
-      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
-    }
+    $role->quyens()->attach($request->quyen_id);
+    return redirect()->route('vaitros.index');
+  }
+
+  public function edit($vaiTro_id)
+  {
+    $quyenCha = $this->quyen->where('parent_id', 0)->get();
+    $vaitro = $this->vaitro->find($vaiTro_id);
+    $quyensChecked = $vaitro->quyens;
+    return view('admin.vaitro.edit', compact('quyenCha', 'vaitro', 'quyensChecked'));
+  }
+
+  public function update(Request $request, $vaiTro_id)
+  {
+    $role = $this->vaitro->find($vaiTro_id);
+    $role->update([
+      'tenVT' => $request->tenVT,
+      'moTa' => $request->moTa,
+    ]);
+
+    $role->quyens()->sync($request->quyen_id);
+    return redirect()->route('vaitros.index');
   }
 
 }

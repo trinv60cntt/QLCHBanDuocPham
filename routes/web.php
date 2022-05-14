@@ -70,11 +70,8 @@ Route::prefix('menu')->group(function () {
 
 });
 
-
-
-
 Route::prefix('admin')->group(function () {
-  
+
   Route::prefix('lops')->group(function () {
     Route::get('/', [
       'as' => 'lops.index',
@@ -105,36 +102,40 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\LopController@delete'
     ]);
   });
-  
+
   Route::prefix('danhmucs')->group(function () {
     Route::get('/', [
       'as' => 'danhmucs.index',
-      'uses' => 'App\Http\Controllers\DanhMucController@index'
+      'uses' => 'App\Http\Controllers\DanhMucController@index',
+      'middleware' => 'can:danhmuc-index'
     ]);
-  
+
     Route::get('/create', [
       'as' => 'danhmucs.create',
-      'uses' => 'App\Http\Controllers\DanhMucController@create'
+      'uses' => 'App\Http\Controllers\DanhMucController@create',
+      'middleware' => 'can:danhmuc-add'
     ]);
-  
+
     Route::post('/store', [
       'as' => 'danhmucs.store',
       'uses' => 'App\Http\Controllers\DanhMucController@store'
     ]);
-  
+
     Route::get('/edit/{danhMuc_id}', [
       'as' => 'danhmucs.edit',
-      'uses' => 'App\Http\Controllers\DanhMucController@edit'
+      'uses' => 'App\Http\Controllers\DanhMucController@edit',
+      'middleware' => 'can:danhmuc-edit'
     ]);
-  
+
     Route::post('/update/{danhMuc_id}', [
       'as' => 'danhmucs.update',
       'uses' => 'App\Http\Controllers\DanhMucController@update'
     ]);
-  
+
     Route::get('/delete/{danhMuc_id}', [
       'as' => 'danhmucs.delete',
-      'uses' => 'App\Http\Controllers\DanhMucController@delete'
+      'uses' => 'App\Http\Controllers\DanhMucController@delete',
+      'middleware' => 'can:danhmuc-delete'
     ]);
   });
 
@@ -173,7 +174,8 @@ Route::prefix('admin')->group(function () {
   Route::prefix('sanphams')->group(function () {
     Route::get('/', [
       'as' => 'sanphams.index',
-      'uses' => 'App\Http\Controllers\AdminSanPhamController@index'
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@index',
+      'middleware' => 'can:sanpham-index'
     ]);
   
     Route::get('/create', [
@@ -373,6 +375,39 @@ Route::prefix('admin')->group(function () {
       'as' => 'vaitros.delete',
       'uses' => 'App\Http\Controllers\AdminVaiTroController@delete'
     ]);
+
+  });
+
+  Route::prefix('quyens')->group(function () {
+    // Route::get('/', [
+    //   'as' => 'vaitros.index',
+    //   'uses' => 'App\Http\Controllers\AdminVaiTroController@index'
+    // ]);
+  
+    Route::get('/create', [
+      'as' => 'quyens.create',
+      'uses' => 'App\Http\Controllers\AdminQuyenController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'quyens.store',
+      'uses' => 'App\Http\Controllers\AdminQuyenController@store'
+    ]);
+  
+    // Route::get('/edit/{vaiTro_id}', [
+    //   'as' => 'vaitros.edit',
+    //   'uses' => 'App\Http\Controllers\AdminVaiTroController@edit'
+    // ]);
+  
+    // Route::post('/update/{vaiTro_id}', [
+    //   'as' => 'vaitros.update',
+    //   'uses' => 'App\Http\Controllers\AdminVaiTroController@update'
+    // ]);
+  
+    // Route::get('/delete/{vaiTro_id}', [
+    //   'as' => 'vaitros.delete',
+    //   'uses' => 'App\Http\Controllers\AdminVaiTroController@delete'
+    // ]);
 
   });
 });

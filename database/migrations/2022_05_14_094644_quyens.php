@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuyensTable extends Migration
+class Quyens extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,8 @@ class CreateQuyensTable extends Migration
 			$table->bigIncrements('quyen_id');
 			$table->string('tenQuyen');
 			$table->string('moTa');
+            $table->integer('parent_id')->default(0);
+            $table->string('key_code')->nullable();
             $table->timestamps();
         });
     }
