@@ -54,6 +54,7 @@ class CheckoutController extends Controller
     $order_data['ghiChu'] = $request->ghiChu;
     $order_data['tongTien'] = Cart::totalFloat() + 15000;
     $order_data['tinhTrang'] = 1;
+    $order_data['khachhang_id'] = $request->customer_id;
     $order_data['created_at'] =new \DateTime();
     $order_id = DB::table('hoadon')->insertGetId($order_data);
 
@@ -89,6 +90,7 @@ class CheckoutController extends Controller
       Session::put('diaChi', $result->diaChi);
       Session::put('email', $result->email);
       Session::put('sdt', $result->sdt);
+      Session::put('hinhAnh', $result->hinhAnh);
       return Redirect::to('/home');
     } else {
       return Redirect::to('/login-checkout');

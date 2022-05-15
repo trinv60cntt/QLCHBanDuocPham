@@ -20,6 +20,15 @@
   white-space: nowrap;
 }
 
+.border-login-customer {
+  background: #2fc1a6;
+  border-radius: 100px;
+  height: 40px;
+  padding: 5px 12px 5px 10px;
+  margin-left: 20px;
+  white-space: nowrap;
+}
+
 .border-avatar {
   width: 30px;
   height: 30px;
@@ -29,6 +38,19 @@
   text-transform: uppercase;
   margin-right: 9px;
   color: #fff;
+}
+
+.border-customer {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-right: 9px;
+}
+
+.open-profile {
+  top: 32px;
+  left: 22px;
+  z-index: 1;
 }
 
 .form-search,

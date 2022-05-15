@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/clients/style.css" />
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
     <!--Totally optional :) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/9315670d89.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- <style>
@@ -93,6 +93,8 @@
               $customer_id = Session::get('khachhang_id');
               $hoKH = Session::get('hoKH');
               $tenKH = Session::get('tenKH');
+              $hinhAnh = Session::get('hinhAnh');
+              // dd($hinhAnh);
               // dd($customer_id);
               if($customer_id == NULL) {
 
@@ -108,12 +110,80 @@
             <?php 
               }else {
             ?>
-            <a href="{{ URL::to('/logout-checkout') }}">
-              <div class="border-login flex"> 
-                <span class="border-avatar"><i class="fas fa-user"></i></span>
-                <p class="text-black font-medium">{{ $hoKH }} {{ $tenKH }}</p> 
+            <button
+              class="js-handle-profile flex align-middle rounded-full focus:outline-none relative"
+              aria-label="Account"
+              aria-haspopup="true"
+            >
+              <div class="border-login-customer flex">
+                {{-- <span class="border-avatar"><i class="fas fa-user"></i></span> --}}
+                <img
+                class="border-customer"
+                src="storage/khachhang/{{ $hinhAnh }}"
+                alt=""
+                aria-hidden="true"
+                />
+                <p class="text-black font-medium">{{ $hoKH }} {{ $tenKH }}</p>
               </div>
-            </a>
+              <ul
+              class="hidden open-profile absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+              >
+              <li class="flex">
+                <a
+                  class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="#"
+                >
+                  <svg
+                    class="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    ></path>
+                  </svg>
+                  <span>Thông tin tài khoản</span>
+                </a>
+              </li>
+              <li class="flex">
+                <a
+                  class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="{{ route('khachhang.lichsu') }}"
+                >
+                  <i class="fas fa-solid fa-clock-rotate-left w-4 h-4 mr-3"></i>
+                  <span>Lịch sử mua hàng</span>
+                </a>
+              </li>
+              <li class="flex">
+                <a
+                  class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="{{ URL::to('/logout-checkout') }}"
+                >
+                  <svg
+                    class="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  <span>Đăng xuất</span>
+                </a>
+              </li>
+            </ul>
+            </button>
+         
             <?php
               }
             ?>
@@ -309,7 +379,15 @@
           $(".icon-search").trigger("click");
         });
         // list-products
-    
+        $(document).on('click', '.js-handle-profile', function() {
+          $('.open-profile').toggleClass("hidden");
+          // e.preventDefault();
+        });
+        $('.js-handle-profile').blur(function(){
+          setTimeout(() => {
+            $('.open-profile').addClass('hidden');
+          }, 150)
+        });
       </script>
 </body>
 

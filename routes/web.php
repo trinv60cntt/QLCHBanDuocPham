@@ -440,4 +440,26 @@ Route::post('/login-customer', 'App\Http\Controllers\CheckoutController@login_cu
 Route::get('/checkout', 'App\Http\Controllers\CheckoutController@checkout');
 Route::get('/announceGioHang', 'App\Http\Controllers\CheckoutController@announceGioHang');
 
-// 
+//  Customer
+Route::prefix('khachhang')->group(function () {
+  // Route::get('/', [
+  //   'as' => 'home.index',
+  //   'uses' => 'App\Http\Controllers\HomeController@index'
+  // ]);
+
+  Route::get('/lichsu', [
+    'as' => 'khachhang.lichsu',
+    'uses' => 'App\Http\Controllers\KhachHangController@lichsu'
+  ]);
+
+  Route::get('/details/{hoaDon_id}', [
+    'as' => 'khachhang.details',
+    'uses' => 'App\Http\Controllers\KhachHangController@details'
+  ]);
+
+  Route::get('/delete/{hoaDon_id}', [
+    'as' => 'khachhang.delete',
+    'uses' => 'App\Http\Controllers\KhachHangController@delete'
+  ]);
+
+});

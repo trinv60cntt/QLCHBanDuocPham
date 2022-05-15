@@ -1,6 +1,6 @@
 <script src="clients/detailsSanPham/cart.js"></script>
 <script type="text/javascript">
-  $(document).ready(function () {       
+  $(document).ready(function () {
     $('.upCart').on('change keyup', function(e){
       var target = e.currentTarget;
       var newqty = $(target).val();
@@ -19,11 +19,13 @@
             success: function (response) {
               $('#updateDiv').html(response);
               $('.loading-ajax').addClass('hidden');
+              const qtyProduct = $('.qty-product').text();
+              $('.badge').text(qtyProduct);
             }
         });
       }
-    });    
-    
+    });
+
     $('.button-minus').on('click', function (e) {
       var target = e.currentTarget;
       var newqty = $(target).next().val();
@@ -39,10 +41,12 @@
         success: function (response) {
           $('#updateDiv').html(response);
           $('.loading-ajax').addClass('hidden');
+          const qtyProduct = $('.qty-product').text();
+          $('.badge').text(qtyProduct);
         }
         });
-      });  
-    
+      });
+
     $('.button-add').on('click', function (e) {
       var target = e.currentTarget;
       var newqty = $(target).prev().val();
@@ -58,11 +62,11 @@
         success: function (response) {
           $('#updateDiv').html(response);
           $('.loading-ajax').addClass('hidden');
+          const qtyProduct = $('.qty-product').text();
+          $('.badge').text(qtyProduct);
         }
         });
-      }); 
-    const qtyProduct = $('.qty-product').text();
-    $('.badge').text(qtyProduct);
+      });
   });
 </script>
 <?php

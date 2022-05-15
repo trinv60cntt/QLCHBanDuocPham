@@ -23,6 +23,7 @@ class Hoadon extends Migration
             $table->string('tongTien');
             $table->string('tinhTrang');
             $table->integer('nhanvien_id')->nullable();
+            $table->integer('khachhang_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

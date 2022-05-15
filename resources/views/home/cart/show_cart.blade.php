@@ -26,11 +26,13 @@
                 success: function (response) {
                   $('#updateDiv').html(response);
                   $('.loading-ajax').addClass('hidden');
+                  const qtyProduct = $('.qty-product').text();
+                  $('.badge').text(qtyProduct);
                 }
             });
           }
-        });    
-        
+        });
+
         $('.button-minus').on('click', function (e) {
           var target = e.currentTarget;
           var newqty = $(target).next().val();
@@ -46,10 +48,12 @@
             success: function (response) {
               $('#updateDiv').html(response);
               $('.loading-ajax').addClass('hidden');
+              const qtyProduct = $('.qty-product').text();
+              $('.badge').text(qtyProduct);
             }
             });
-          });  
-        
+          });
+
         $('.button-add').on('click', function (e) {
           var target = e.currentTarget;
           var newqty = $(target).prev().val();
@@ -65,11 +69,11 @@
             success: function (response) {
               $('#updateDiv').html(response);
               $('.loading-ajax').addClass('hidden');
+              const qtyProduct = $('.qty-product').text();
+              $('.badge').text(qtyProduct);
             }
             });
-          }); 
-        const qtyProduct = $('.qty-product').text();
-        $('.badge').text(qtyProduct);
+          });
       });
     </script>
 @endsection
@@ -277,6 +281,7 @@
           $sdt = Session::get('sdt');
           $hoTenKH = $hoKH . ' ' .$tenKH;
           ?>
+        <input type="hidden" name="customer_id" value="{{ $customer_id }}">
         <div class="info-address bg-white">
           <div class="p-4 rounded-md shadow">
             <h3 class="text-xl font-bold"><span class="text-blue-600 text-2xl">01</span> Địa chỉ giao hàng</h3> 
@@ -381,7 +386,21 @@
   
         </div>
         @else
-        Giỏ hàng rỗng
+          <section class="mod-cart-empty lc-main py-12">
+            <div class="container">
+              <div class="cart-status py-6 bg-white text-center">
+                <div class="cart-status-img mb-4">
+                  <img src="/assets/img/cart-status.png" alt="cart status" class="mx-auto">
+                </div>
+                <h3 class="mb-6 text-lg font-medium">
+                  Chưa có sản phẩm nào trong giỏ hàng
+                </h3>
+                <div class="add-to-cart mt-5">
+                  <a href="{{ URL::to('/home') }}" class="btn text-xl font-medium">TIẾP TỤC MUA SẮM</a>
+                </div>
+              </div>
+            </div>
+          </section>
         @endif
       </div>
     </div>
