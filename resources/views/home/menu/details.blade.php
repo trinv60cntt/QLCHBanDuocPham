@@ -6,6 +6,45 @@
 
 @section('js')
     <script src="clients/detailsSanPham/details.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        load_comment();
+        function load_comment() {
+          var sanPham_id = $('.sanPham_id').val();
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+            url: "{{ url('menu/load-comment') }}",
+            method: "POST",
+            data: {sanPham_id:sanPham_id, _token:_token},
+            success:function (data) {
+              $('#comment_show').html(data);
+            }
+          });
+        }
+
+        $('.send-comment').click(function (e) {
+          e.preventDefault();
+          var sanPham_id = $('.sanPham_id').val();
+          var comment_name = $('.comment_name').val();
+          var comment_content = $('.comment_content').val();
+          var _token = $('input[name="_token"]').val();
+
+          $.ajax({
+            url: "{{ url('menu/send-comment') }}",
+            method: "POST",
+            data: {sanPham_id:sanPham_id, comment_name:comment_name, comment_content: comment_content, _token:_token},
+            success:function (data) {
+              $('#notify_comment').css('display', 'block');
+              $('#notify_comment').html('<p class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"><span class="font-medium">Thêm bình luận thành công</span></p>');
+              load_comment();
+              $('.comment_name').val('')
+              $('.comment_content').val('')
+              $('#notify_comment').fadeOut(2000);
+            }
+          });
+        })
+      });
+    </script>
 @endsection
 
 @section('content')
@@ -91,11 +130,24 @@
         <div class="box-title text-xl">Bình luận</div>
         <div class="bg-blue-200 p-4">
           <div class="">
-            <textarea id="contentComment" data-text="" name="contentComment" class="w-full form-input form-input-lg" rows="3" placeholder="Nhập nội dung câu hỏi (Vui lòng gõ tiếng Việt có dấu)…" spellcheck="false"></textarea>
+            <form>
+            <input placeholder="Nhập họ và tên"
+            value=""
+            class="comment_name w-40p px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+            type="text">
+            <textarea name="noiDung" class="comment_content w-full form-input form-input-lg" rows="3" placeholder="Nhập nội dung bình luận (Vui lòng gõ tiếng Việt có dấu)…" spellcheck="false"></textarea>
             <div class="add-to-cart mt-3 flex justify-end">
-              <button type="submit" class="btn text-xl">Gửi bình luận</button>
+              <button type="submit" class="btn text-xl send-comment">Gửi bình luận</button>
             </div>
+            <div id="notify_comment"></div>
+            </form>
           </div>
+          <hr class="mt-5 bg-black">
+          <form>
+            @csrf
+            <input type="hidden" name="sanPham_id" class="sanPham_id" value="{{ $sanpham->sanPham_id }}">
+            <div id="comment_show"></div>
+          </form>
         </div>
       </div>
     </div>

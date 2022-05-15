@@ -131,10 +131,22 @@
   width: 20%;
 }
 
-.w-4p5 {
-  width: 80%;
+.w-40p {
+  width: 40%;
 }
 
 .w-50p {
   width: 50%;
+}
+
+.w-4p5 {
+  width: 80%;
+}
+
+.avatar-comment {
+  max-width: 48px;
+}
+
+.avatar-time {
+  color: #718198;
 }

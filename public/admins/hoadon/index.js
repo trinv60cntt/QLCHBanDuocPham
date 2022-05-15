@@ -27,7 +27,7 @@ function actionDelete(event) {
           }
         },
         error: function () {
-
+          window.location.replace(urlRequest);
         },
       });
     }

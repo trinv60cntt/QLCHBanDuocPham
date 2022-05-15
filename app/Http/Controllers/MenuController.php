@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\SanPham;
 use App\Models\DanhMuc;
 use App\Models\NhaSanXuat;
+use App\Models\BinhLuan;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class MenuController extends Controller
 {
@@ -100,5 +103,46 @@ class MenuController extends Controller
     $search_product = DB::table('san_phams')->where('tenSP','like','%'. $keywords .'%')->get();
 
     return view('home.menu.search', compact('sanphams', 'categorys'))->with('search_product',$search_product);
+  }
+
+  public function sendComment(Request $request) {
+    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+    $sanPham_id = $request->sanPham_id;
+    $comment_name = $request->comment_name;
+    $comment_content = $request->comment_content;
+    // dd($noiDung);
+    $binhLuan = new BinhLuan();
+    $binhLuan->noiDung = $comment_content;
+    $binhLuan->ten = $comment_name;
+    $binhLuan->sanPham_id = $sanPham_id;
+    $binhLuan->ngay = $now;
+    $binhLuan->save();
+  }
+
+  public function loadComment(Request $request) {
+    $sanPham_id = $request->sanPham_id;
+    $binhluan = BinhLuan::where('sanPham_id', $sanPham_id)->get();
+    $output = '';
+    foreach ($binhluan as $key => $comment) {
+      $output .= '<div class="form-imput mt-4">
+      <div class="flex">
+        <div class="mr-3">
+          <div class="avatar-comment flex items-center rounded-full">
+            <img src="'.url('assets/img/avatar.jpg').'" alt="avatar" class="rounded-full">
+          </div>
+        </div>
+        <div class="cmt-content">
+          <div class="text-lg font-medium">
+            '. $comment->ten .' <span class="avatar-time ml-2 text-sm">'. $comment->ngay .'</span>
+          </div>
+          <div class="text-base">
+            '. $comment->noiDung .'
+          </div>
+        </div>
+      </div>
+    </div>';
+    }
+    echo $output;
   }
 }

@@ -68,8 +68,19 @@ Route::prefix('menu')->group(function () {
     'uses' => 'App\Http\Controllers\MenuController@search'
   ]);
 
+  Route::post('/load-comment', [
+    'as' => 'menus.loadComment',
+    'uses' => 'App\Http\Controllers\MenuController@loadComment'
+  ]);
+
+  Route::post('/send-comment', [
+    'as' => 'menus.sendComment',
+    'uses' => 'App\Http\Controllers\MenuController@sendComment'
+  ]);
+
 });
 
+// Admin
 Route::prefix('admin')->group(function () {
 
   Route::prefix('lops')->group(function () {
@@ -142,32 +153,36 @@ Route::prefix('admin')->group(function () {
   Route::prefix('nhasanxuats')->group(function () {
     Route::get('/', [
       'as' => 'nhasanxuats.index',
-      'uses' => 'App\Http\Controllers\NhaSanXuatController@index'
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@index',
+      'middleware' => 'can:nhasanxuat-index'
     ]);
   
     Route::get('/create', [
       'as' => 'nhasanxuats.create',
-      'uses' => 'App\Http\Controllers\NhaSanXuatController@create'
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@create',
+      'middleware' => 'can:nhasanxuat-add'
     ]);
   
     Route::post('/store', [
       'as' => 'nhasanxuats.store',
-      'uses' => 'App\Http\Controllers\NhaSanXuatController@store'
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@store',
     ]);
   
     Route::get('/edit/{NSX_id}', [
       'as' => 'nhasanxuats.edit',
-      'uses' => 'App\Http\Controllers\NhaSanXuatController@edit'
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@edit',
+      'middleware' => 'can:nhasanxuat-edit'
     ]);
   
     Route::post('/update/{NSX_id}', [
       'as' => 'nhasanxuats.update',
-      'uses' => 'App\Http\Controllers\NhaSanXuatController@update'
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@update',
     ]);
   
     Route::get('/delete/{NSX_id}', [
       'as' => 'nhasanxuats.delete',
-      'uses' => 'App\Http\Controllers\NhaSanXuatController@delete'
+      'uses' => 'App\Http\Controllers\NhaSanXuatController@delete',
+      'middleware' => 'can:nhasanxuat-delete'
     ]);
   });
 
@@ -180,27 +195,30 @@ Route::prefix('admin')->group(function () {
   
     Route::get('/create', [
       'as' => 'sanphams.create',
-      'uses' => 'App\Http\Controllers\AdminSanPhamController@create'
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@create',
+      'middleware' => 'can:sanpham-add'
     ]);
   
     Route::post('/store', [
       'as' => 'sanphams.store',
-      'uses' => 'App\Http\Controllers\AdminSanPhamController@store'
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@store',
     ]);
-  
+
     Route::get('/edit/{sanPham_id}', [
       'as' => 'sanphams.edit',
-      'uses' => 'App\Http\Controllers\AdminSanPhamController@edit'
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@edit',
+      'middleware' => 'can:sanpham-edit'
     ]);
-  
+
     Route::post('/update/{sanPham_id}', [
       'as' => 'sanphams.update',
-      'uses' => 'App\Http\Controllers\AdminSanPhamController@update'
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@update',
     ]);
-  
+
     Route::get('/delete/{sanPham_id}', [
       'as' => 'sanphams.delete',
-      'uses' => 'App\Http\Controllers\AdminSanPhamController@delete'
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@delete',
+      'middleware' => 'can:sanpham-delete'
     ]);
   });
 
@@ -239,29 +257,32 @@ Route::prefix('admin')->group(function () {
   Route::prefix('hoadons')->group(function () {
     Route::get('/', [
       'as' => 'hoadons.index',
-      'uses' => 'App\Http\Controllers\AdminHoaDonController@index'
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@index',
+      'middleware' => 'can:hoadon-index'
     ]);
 
     Route::get('/edit/{hoaDon_id}', [
       'as' => 'hoadons.edit',
-      'uses' => 'App\Http\Controllers\AdminHoaDonController@edit'
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@edit',
+      'middleware' => 'can:hoadon-edit'
     ]);
-  
+
     Route::post('/update/{hoaDon_id}', [
       'as' => 'hoadons.update',
-      'uses' => 'App\Http\Controllers\AdminHoaDonController@update'
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@update',
     ]);
 
     Route::get('/details/{hoaDon_id}', [
       'as' => 'hoadons.details',
-      'uses' => 'App\Http\Controllers\AdminHoaDonController@details'
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@details',
     ]);
 
     Route::get('/delete/{hoaDon_id}', [
       'as' => 'hoadons.delete',
-      'uses' => 'App\Http\Controllers\AdminHoaDonController@delete'
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@delete',
+      'middleware' => 'can:hoadon-delete'
     ]);
-  
+
   });
 
   Route::prefix('khachhangs')->group(function () {
@@ -420,6 +441,29 @@ Route::prefix('admin')->group(function () {
     // ]);
 
   });
+
+  Route::prefix('binhluans')->group(function () {
+    Route::get('/', [
+      'as' => 'binhluans.index',
+      'uses' => 'App\Http\Controllers\AdminBinhLuanController@index'
+    ]);
+
+    Route::get('/edit/{binhLuan_id}', [
+      'as' => 'binhluans.edit',
+      'uses' => 'App\Http\Controllers\AdminBinhLuanController@edit'
+    ]);
+
+    Route::post('/update/{binhLuan_id}', [
+      'as' => 'binhluans.update',
+      'uses' => 'App\Http\Controllers\AdminBinhLuanController@update'
+    ]);
+
+    Route::get('/delete/{binhLuan_id}', [
+      'as' => 'binhluans.delete',
+      'uses' => 'App\Http\Controllers\AdminBinhLuanController@delete'
+    ]);
+
+  });
 });
 
 
@@ -439,6 +483,7 @@ Route::post('/add-customer', 'App\Http\Controllers\CheckoutController@add_custom
 Route::post('/login-customer', 'App\Http\Controllers\CheckoutController@login_customer');
 Route::get('/checkout', 'App\Http\Controllers\CheckoutController@checkout');
 Route::get('/announceGioHang', 'App\Http\Controllers\CheckoutController@announceGioHang');
+// ------
 
 //  Customer
 Route::prefix('khachhang')->group(function () {

@@ -59,7 +59,7 @@
                 <div class="news-title border-b-2 border-linebrown p-5 cursor-pointer">
                   @if($category->categoryChildren->count())
                   <span class="js-news-control">
-                    <i class="fas fa-solid fa-plus absolute right-0 bottom-0 top-0 block m-auto text-3xl font-icon"></i>
+                    <i class="fas fa-solid fa-plus absolute right-0 bottom-0 top-0 block m-auto text-xl font-icon"></i>
                   </span>
                   @endif
                   <a href="{{ route('menus.getCategory', ['danhMuc_id' => $category->danhMuc_id]) }}" class="relative">{{ $category->tenDM }}</a>

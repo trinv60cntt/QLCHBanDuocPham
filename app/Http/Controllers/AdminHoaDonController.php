@@ -110,5 +110,6 @@ class AdminHoaDonController extends Controller
         'message' => 'fail'
       ], 500);
     }
+
   }
 }
