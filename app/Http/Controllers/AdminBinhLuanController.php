@@ -7,6 +7,7 @@ use App\Models\BinhLuan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Traits\StorageImageTrait;
+use Carbon\Carbon;
 
 class AdminBinhLuanController extends Controller
 {
@@ -20,8 +21,24 @@ class AdminBinhLuanController extends Controller
 
   public function index()
   {
-    $binhluans = $this->binhluan->with('sanpham')->latest()->paginate(10);
-    return view('admin.binhluan.index', compact('binhluans'));
+    // $binhluans = $this->binhluan->with('sanpham')->latest()->paginate(10);
+    $binhluans = BinhLuan::with('sanpham')->where('binhLuanCha_id', '=', 0)->orderBy('tinhTrang', 'ASC')->paginate(10);
+    $comment_rep = BinhLuan::with('sanpham')->where('binhLuanCha_id', '>', 0)->orderBy('binhLuan_id', 'DESC')->paginate(10);
+    return view('admin.binhluan.index', compact('binhluans', 'comment_rep'));
+  }
+
+  public function replyComment(Request $request) {
+    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+    $data = $request->all();
+    $binhluan = new BinhLuan();
+    $binhluan->noiDung = $data['comment'];
+    $binhluan->sanPham_id = $data['comment_product_id'];
+    $binhluan->binhLuanCha_id = $data['comment_id'];
+    $binhluan->tinhTrang = 0;
+    $binhluan->ten = 'Quản trị viên';
+    $binhluan->ngay = $now;
+    $binhluan->save();
   }
 
 }

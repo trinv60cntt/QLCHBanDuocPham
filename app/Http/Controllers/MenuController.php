@@ -122,7 +122,9 @@ class MenuController extends Controller
 
   public function loadComment(Request $request) {
     $sanPham_id = $request->sanPham_id;
-    $binhluan = BinhLuan::where('sanPham_id', $sanPham_id)->get();
+    $binhluan = BinhLuan::where('sanPham_id', $sanPham_id)->where('binhLuanCha_id', '=', 0)->get();
+    $comment_rep = BinhLuan::with('sanpham')->where('binhLuanCha_id', '>', 0)->orderBy('binhLuan_id', 'DESC')->paginate(10);
+
     $output = '';
     foreach ($binhluan as $key => $comment) {
       $output .= '<div class="form-imput mt-4">
@@ -141,7 +143,30 @@ class MenuController extends Controller
           </div>
         </div>
       </div>
-    </div>';
+    </div>
+      ';
+      foreach($comment_rep as $key => $rep_comment) {
+      if($rep_comment->binhLuanCha_id == $comment->binhLuan_id) {
+      $output .='
+    <div class="form-imput mt-4 bg-green-500 ml-10 p-3 rounded-full">
+      <div class="flex">
+        <div class="mr-3">
+          <div class="avatar-comment flex items-center rounded-full">
+            <img src="'.url('assets/img/avatar.jpg').'" alt="avatar" class="rounded-full">
+          </div>
+        </div>
+        <div class="cmt-content">
+          <div class="text-lg font-medium">
+            Quản trị viên <span class="avatar-time ml-2 text-sm">'. $rep_comment->ngay .'</span>
+          </div>
+          <div class="text-base">
+            '. $rep_comment->noiDung .'
+          </div>
+        </div>
+      </div>
+    </div>
+    ';
+      }}
     }
     echo $output;
   }

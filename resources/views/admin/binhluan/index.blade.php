@@ -8,10 +8,41 @@
     <link rel="stylesheet" href="admins/binhluan/index.css">
 @endsection
 
-{{-- @section('js')
-    <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
-    <script src="admins/nhanvien/index.js"></script>
-@endsection --}}
+@section('js')
+    {{-- <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
+    <script src="admins/nhanvien/index.js"></script> --}}
+
+    <script type="text/javascript">
+        $('.btn-reply-comment').click(function(){
+            let that = $(this);
+
+            var comment_id = $(this).data('comment_id');
+
+            var comment = $('.reply_comment_'+comment_id).val();
+
+            var comment_product_id = $(this).data('sanpham_id');
+
+            // var alert = 'Trả lời bình luận thành công';
+            // alert(comment);
+            // alert(comment_id);
+            // alert(comment_product_id);
+
+            $.ajax({
+                url:"{{ url('/admin/binhluans/reply-comment') }}",
+                method: "POST",
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{comment:comment, comment_id:comment_id, comment_product_id:comment_product_id},
+                success: function (data) {
+                    $('.reply_comment_'+comment_id).val('');
+                    $('#notify-comment').html('<p class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"><span class="font-medium">Trả lời bình luận thành công</span></p>');
+                }
+            })
+
+        })
+    </script>
+@endsection
 
 @section('content')
     <main class="h-full pb-16">
@@ -19,7 +50,7 @@
             <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
                 LIỆT KÊ BÌNH LUẬN SẢN PHẨM
             </h4>
-   
+            <div id="notify-comment"></div>
             <div class="w-full mt-6 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full">
@@ -31,6 +62,7 @@
                                 <th class="px-4 py-3">Nội dung</th>
                                 <th class="px-4 py-3">Ngày gửi</th>
                                 <th class="px-4 py-3">Sản phẩm</th>
+                                <th class="px-4 py-3">Tình trạng</th>
                                 <th class="px-4 py-3 text-left">Chức năng</th>
                             </tr>
                         </thead>
@@ -45,8 +77,19 @@
                                         {{ $binhluan->ten }}
                                     </td>
 
-                                    <td class="px-4 py-3 text-sm">
-                                      {{ $binhluan->noiDung }}
+                                    <td class="px-4 py-3 text-sm text-left flex flex-col">
+                                      {{ $binhluan->noiDung }} 
+                                      {{-- <a href=""><i class='fa fa-edit text-purple-600'></i> Trả lời</a> --}}
+                                      @foreach($comment_rep as $key => $binhluan_reply)
+                                        @if($binhluan_reply->binhLuanCha_id == $binhluan->binhLuan_id)
+                                        <p class="ml-3 p-2 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800">Trả lời: {{ $binhluan_reply->noiDung }}</p>
+                                        @endif
+                                      @endforeach
+                                      <textarea name="" id="" cols="30" rows="5" class="reply_comment_{{ $binhluan->binhLuan_id }} mt-1 p-2 border-black border-1 border-solid"></textarea>
+                                      <button data-comment_id="{{ $binhluan->binhLuan_id }}" data-sanpham_id="{{ $binhluan->sanPham_id }}"
+                                      class="btn-reply-comment mt-2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                      Trả lời bình luận
+                                        </button>
                                     </td>
 
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
@@ -55,10 +98,14 @@
                                     <td class="px-4 py-3 text-sm">
                                         <a class="text-blue-500" href="{{ '/menu/details/' . $binhluan->sanpham->sanPham_id }}" target="_blank">{{  $binhluan->sanpham->tenSP  }}</a>
                                     </td>
+                                    
+                                    <td class="px-4 py-3 text-sm">
+                                        {{ $binhluan->tinhTrang == 0 ? 'Chưa xử lý' : 'Đã xử lý' }}
+                                    </td>
 
                                     <td class="px-4 py-3 whitespace-nowrap">
                                         <div class="flex items-center space-x-4 text-sm">
-                                            <a href="{{ route('binhluans.edit', ['binhLuan_id' => $binhluan->binhLuan_id]) }}"
+                                            <a href="#"
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Edit">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"

@@ -448,14 +448,9 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminBinhLuanController@index'
     ]);
 
-    Route::get('/edit/{binhLuan_id}', [
-      'as' => 'binhluans.edit',
-      'uses' => 'App\Http\Controllers\AdminBinhLuanController@edit'
-    ]);
-
-    Route::post('/update/{binhLuan_id}', [
-      'as' => 'binhluans.update',
-      'uses' => 'App\Http\Controllers\AdminBinhLuanController@update'
+    Route::post('/reply-comment', [
+      'as' => 'binhluans.replyComment',
+      'uses' => 'App\Http\Controllers\AdminBinhLuanController@replyComment'
     ]);
 
     Route::get('/delete/{binhLuan_id}', [
