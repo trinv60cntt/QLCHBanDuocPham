@@ -54,6 +54,8 @@ class MenuController extends Controller
 
 
   public function details($sanPham_id, Request $request) {
+    // $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
+    // dd(date("YmdHi", strtotime($now)));
     // $sanpham = $this->sanpham->find($sanPham_id);
     $sanpham = $this->sanpham->find($sanPham_id);
     return view('home.menu.details', compact('sanpham'));
@@ -106,11 +108,11 @@ class MenuController extends Controller
   }
 
   public function sendComment(Request $request) {
-    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
 
     $sanPham_id = $request->sanPham_id;
     $comment_name = $request->comment_name;
-    $comment_content = $request->comment_content;
+    $comment_content = $request->comment_content; //yyyymmddh
     // dd($noiDung);
     $binhLuan = new BinhLuan();
     $binhLuan->noiDung = $comment_content;
@@ -136,7 +138,7 @@ class MenuController extends Controller
         </div>
         <div class="cmt-content">
           <div class="text-lg font-medium">
-            '. $comment->ten .' <span class="avatar-time ml-2 text-sm">'. $comment->ngay .'</span>
+            '. $comment->ten .' <span class="avatar-time ml-2 text-sm time-comment">'. date("YmdHi", strtotime($comment->ngay)) .'</span>
           </div>
           <div class="text-base">
             '. $comment->noiDung .'
@@ -157,7 +159,7 @@ class MenuController extends Controller
         </div>
         <div class="cmt-content">
           <div class="text-lg font-medium">
-            Quản trị viên <span class="avatar-time ml-2 text-sm">'. $rep_comment->ngay .'</span>
+            Quản trị viên <span class="avatar-time ml-2 text-sm time-comment">'. date("YmdHi", strtotime($rep_comment->ngay)) .'</span>
           </div>
           <div class="text-base">
             '. $rep_comment->noiDung .'

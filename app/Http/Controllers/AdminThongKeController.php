@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ThongKe;
+use App\Models\HoaDon;
 use Carbon\Carbon;
 
 
 class AdminThongKeController extends Controller
-{
+{  
+  public function __construct(
+  HoaDon $hoadon
+  ) {
+    $this->hoadon = $hoadon;
+  }
   public function doanhThu()
   {
     return view('admin.thongke.doanhThu');
@@ -18,9 +24,11 @@ class AdminThongKeController extends Controller
     $data = $request->all();
     $from_date = $data['from_date'];
     $to_date = $data['to_date'];
-  
+    
     $get = ThongKe::whereBetween('hoaDonNgay', [$from_date, $to_date])->orderBy('hoaDonNgay', 'ASC')->get();
-  
+    $get1 = HoaDon::whereBetween('created_at', [$from_date, $to_date])->orderBy('created_at', 'ASC')->get();
+    dd($get1);
+
     foreach ($get as $key => $val) {
       $chart_data[] = array(
         'period' => $val->hoaDonNgay,

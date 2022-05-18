@@ -17,7 +17,7 @@ class Binhluan extends Migration
             $table->bigIncrements('binhLuan_id');
             $table->string('noiDung', 255);
 			$table->string('ten');
-            $table->date('ngay');
+            $table->timestamp('ngay');
 			$table->tinyInteger('tinhTrang')->default(0);
             $table->integer('binhLuanCha_id')->default(0);
             $table->integer('sanPham_id');

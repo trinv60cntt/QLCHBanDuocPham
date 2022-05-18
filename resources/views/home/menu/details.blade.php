@@ -5,9 +5,17 @@
 @endsection
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/locale/vi.min.js" integrity="sha512-LvYVj/X6QpABcaqJBqgfOkSjuXv81bLz+rpz0BQoEbamtLkUF2xhPNwtI/xrokAuaNEQAMMA1/YhbeykYzNKWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="clients/detailsSanPham/details.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+        function convertDateTime() {
+          $('.time-comment').each(function() {
+            $(this).text(moment($(this).text(), "YYYYMMDDHmm").fromNow());
+          }); 
+        }
+
         load_comment();
         function load_comment() {
           var sanPham_id = $('.sanPham_id').val();
@@ -16,8 +24,10 @@
             url: "{{ url('menu/load-comment') }}",
             method: "POST",
             data: {sanPham_id:sanPham_id, _token:_token},
+            async: false,
             success:function (data) {
               $('#comment_show').html(data);
+              convertDateTime();
             }
           });
         }
@@ -33,6 +43,7 @@
             url: "{{ url('menu/send-comment') }}",
             method: "POST",
             data: {sanPham_id:sanPham_id, comment_name:comment_name, comment_content: comment_content, _token:_token},
+            async: false,
             success:function (data) {
               $('#notify_comment').css('display', 'block');
               $('#notify_comment').html('<p class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"><span class="font-medium">Thêm bình luận thành công</span></p>');
@@ -43,6 +54,11 @@
             }
           });
         })
+      });
+    </script>
+    <script>
+      $(document).ready(function() {
+      
       });
     </script>
 @endsection
