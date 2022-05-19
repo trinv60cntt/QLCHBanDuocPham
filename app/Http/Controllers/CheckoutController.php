@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Carbon\Carbon;
+
 
 session_start();
 
@@ -45,6 +47,8 @@ class CheckoutController extends Controller
   }
 
   public function order_place(Request $request) {
+    $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
     // insert order
     $order_data = array(); 
     $order_data['hoTenKH'] = $request->hoTenKH;
@@ -53,6 +57,7 @@ class CheckoutController extends Controller
     $order_data['email'] = $request->email;
     $order_data['ghiChu'] = $request->ghiChu;
     $order_data['tongTien'] = Cart::totalFloat() + 15000;
+    $order_data['ngayLap'] = $now;
     $order_data['tinhTrang'] = 1;
     $order_data['khachhang_id'] = $request->customer_id;
     $order_data['created_at'] =new \DateTime();

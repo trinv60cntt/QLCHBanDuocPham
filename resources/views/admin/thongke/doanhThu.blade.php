@@ -85,10 +85,10 @@
       hideHover: 'auto',
       
       xkey: 'period',
-      ykeys: ['order', 'sales', 'quantity'],
+      ykeys: ['order', 'sales'],
       // behaveLikeLine: true,
 
-      labels: ['Tổng hóa đơn', 'Tổng doanh thu', 'Số lượng sản phẩm đã bán']
+      labels: ['Tổng hóa đơn', 'Tổng doanh thu']
       });
 
       // function chart30daysorder() {

@@ -21,6 +21,7 @@ class Hoadon extends Migration
             $table->string('email');
             $table->string('ghiChu')->nullable();
             $table->string('tongTien');
+            $table->date('ngayLap');
             $table->string('tinhTrang');
             $table->integer('nhanvien_id')->nullable();
             $table->integer('khachhang_id')->nullable();
