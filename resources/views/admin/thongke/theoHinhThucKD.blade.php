@@ -46,10 +46,33 @@
         </div>
    
       </form>
-
+      <hr class="mt-4">
       <div class="mt-4">
         <canvas id="myChart" style="width:100%;max-width:600px" class="m-auto"></canvas>
       </div>
+      <div class="table-details hidden">
+      <hr class="mt-4">
+      <h4 class="my-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
+        DỮ LIỆU CHI TIẾT BIỂU ĐỒ DOANH THU
+      </h4>
+      <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
+        <div class="w-full overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr
+          class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
+                <th class="px-4 py-3">STT</th>
+                <th class="px-4 py-3">Hình thức kinh doanh</th>
+                <th class="px-4 py-3">Doanh thu</th>
+                <th class="px-4 py-3">Phần trăm</th>
+            </tr>
+        </thead>
+        <tbody class="wrap-table bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
   </div>
 </main>
 @endsection
@@ -59,10 +82,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
-      // chart30daysorder();
-      // GetChartData();
-  
-
       $('.dashboard-filter').change(function() {
         var dashboard_value = $(this).val();
         var _token = $('input[name="_token"]').val();
@@ -90,17 +109,36 @@
           dataType: 'json',
           data: {from_date: from_date, to_date: to_date, _token: _token},
           success: function (data) {
-            console.log(data);
-            // chart.setData(data);
+            $('.table-details').removeClass('hidden');
+            var getKey = Object.keys(data[0]);
+            var total = 0;
+            for(var i = 0; i <= data.length; i++) {
+              total = total + data[0][getKey[i]];
+            }
+            var html ="";
+            for(var i = 1; i <= data.length + 1; i++) {
+              var htkd = "";
+              var getKey = Object.keys(data[0]);
+              if(Object.keys(data[0])[i-1] == 'DoanhThuOnl') {
+                htkd = 'Trực tuyến';
+              }
+              else {
+                htkd = 'Tại quầy';
+              }
+              var dtItem = (data[0][getKey[i-1]]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+              var dtPer = ((parseInt(data[0][getKey[i-1]]) / total) * 100).toFixed(2);
+              html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + htkd + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtItem + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtPer + "%" + "</td></tr>";
+            }
+            $(".wrap-table").html(html);
             var xValues = ["Doanh thu trực tuyến", "Doanh thu tại quầy"];
-        var yValues = [data[0]['DoanhThuOnl'], data[0]['DoanhThuOff']];
-        var barColors = [
-          "#b91d47",
-          "#00aba9",
-          "#2b5797",
-          "#e8c3b9",
-          "#1e7145"
-        ];
+            var yValues = [data[0]['DoanhThuOnl'], data[0]['DoanhThuOff']];
+            var barColors = [
+              "#b91d47",
+              "#00aba9",
+              "#2b5797",
+              "#e8c3b9",
+              "#1e7145"
+            ];
 
         var chart = new Chart("myChart", {
           type: "pie",

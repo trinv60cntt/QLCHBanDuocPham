@@ -244,7 +244,6 @@ class AdminThongKeController extends Controller
     $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
     from hoadonoff hdoff
     where hdoff.ngayLap BETWEEN '$from_date' and '$to_date'");
-    // $sanpham = $this->sanpham->get();
     $chart_data[] = array(
       'DoanhThuOnl' => $totalOnline[0]->DoanhThuOnl,
       'DoanhThuOff' => $totalOffline[0]->DoanhThuOff,
