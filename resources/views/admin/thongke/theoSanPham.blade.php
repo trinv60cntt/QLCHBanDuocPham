@@ -16,7 +16,7 @@
   <!-- Remove everything INSIDE this div to a really blank page -->
   <div class="container px-6 mx-auto py-4">
       <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-          THỐNG KÊ TỔNG DOANH THU THEO TỪNG NGÀY/THÁNG/NĂM
+        THỐNG KÊ DOANH THU TỪNG SẢN PHẨM THEO TỪNG NGÀY/THÁNG/NĂM
       </h4>
 
       <form autocomplete="off">
@@ -64,7 +64,8 @@
   <script type="text/javascript">
     $(document).ready(function(){
       // chart30daysorder();
-      var chart = new Morris.Line({
+      var $arrColors = ['#34495E', '#26B99A',  '#666', '#3498DB'];
+      var chart = new Morris.Bar({
 
       element: 'chart',
       // option chart 
@@ -78,11 +79,16 @@
  
       hideHover: 'auto',
       
-      xkey: 'period',
-      ykeys: ['order', 'sales', 'quantity'],
+      xkey: 'product',
+      ykeys: ['sales'],
       // behaveLikeLine: true,
 
-      labels: ['Tổng hóa đơn', 'Tổng doanh thu', 'Số lượng sản phẩm đã bán']
+      labels: ['Tổng doanh thu'],
+      barColors: function (row, series, type) {
+        return $arrColors[row.x];
+      },
+      hideHover: 'auto',
+      resize: true
       });
 
       // function chart30daysorder() {
@@ -120,7 +126,7 @@
         var to_date = $('#datepicker2').val();
 
         $.ajax({
-          url: "{{ url('admin/thongkes/filter-by-date') }}",
+          url: "{{ url('admin/thongkes/product-filter-by-date') }}",
           method: 'POST',
           dataType: 'json',
           data: {from_date: from_date, to_date: to_date, _token: _token},

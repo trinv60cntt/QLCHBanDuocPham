@@ -374,6 +374,16 @@ Route::prefix('admin')->group(function () {
       'as' => 'thongkes.`dashboard_filter`',
       'uses' => 'App\Http\Controllers\AdminThongKeController@dashboard_filter'
     ]);
+
+    Route::get('/theosanpham', [
+      'as' => 'thongkes.theoSanPham',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@theoSanPham'
+    ]);
+
+    Route::post('/product-filter-by-date', [
+      'as' => 'thongkes.product_filter_by_date',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@product_filter_by_date'
+    ]);
   });
 
   Route::prefix('vaitros')->group(function () {
@@ -459,6 +469,49 @@ Route::prefix('admin')->group(function () {
     ]);
 
   });
+
+  Route::prefix('hoadonoffline')->group(function () {
+    // Route::get('/', [
+    //   'as' => 'hoadonoffline.index',
+    //   'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@index',
+    // ]);
+
+    Route::get('/create', [
+      'as' => 'hoadonoffline.create',
+      'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@create'
+    ]);
+  
+    Route::post('/store', [
+      'as' => 'hoadonoffline.store',
+      'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@store'
+    ]);
+
+    Route::post('/load-product', [
+      'as' => 'hoadonoffline.loadProduct',
+      'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@loadProduct'
+    ]);
+
+    // Route::get('/edit/{hoaDon_id}', [
+    //   'as' => 'hoadonoffline.edit',
+    //   'uses' => 'App\Http\Controllers\AdminHoaDonController@edit',
+    // ]);
+
+    // Route::post('/update/{hoaDon_id}', [
+    //   'as' => 'hoadonoffline.update',
+    //   'uses' => 'App\Http\Controllers\AdminHoaDonController@update',
+    // ]);
+
+    // Route::get('/details/{hoaDon_id}', [
+    //   'as' => 'hoadonoffline.details',
+    //   'uses' => 'App\Http\Controllers\AdminHoaDonController@details',
+    // ]);
+
+    // Route::get('/delete/{hoaDon_id}', [
+    //   'as' => 'hoadonoffline.delete',
+    //   'uses' => 'App\Http\Controllers\AdminHoaDonController@delete',
+    // ]);
+
+  });
 });
 
 
@@ -503,3 +556,5 @@ Route::prefix('khachhang')->group(function () {
   ]);
 
 });
+
+Route::get('/Add-Cart/{id}', 'App\Http\Controllers\AdminHoaDonOffLineController@AddCart');

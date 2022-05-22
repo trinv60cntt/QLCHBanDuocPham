@@ -77,7 +77,7 @@
                                     </td>
 
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="flex items-center space-x-4 text-sm">
+                                        <div class="flex items-center text-sm">
                                             <a href="{{ route('hoadons.edit', ['hoaDon_id' => $hoadon->hoaDon_id]) }}"><i class='fa fa-edit text-purple-600'></i></a>&nbsp;|&nbsp;
                                             <a href="{{ route('hoadons.details', ['hoaDon_id' => $hoadon->hoaDon_id]) }}"><i class='fa fa-info-circle text-purple-600'></i></a>&nbsp;|&nbsp;
                                             <a href="#" data-url="{{ route('hoadons.delete', ['hoaDon_id' => $hoadon->hoaDon_id]) }}" class="js-action-delete"><i class='fa fa-trash text-purple-600'></i></a>&nbsp;|&nbsp;

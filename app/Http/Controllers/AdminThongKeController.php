@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ThongKe;
 use App\Models\HoaDon;
+use App\Models\SanPham;
 use App\Models\ChiTietHD;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 
 class AdminThongKeController extends Controller
 {  
   public function __construct(
   HoaDon $hoadon,
-  ChiTietHD $chitiethd
+  ChiTietHD $chitiethd,
+  SanPham $sanpham
   ) {
     $this->hoadon = $hoadon;
     $this->chitiethd = $chitiethd;
+    $this->sanpham = $sanpham;
   }
   public function doanhThu()
   {
@@ -28,10 +31,9 @@ class AdminThongKeController extends Controller
     $from_date = $data['from_date'];
     $to_date = $data['to_date'];
     
-    $get = ThongKe::whereBetween('hoaDonNgay', [$from_date, $to_date])->orderBy('hoaDonNgay', 'ASC')->get();
     $hoadon = HoaDon::whereBetween('ngayLap', [$from_date, $to_date])->where('tinhTrang', 4)->orderBy('ngayLap', 'ASC')->get();
+    $chitiethd = $this->chitiethd->get();
     date_default_timezone_set('UTC');
-
     $chart_data = [];
     while (strtotime($from_date) <= strtotime($to_date)) {
         $tongHD = 0;
@@ -39,9 +41,13 @@ class AdminThongKeController extends Controller
         $tongSL = 0;
         foreach($hoadon as $item) {
           if($item->ngayLap == $from_date) {
+            foreach($chitiethd as $cthd) {
+              if($item->hoaDon_id == $cthd->hoaDon_id) {
+                $tongSL += $cthd->soLuong;
+              }
+            }
             $tongHD++;
             $tongTien += $item->tongTien;
-            $tongSL = 10;
           }
         }
         $chart_data[] = array(
@@ -59,29 +65,15 @@ class AdminThongKeController extends Controller
       }
     }
     $chart_data = array_values($chart_data);
-    // $chart_data = $temp;
-    // dd($hoadon);
-    $total_order = 0; // tong HD
-    $sales = 0; // tong Tien
-    $quantity = 0; // so luong
-    // foreach($hoadon as $key => $product_id){
-    //   // $total_order =  $total_order + 1;
-    //   // $sales += $product_id->tongTien;
-    // }
-    // dd($sales);
-    // dd($hoadon->where('hoaDon_id'));
-    // foreach($hoadon->where('hoaDon_id') as $key => $product_id){
-    //   dd($product_id);
-    // }
-    // dd($hoadon);
 
     echo $data = json_encode($chart_data);
   }
 
   public function dashboard_filter(Request $request) {
     $data = $request->all();
-
+    $chitiethd = $this->chitiethd->get();
     // $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+    $chart_data = [];
 
     $dau_thangnay = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
     $dau_thangtruoc = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
@@ -93,21 +85,152 @@ class AdminThongKeController extends Controller
     $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
     if($data['dashboard_value'] == '7ngay') {
-      $get = ThongKe::whereBetween('hoaDonNgay', [$sub7days, $now])->orderBy('hoaDonNgay', 'ASC')->get();
+      $hoadon = HoaDon::whereBetween('ngayLap', [$sub7days, $now])->where('tinhTrang', 4)->orderBy('ngayLap', 'ASC')->get();
+
+      while (strtotime($sub7days) <= strtotime($now)) {
+        $tongHD = 0;
+        $tongTien = 0;
+        $tongSL = 0;
+        foreach($hoadon as $item) {
+          if($item->ngayLap == $sub7days) {
+            foreach($chitiethd as $cthd) {
+              if($item->hoaDon_id == $cthd->hoaDon_id) {
+                $tongSL += $cthd->soLuong;
+              }
+            }
+            $tongHD++;
+            $tongTien += $item->tongTien;
+          }
+        }
+        $chart_data[] = array(
+          'period' => $sub7days,
+          'order' => $tongHD,
+          'sales' => $tongTien,
+          'quantity' => $tongSL
+        );
+        $sub7days = date("Y-m-d", strtotime("+1 days", strtotime($sub7days)));
+      }
     } else if($data['dashboard_value'] == 'thangtruoc') {
-      $get = ThongKe::whereBetween('hoaDonNgay', [$dau_thangtruoc, $cuoi_thangtruoc])->orderBy('hoaDonNgay', 'ASC')->get();
+      $hoadon = HoaDon::whereBetween('ngayLap', [$dau_thangtruoc, $cuoi_thangtruoc])->where('tinhTrang', 4)->orderBy('ngayLap', 'ASC')->get();
+      while (strtotime($dau_thangtruoc) <= strtotime($cuoi_thangtruoc)) {
+        $tongHD = 0;
+        $tongTien = 0;
+        $tongSL = 0;
+        foreach($hoadon as $item) {
+          if($item->ngayLap == $dau_thangtruoc) {
+            foreach($chitiethd as $cthd) {
+              if($item->hoaDon_id == $cthd->hoaDon_id) {
+                $tongSL += $cthd->soLuong;
+              }
+            }
+            $tongHD++;
+            $tongTien += $item->tongTien;
+          }
+        }
+        $chart_data[] = array(
+          'period' => $dau_thangtruoc,
+          'order' => $tongHD,
+          'sales' => $tongTien,
+          'quantity' => $tongSL
+        );
+        $dau_thangtruoc = date("Y-m-d", strtotime("+1 days", strtotime($dau_thangtruoc)));
+      }
     } else if($data['dashboard_value'] == 'thangnay') {
-      $get = ThongKe::whereBetween('hoaDonNgay', [$dau_thangnay, $now])->orderBy('hoaDonNgay', 'ASC')->get();
+      $hoadon = HoaDon::whereBetween('ngayLap', [$dau_thangnay, $now])->where('tinhTrang', 4)->orderBy('ngayLap', 'ASC')->get();
+            while (strtotime($dau_thangnay) <= strtotime($now)) {
+        $tongHD = 0;
+        $tongTien = 0;
+        $tongSL = 0;
+        foreach($hoadon as $item) {
+          if($item->ngayLap == $dau_thangnay) {
+            foreach($chitiethd as $cthd) {
+              if($item->hoaDon_id == $cthd->hoaDon_id) {
+                $tongSL += $cthd->soLuong;
+              }
+            }
+            $tongHD++;
+            $tongTien += $item->tongTien;
+          }
+        }
+        $chart_data[] = array(
+          'period' => $dau_thangnay,
+          'order' => $tongHD,
+          'sales' => $tongTien,
+          'quantity' => $tongSL
+        );
+        $dau_thangnay = date("Y-m-d", strtotime("+1 days", strtotime($dau_thangnay)));
+      }
+
+
     } else {
-      $get = ThongKe::whereBetween('hoaDonNgay', [$sub365days, $now])->orderBy('hoaDonNgay', 'ASC')->get();
+      $hoadon = HoaDon::whereBetween('ngayLap', [$sub365days, $now])->where('tinhTrang', 4)->orderBy('ngayLap', 'ASC')->get();
+            while (strtotime($sub365days) <= strtotime($now)) {
+        $tongHD = 0;
+        $tongTien = 0;
+        $tongSL = 0;
+        foreach($hoadon as $item) {
+          if($item->ngayLap == $sub365days) {
+            foreach($chitiethd as $cthd) {
+              if($item->hoaDon_id == $cthd->hoaDon_id) {
+                $tongSL += $cthd->soLuong;
+              }
+            }
+            $tongHD++;
+            $tongTien += $item->tongTien;
+          }
+        }
+        $chart_data[] = array(
+          'period' => $sub365days,
+          'order' => $tongHD,
+          'sales' => $tongTien,
+          'quantity' => $tongSL
+        );
+        $sub365days = date("Y-m-d", strtotime("+1 days", strtotime($sub365days)));
+      }
     }
 
-    foreach ($get as $key => $val) {
+    date_default_timezone_set('UTC');
+
+    $temp = $chart_data;
+    for ($i = 0; $i < count($temp); $i++) {
+      if($chart_data[$i]['order'] == 0) {
+        unset($chart_data[$i]);
+      }
+    }
+    $chart_data = array_values($chart_data);
+
+    echo $data = json_encode($chart_data);
+  }
+
+  public function theoSanPham() {
+
+    // foreach ($sanpham as $spItem) {
+    //   if($spItem->sanPham_id == $chitiethd->sanPham_id)
+    //   {
+
+    //   }
+    // }
+    return view('admin.thongke.theoSanPham');
+  }
+
+  public function product_filter_by_date(Request $request) {
+    $data = $request->all();
+    $from_date = $data['from_date'];
+    $to_date = $data['to_date'];
+    $chitiethd = DB::select("SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl'
+    from san_phams sp, hoadon hd, chitiethd cthd
+     where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$from_date' and '$to_date'
+     group by sp.sanPham_id");
+    $sanpham = $this->sanpham->get();
+    foreach ($chitiethd as $key => $val) {
+      foreach($sanpham as $sp) {
+        if($val->sanPham_id == $sp->sanPham_id) {
+          $name = $sp->tenSP;
+        }
+      }
       $chart_data[] = array(
-        'period' => $val->hoaDonNgay,
-        'order' => $val->tongHD,
-        'sales' => $val->tongTien, 
-        'quantity' => $val->soLuongSP
+        'product' => $name,
+        'sales' => $val->DoanhThuOnl
       );
     }
 
