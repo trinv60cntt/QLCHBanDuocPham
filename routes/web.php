@@ -384,6 +384,16 @@ Route::prefix('admin')->group(function () {
       'as' => 'thongkes.product_filter_by_date',
       'uses' => 'App\Http\Controllers\AdminThongKeController@product_filter_by_date'
     ]);
+
+    Route::get('/theoHinhThucKD', [
+      'as' => 'thongkes.theoHinhThucKD',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@theoHinhThucKD'
+    ]);
+
+    Route::post('/type-bussiness-filter-by-date', [
+      'as' => 'thongkes.type_bussiness_filter_by_date',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@type_bussiness_filter_by_date'
+    ]);
   });
 
   Route::prefix('vaitros')->group(function () {

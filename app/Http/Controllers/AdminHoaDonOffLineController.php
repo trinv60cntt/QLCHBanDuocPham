@@ -35,6 +35,7 @@ class AdminHoaDonOffLineController extends Controller
   }
 
   public function store(Request $request) {
+    // dd($request->all());
     $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
     // insert order
     $order_data = array(); 
@@ -205,7 +206,8 @@ class AdminHoaDonOffLineController extends Controller
         .'
         </td>
         <td class="p-4 px-6 text-center whitespace-nowrap">
-          <a href="#">
+          <a href="#"
+          class="js-action-delete">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="w-6 h-6 text-red-400"

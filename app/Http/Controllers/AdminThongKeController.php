@@ -203,13 +203,6 @@ class AdminThongKeController extends Controller
   }
 
   public function theoSanPham() {
-
-    // foreach ($sanpham as $spItem) {
-    //   if($spItem->sanPham_id == $chitiethd->sanPham_id)
-    //   {
-
-    //   }
-    // }
     return view('admin.thongke.theoSanPham');
   }
 
@@ -233,6 +226,29 @@ class AdminThongKeController extends Controller
         'sales' => $val->DoanhThuOnl
       );
     }
+
+    echo $data = json_encode($chart_data);
+  }
+
+  public function theoHinhThucKD() {
+    return view('admin.thongke.theoHinhThucKD');
+  }
+
+  public function type_bussiness_filter_by_date(Request $request) {
+    $data = $request->all();
+    $from_date = $data['from_date'];
+    $to_date = $data['to_date'];
+    $totalOnline = DB::select("SELECT sum(hd.tongTien) as 'DoanhThuOnl'
+    from hoadon hd
+    where hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$from_date' and '$to_date'");
+    $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
+    from hoadonoff hdoff
+    where hdoff.ngayLap BETWEEN '$from_date' and '$to_date'");
+    // $sanpham = $this->sanpham->get();
+    $chart_data[] = array(
+      'DoanhThuOnl' => $totalOnline[0]->DoanhThuOnl,
+      'DoanhThuOff' => $totalOffline[0]->DoanhThuOff,
+    );
 
     echo $data = json_encode($chart_data);
   }

@@ -9,6 +9,9 @@
 @endsection
 
 @section('js')
+@section('js')
+  <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
+  <script src="admins/hoadonoff/index.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       var sanPham_id = $('.select-product').val();
@@ -19,43 +22,27 @@
         $('.sanPham_id').val(sanPham_id);
       });
 
-      // $('.upCart').on('change keyup', function(e){
-      //     var target = e.currentTarget;
-      //     var newqty = $(target).val();
-      //     var rowId = $(target).nextUntil("input").last().next().val();
-
-      //     if(newqty <=0){ alert('enter only valid qty') }
-      //     else {
-      //       $.ajax({
-      //           type: 'get',
-      //           dataType: 'html',
-      //           url: '<?php echo url('/update');?>/'+rowId,
-      //           data: "qty=" + newqty + "& rowId=" + rowId,
-      //           beforeSend: () => {
-      //             $('.loading-ajax').removeClass('hidden');
-      //           },
-      //           success: function (response) {
-      //             $('#updateDiv').html(response);
-      //             $('.loading-ajax').addClass('hidden');
-      //             const qtyProduct = $('.qty-product').text();
-      //             $('.badge').text(qtyProduct);
-      //           }
-      //       });
-      //     }
-      // });
-
       $('.add-product').click(function (e) {
         e.preventDefault();
         load_product();
-        var priceHidden = parseInt($('#product_hidden').find('.product-price').text().trim().replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '').replace('đ', ''));
-        totalPrice += priceHidden;
-        $('#price_hidden').val(totalPrice);
-        // var quantityHidden = parseInt($('#product_hidden').find('.number-product').val());
-        // $('#quantity-item').val(quantityHidden);
+  
         $('#product_hidden').text('');
-        // $('.donGia').val($('.price-product').val());
-        // console.log($('.donGia').val());
       })
+
+      $('#MyButton-hoadonoff').click(function(e) {
+        for(var i = 0; i < $('.product-price').length; i++)
+        {
+          var priceItem = $('.product-price')[i];
+          var priceHidden = parseInt(priceItem.innerText.trim().replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '').replace('đ', ''));
+          totalPrice += priceHidden;
+          $('#price_hidden').val(totalPrice);
+        }
+        // var priceHidden = parseInt($('#product_hidden').find('.product-price').text().trim().replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '').replace('đ', ''));
+        // totalPrice += priceHidden;
+        // $('#price_hidden').val(totalPrice);
+      })
+
+
       function load_product() {
         var sanPham_id = $('.sanPham_id').val();
         var _token = $('input[name="_token"]').val();
@@ -131,11 +118,6 @@
                     </div>
                     <div class="hidden" id="product_hidden"></div>
                     <input class="hidden" name="price_hidden" id="price_hidden" value="" />
-                    {{-- <div class="details-total">
-                      <p><span class="font-bold">Phí giao hàng: </span> 15.000đ</p>
-                      <p><span class="font-bold">Tổng tiền: </span> {{ number_format($v_order_d_by_id->tongTien, 0, ',', '.') }}đ</p>
-                    </div> --}}
-    
                 </div>
 
                 <button type="submit" id="MyButton-hoadonoff"
