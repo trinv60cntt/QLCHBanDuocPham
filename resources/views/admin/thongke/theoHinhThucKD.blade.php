@@ -109,6 +109,7 @@
           dataType: 'json',
           data: {from_date: from_date, to_date: to_date, _token: _token},
           success: function (data) {
+            // console.log(data[0].DoanhThuOff);
             $('.table-details').removeClass('hidden');
             var getKey = Object.keys(data[0]);
             var total = 0;

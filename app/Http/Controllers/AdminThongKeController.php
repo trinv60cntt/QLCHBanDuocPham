@@ -249,6 +249,8 @@ class AdminThongKeController extends Controller
       'DoanhThuOff' => $totalOffline[0]->DoanhThuOff,
     );
 
+    // dd($chart_data);
+    // return;
     echo $data = json_encode($chart_data);
   }
 }

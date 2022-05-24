@@ -85,7 +85,6 @@ class AdminSanPhamController extends Controller
         'hanSuDung' => $request->hanSuDung,
         'NSX_id' => $request->NSX_id,
         'danhMuc_id' => $request->danhMuc_id,
-        'nhanvien_id' => auth()->id(),
       ];
       if ($request->banChay == 1) {
         $dataProductCreate['banChay'] = 1;
@@ -126,7 +125,6 @@ class AdminSanPhamController extends Controller
         'hanSuDung' => $request->hanSuDung,
         'NSX_id' => $request->NSX_id,
         'danhMuc_id' => $request->danhMuc_id,
-        'nhanvien_id' => auth()->id(),
       ];
       if ($request->banChay == 1) {
         $dataProductUpdate['banChay'] = 1;

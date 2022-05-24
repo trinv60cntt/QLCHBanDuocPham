@@ -65,4 +65,20 @@ class AdminVaiTroController extends Controller
     return redirect()->route('vaitros.index');
   }
 
+  public function delete($vaiTro_id) {
+    try {
+      $this->vaitro->find($vaiTro_id)->delete();
+      return response()->json([
+        'code' => 200,
+        'message' => 'success'
+      ], 200);
+
+    } catch (\Exception $exception) {
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+      return response()->json([
+        'code' => 500,
+        'message' => 'fail'
+      ], 500);
+    }
+  }
 }

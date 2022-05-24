@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSanPhamsTable extends Migration
+class SanPhams extends Migration
 {
     /**
      * Run the migrations.
@@ -25,8 +25,8 @@ class CreateSanPhamsTable extends Migration
             $table->boolean('banChay');
             $table->integer('NSX_id');
             $table->integer('danhMuc_id');
-            $table->integer('user_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

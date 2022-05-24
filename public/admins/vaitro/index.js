@@ -4,12 +4,12 @@ function actionDelete(event) {
   let that = $(this);
 
   Swal.fire({
-    title: 'Bạn chắc chắn muốn xóa sản phẩm này ?',
+    title: 'Bạn chắc chắn muốn xóa vai trò này ?',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Đồng ý xóa',
+    confirmButtonText: 'Đồng ý',
     cancelButtonText: 'Hủy bỏ',
   }).then((result) => {
     if (result.isConfirmed) {
@@ -21,7 +21,7 @@ function actionDelete(event) {
             that.parent().parent().parent().remove();
             Swal.fire(
               'Đã xóa thành công!',
-              'Bản ghi này đã bị xóa.',
+              '',
               'success'
             )
           }

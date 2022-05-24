@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\DanhMuc;
 use Illuminate\Http\Request;
 use App\Components\Recursive;
+use Illuminate\Support\Facades\Log;
 
 class DanhMucController extends Controller
 {
@@ -59,10 +60,20 @@ class DanhMucController extends Controller
     return redirect()->route('danhmucs.index');
   }
 
-  public function delete($danhMuc_id)
-  {
-    $this->danhmuc->find($danhMuc_id)->delete();
-    return redirect()->route('danhmucs.index');
-    // return $this->deleteModelTrait($id, $this->category);
+  public function delete($danhMuc_id) {
+    try {
+      $this->danhmuc->find($danhMuc_id)->delete();
+      return response()->json([
+        'code' => 200,
+        'message' => 'success'
+      ], 200);
+
+    } catch (\Exception $exception) {
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+      return response()->json([
+        'code' => 500,
+        'message' => 'fail'
+      ], 500);
+    }
   }
 }

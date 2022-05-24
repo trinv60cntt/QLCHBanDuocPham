@@ -4,10 +4,10 @@
     <title>Trang chủ</title>
 @endsection
 
-{{-- @section('js')
+@section('js')
     <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
-    <script src="admins/nhanvien/index.js"></script>
-@endsection --}}
+    <script src="admins/vaitro/index.js"></script>
+@endsection
 
 @section('content')
     <main class="h-full pb-16 overflow-y-auto">

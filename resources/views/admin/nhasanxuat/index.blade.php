@@ -4,6 +4,11 @@
     <title>Trang chủ</title>
 @endsection
 
+@section('js')
+    <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
+    <script src="admins/nhasanxuat/index.js"></script>
+@endsection
+
 @section('content')
     <main class="h-full pb-16 overflow-y-auto">
         <!-- Remove everything INSIDE this div to a really blank page -->
@@ -54,8 +59,9 @@
                                                     </path>
                                                 </svg>
                                             </a>
-                                            <a href="{{ route('nhasanxuats.delete', ['NSX_id' => $nhasanxuat->NSX_id]) }}"
-                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            <a href="#"
+                                                data-url="{{ route('nhasanxuats.delete', ['NSX_id' => $nhasanxuat->NSX_id]) }}"
+                                                class="js-action-delete flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Delete">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
                                                     viewBox="0 0 20 20">

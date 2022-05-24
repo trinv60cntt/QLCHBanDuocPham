@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\NhaSanXuat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class NhaSanXuatController extends Controller
 {
@@ -52,10 +53,20 @@ class NhaSanXuatController extends Controller
     return redirect()->route('nhasanxuats.index');
   }
 
-  public function delete($NSX_id)
-  {
-    // return $this->deleteModelTrait($id, $this->category);
-    $this->nhasanxuat->find($NSX_id)->delete();
-    return redirect()->route('nhasanxuats.index');
+  public function delete($NSX_id) {
+    try {
+      $this->nhasanxuat->find($NSX_id)->delete();
+      return response()->json([
+        'code' => 200,
+        'message' => 'success'
+      ], 200);
+
+    } catch (\Exception $exception) {
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+      return response()->json([
+        'code' => 500,
+        'message' => 'fail'
+      ], 500);
+    }
   }
 }

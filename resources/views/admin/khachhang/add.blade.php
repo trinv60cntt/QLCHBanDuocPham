@@ -121,17 +121,17 @@
             Validator.isRequired('.hinhAnh'),
 
           ],
-    
+
         });
-    
-        
+
+
         $("#MyButton").click(function () {
         setTimeout(() => {
             $('html, body').animate({
             scrollTop: $(".form-group.invalid:first").offset().top
             }, 200);
         }, 10);
-    
+
         });
     </script>
 @endsection
