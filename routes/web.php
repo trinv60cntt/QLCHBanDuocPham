@@ -78,6 +78,11 @@ Route::prefix('menu')->group(function () {
     'uses' => 'App\Http\Controllers\MenuController@sendComment'
   ]);
 
+  Route::post('/insert-rating', [
+    'as' => 'menus.insert_rating',
+    'uses' => 'App\Http\Controllers\MenuController@insert_rating'
+  ]);
+
 });
 
 // Admin

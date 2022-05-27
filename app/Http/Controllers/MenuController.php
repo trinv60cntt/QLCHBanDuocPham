@@ -7,6 +7,7 @@ use App\Models\SanPham;
 use App\Models\DanhMuc;
 use App\Models\NhaSanXuat;
 use App\Models\BinhLuan;
+use App\Models\DanhGiaSao;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -58,7 +59,9 @@ class MenuController extends Controller
     // dd(date("YmdHi", strtotime($now)));
     // $sanpham = $this->sanpham->find($sanPham_id);
     $sanpham = $this->sanpham->find($sanPham_id);
-    return view('home.menu.details', compact('sanpham'));
+    $rating = DanhGiaSao::where('sanPham_id', $sanPham_id)->avg('soSao');
+    $rating = round($rating);
+    return view('home.menu.details', compact('sanpham', 'rating'));
   }
 
   public function getCategory($danhMuc_id)
@@ -172,5 +175,14 @@ class MenuController extends Controller
       }}
     }
     echo $output;
+  }
+
+  public function insert_rating(Request $request) {
+    $data = $request->all();
+    $danhgiasao = new DanhGiaSao();
+    $danhgiasao->sanPham_id = $data['product_id'];
+    $danhgiasao->soSao = $data['index'];
+    $danhgiasao->save();
+    echo 'done';
   }
 }

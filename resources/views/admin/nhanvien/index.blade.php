@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <main class="h-full pb-16 overflow-y-auto">
+    <main class="h-full pb-16">
         <div class="container px-6 mx-auto py-4">
             <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
                 DANH SÁCH NHÂN VIÊN

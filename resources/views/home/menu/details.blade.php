@@ -56,10 +56,58 @@
         })
       });
     </script>
-    <script>
-      $(document).ready(function() {
-      
-      });
+    <script type="text/javascript">
+      // $(document).ready(function() {
+        function remove_background(product_id) {
+          for(var count = 1; count <= 5; count++) {
+            $('#' + product_id + '-' + count).css('color', '#ccc');
+          }
+        }
+
+        $(document).on('mouseenter', '.rating', function() {
+          var index =  $(this).data("index");
+          var product_id = $(this).data("product_id");
+          // alert(index);
+          // alert(product_id);
+          remove_background(product_id);
+
+          for (var count = 1; count <= index; count++) {
+            $('#'+product_id+'-'+count).css('color', '#f59e0b');
+          }
+        });
+
+        $(document).on('mouseleave', '.rating', function() {
+          var index = $(this).data("index");
+          var product_id = $(this).data('product_id');
+          var rating = $(this).data("rating");
+
+          remove_background(product_id);
+          for(var count = 1; count <= rating; count++) {
+            $('#' + product_id + '-' + count).css('color', '#f59e0b');
+          }
+        });
+
+        $(document).on('click', '.rating', function () {
+          var index = $(this).data("index");
+          var product_id = $(this).data('product_id');
+          var _token = $('input[name="_token"]').val();
+
+          $.ajax({
+            url:"{{ url('menu/insert-rating') }}",
+            method:"POST",
+            data: {index: index, product_id: product_id, _token: _token},
+            success: function(data){
+              if(data == 'done') {
+                alert('Bạn đã đánh giá ' + index +" trên 5 sao");
+              }
+              else {
+                alert('Lỗi đánh giá');
+              }
+              location.reload();
+            }
+          });
+        });
+      // });
     </script>
 @endsection
 
@@ -143,9 +191,31 @@
       </div>
 
       <div class="mt-5 ml-4 comment-product py-3 px-4 bg-blue-200 rounded-t-2xl shadow-lg">
-        <div class="box-title text-xl">Bình luận</div>
+        <div class="box-title text-xl">Đánh Giá & Nhận Xét</div>
         <div class="bg-blue-200 p-4">
           <div class="">
+            <p><b>Bạn chấm sản phẩm này bao nhiêu sao?</b></p>
+            <ul class="flex">
+              @for($count = 1; $count <= 5; $count++)
+                @php
+                  if($count <= $rating) {
+                    $color = 'color: #f59e0b;';
+                  } else {
+                    $color = 'color: #ccc;';
+                  }
+                @endphp
+                <li title="Đánh giá sao"
+                id="{{ $sanpham->sanPham_id }}-{{ $count }}"
+                data-index="{{ $count }}"
+                data-product_id="{{ $sanpham->sanPham_id }}"
+                data-rating="{{ $rating }}"
+                class="rating"
+                style="cursor: pointer; {{ $color }} font-size: 30px;"
+                >
+                &#9733;
+                </li>
+              @endfor
+            </ul>
             <form>
             <input placeholder="Nhập họ và tên"
             value=""

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="h-full pb-16 overflow-y-auto">
+    <main class="h-full pb-16">
         <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto py-4">
           <form action="{{ route('nhanviens.update', ['nhanvien_id' => $nhanvien->nhanvien_id]) }}" method="post" enctype="multipart/form-data">
