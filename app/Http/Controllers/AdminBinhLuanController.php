@@ -22,7 +22,7 @@ class AdminBinhLuanController extends Controller
   public function index()
   {
     // $binhluans = $this->binhluan->with('sanpham')->latest()->paginate(10);
-    $binhluans = BinhLuan::with('sanpham')->where('binhLuanCha_id', '=', 0)->orderBy('tinhTrang', 'ASC')->paginate(10);
+    $binhluans = BinhLuan::with('sanpham')->where('binhLuanCha_id', '=', 0)->latest()->paginate(10);
     $comment_rep = BinhLuan::with('sanpham')->where('binhLuanCha_id', '>', 0)->orderBy('binhLuan_id', 'DESC')->paginate(10);
     return view('admin.binhluan.index', compact('binhluans', 'comment_rep'));
   }
@@ -38,6 +38,13 @@ class AdminBinhLuanController extends Controller
     $binhluan->tinhTrang = 0;
     $binhluan->ten = 'Quản trị viên';
     $binhluan->ngay = $now;
+    $binhluan->save();
+  }
+
+  public function allow_comment(Request $request) {
+    $data = $request->all();
+    $binhluan = BinhLuan::find($data['comment_id']);
+    $binhluan->tinhTrang = $data['comment_status'];
     $binhluan->save();
   }
 

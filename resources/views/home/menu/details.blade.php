@@ -46,11 +46,11 @@
             async: false,
             success:function (data) {
               $('#notify_comment').css('display', 'block');
-              $('#notify_comment').html('<p class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"><span class="font-medium">Thêm bình luận thành công</span></p>');
+              $('#notify_comment').html('<p class="mt-2 p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"><span class="font-medium">Thêm bình luận thành công. Bình luận đang chờ duyệt</span></p>');
               load_comment();
               $('.comment_name').val('')
               $('.comment_content').val('')
-              $('#notify_comment').fadeOut(2000);
+              $('#notify_comment').fadeOut(9000);
             }
           });
         })

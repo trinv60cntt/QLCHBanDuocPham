@@ -54,7 +54,7 @@ class NhanVien extends Authenticatable
     public function checkQuyenAccess($quyenCheck) {
         $vaitros = auth()->user()->vaitro;
         $quyens = $vaitros->quyens;
-        if($quyens->contains('key_code', $quyenCheck)) {
+        if($quyens->contains('tenQuyen', $quyenCheck)) {
             return true;
         }
         else {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HoaDon;
+use App\Models\HoaDonOff;
 use App\Models\SanPham;
 use App\Models\ChiTietHD;
 use App\Models\NhanVien;
@@ -18,14 +19,22 @@ class AdminHoaDonOffLineController extends Controller
 
   public function __construct(
     HoaDon $hoadon,
+    HoaDonOff $hoadonoff,
     SanPham $sanpham,
     ChiTietHD $chitiethd,
     Nhanvien $nhanvien
   ) {
     $this->hoadon = $hoadon;
+    $this->hoadonoff = $hoadonoff;
     $this->chitiethd = $chitiethd;
     $this->sanpham = $sanpham;
     $this->nhanvien = $nhanvien;
+  }
+
+  public function index()
+  {
+    $hoadonoffs = $this->hoadonoff->latest()->paginate(5);
+    return view('admin.hoadonoff.index', compact('hoadonoffs'));
   }
 
   public function create()
@@ -41,6 +50,7 @@ class AdminHoaDonOffLineController extends Controller
     $order_data = array(); 
     $order_data['tongTien'] = $request->price_hidden;
     $order_data['ngayLap'] = $now;
+    $order_data['nhanvien_id'] = auth()->id();
     $order_data['created_at'] =new \DateTime();
     $order_id = DB::table('hoadonoff')->insertGetId($order_data);
 
@@ -50,14 +60,14 @@ class AdminHoaDonOffLineController extends Controller
 
     for($i = 0; $i < count($request->sanPhamId); $i++){
       $order_d_data = array();
-      $order_d_data['hoaDon_id'] = $order_id;
+      $order_d_data['hoaDonOff_id'] = $order_id;
       $order_d_data['sanPham_id'] = $content[$i];
       $order_d_data['soLuong'] = $itemQuantity[$i];
   
       DB::table('chitiethdoff')->insert($order_d_data);
     }
 
-    return redirect()->route('hoadons.index');
+    return redirect()->route('hoadonoff.index');
   }
 
   public function getSanPham($sanPham_id_fk)
@@ -230,5 +240,63 @@ class AdminHoaDonOffLineController extends Controller
     echo $output;
   }
 
-  
+  public function edit($hoaDonOff_id) {
+    // $hoadon = $this->hoadon->find($hoaDon_id);
+    // $htmlOptionNhanVien = $this->getShipper($hoadon->nhanvien_id);
+    // return view('admin.hoadon.edit', compact('hoadon', 'htmlOptionNhanVien'));
+  }
+
+  public function update(Request $request, $hoaDonOff_id) {
+    // try {
+    //   DB::beginTransaction();
+    //   $dataProductUpdate = [
+    //     'nhanvien_id' => $request->nhanvien_id,
+    //   ];
+    //   switch ($request->tinhTrang)
+    //   {
+    //     case 0:
+    //       $dataProductUpdate['tinhTrang'] = 0;
+    //       break;
+    //     case 1:
+    //       $dataProductUpdate['tinhTrang'] = 1;
+    //       break;
+    //     case 2:
+    //       $dataProductUpdate['tinhTrang'] = 2;
+    //       break;
+    //     case 3:
+    //       $dataProductUpdate['tinhTrang'] = 3;
+    //     break;
+    //     default:
+    //       $dataProductUpdate['tinhTrang'] = 4;
+    //     break;
+    //   }
+
+    //   $this->hoadon->find($hoaDon_id)->update($dataProductUpdate);
+    //   $hoadon = $this->hoadon->find($hoaDon_id);
+
+    //   DB::commit();
+    //   return redirect()->route('hoadons.index');
+    // } catch (\Exception $exception) {
+    //   DB::rollBack();
+    //   Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+    // }
+  }
+
+  public function delete($hoaDonOff_id) {
+    // try {
+    //   $this->hoadon->find($hoaDon_id)->delete();
+    //   return response()->json([
+    //     'code' => 200,
+    //     'message' => 'success'
+    //   ], 200);
+
+    // } catch (\Exception $exception) {
+    //   Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+    //   return response()->json([
+    //     'code' => 500,
+    //     'message' => 'fail'
+    //   ], 500);
+    // }
+
+  }
 }

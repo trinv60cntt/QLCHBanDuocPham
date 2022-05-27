@@ -48,7 +48,7 @@
                         <label>
                             <input type="checkbox" value="" class="checkbox-wrapper">
                         </label>
-                        Module {{ $quyenChaItem->tenQuyen }}
+                        Module {{ $quyenChaItem->moTa }}
                     </div>
                     <div class="bg-white shadow-xl text-black flex justify-between">
                     @foreach($quyenChaItem->quyenChildren as $quyenChildrenItem)
@@ -56,7 +56,7 @@
                             <label>
                                 <input type="checkbox" class="checkbox-children" name="quyen_id[]" value="{{ $quyenChildrenItem->quyen_id }}">
                             </label>
-                            {{ $quyenChildrenItem->tenQuyen }}
+                            {{ $quyenChildrenItem->moTa }}
                         </div>
                     @endforeach
                     </div>

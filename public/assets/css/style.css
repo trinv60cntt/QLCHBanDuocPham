@@ -147,3 +147,8 @@ label {
 .btn-reply-comment {
   max-width: 138px;
 }
+
+.btn-statistical.disabled,
+.btn-quickly-statistical.disabled {
+  background: #333;
+}

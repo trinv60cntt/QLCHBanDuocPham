@@ -119,12 +119,13 @@ class MenuController extends Controller
     $binhLuan->ten = $comment_name;
     $binhLuan->sanPham_id = $sanPham_id;
     $binhLuan->ngay = $now;
+    $binhLuan->tinhTrang = 0;
     $binhLuan->save();
   }
 
   public function loadComment(Request $request) {
     $sanPham_id = $request->sanPham_id;
-    $binhluan = BinhLuan::where('sanPham_id', $sanPham_id)->where('binhLuanCha_id', '=', 0)->get();
+    $binhluan = BinhLuan::where('sanPham_id', $sanPham_id)->where('binhLuanCha_id', '=', 0)->where('tinhTrang', 1)->get();
     $comment_rep = BinhLuan::with('sanpham')->where('binhLuanCha_id', '>', 0)->orderBy('binhLuan_id', 'DESC')->paginate(10);
 
     $output = '';

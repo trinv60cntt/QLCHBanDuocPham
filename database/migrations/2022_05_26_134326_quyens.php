@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Hoadonoff extends Migration
+class Quyens extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class Hoadonoff extends Migration
      */
     public function up()
     {
-        Schema::create('hoadonoff', function (Blueprint $table) {
-            $table->bigIncrements('hoaDonOff_id');
-            $table->string('tongTien');
-            $table->date('ngayLap');
+        Schema::create('quyens', function (Blueprint $table) {
+			$table->bigIncrements('quyen_id');
+			$table->string('tenQuyen');
+			$table->string('moTa');
+            $table->integer('parent_id')->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +29,6 @@ class Hoadonoff extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hoadonoff');
+        Schema::dropIfExists('quyens');
     }
 }

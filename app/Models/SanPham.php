@@ -21,5 +21,9 @@ class SanPham extends Model
     public function nhasanxuat() {
         return $this->belongsTo(NhaSanXuat::class, 'NSX_id');
     }
-    
+
+    public function binhluan() {
+        return $this->hasMany(BinhLuan::class, 'binhLuan_id');
+    }
+
 }

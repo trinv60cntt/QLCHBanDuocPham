@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Chitiethdoff extends Migration
+class Hoadonoff extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class Chitiethdoff extends Migration
      */
     public function up()
     {
-        Schema::create('chitiethdoff', function (Blueprint $table) {
-            $table->bigIncrements('chiTietHDOff_id');
-            $table->integer('hoaDon_id');
-            $table->integer('sanPham_id');
-            $table->integer('soLuong');
+        Schema::create('hoadonoff', function (Blueprint $table) {
+            $table->bigIncrements('hoaDonOff_id');
+            $table->string('tongTien');
+            $table->date('ngayLap');
+            $table->integer('nhanvien_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +30,6 @@ class Chitiethdoff extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chitiethdoff');
+        Schema::dropIfExists('hoadonoff');
     }
 }

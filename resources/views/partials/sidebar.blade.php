@@ -27,6 +27,7 @@
           <div class="sidebar-heading">
             CỬA HÀNG
           </div>
+            @can('nhasanxuat-list')
             <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -36,6 +37,8 @@
                     <span class="ml-4">Nhà sản xuất</span>
                 </a>
             </li>
+            @endcan
+            @can('danhmuc-list')
             <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -50,6 +53,8 @@
                   <span class="ml-4">Danh mục sản phẩm</span>
               </a>
           </li>
+          @endcan
+          @can('sanpham-list')
           <li class="relative px-6 py-3">
           <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -59,6 +64,8 @@
                 <span class="ml-4">Sản phẩm</span>
             </a>
           </li>
+          @endcan
+          @can('hoadononl-list')
           <li class="relative px-6 py-3">
           <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -68,15 +75,19 @@
                 <span class="ml-4">Đơn đặt hàng trực tuyến</span>
             </a>
           </li>
+          @endcan
+          @can('hoadonoff-list')
           <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
               <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                  href="{{ route('hoadonoffline.create') }}">
+                  href="{{ route('hoadonoffline.index') }}">
                   <i class="fas fa-solid fa-file-invoice-dollar"></i>
                   <span class="ml-4">Đơn đặt hàng tại quầy</span>
               </a>
             </li>
+          @endcan
+          @can('binhluan-list')
           <hr class="sidebar-divider">
           <div class="sidebar-heading">
             KHÁCH HÀNG
@@ -90,6 +101,8 @@
                   <span class="ml-4">Bình luận</span>
               </a>
           </li>
+          @endcan
+          @can('tktheosanpham-index')
           <hr class="sidebar-divider">
           <div class="sidebar-heading">
             THỐNG KÊ
@@ -103,7 +116,8 @@
                   <span class="ml-4">Theo sản phẩm</span>
               </a>
           </li>
-
+          @endcan
+          @can('tktheohinhthuckinhdoanh-index')
           <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
@@ -113,7 +127,8 @@
                   <span class="ml-4">Theo hình thức KD</span>
               </a>
           </li>
-
+          @endcan
+          @can('tktongdoanhthu-index')
           <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
@@ -123,6 +138,8 @@
                   <span class="ml-4">Tổng doanh thu</span>
               </a>
           </li>
+          @endcan
+          @can('khachhang-list')
           <hr class="sidebar-divider">
           <div class="sidebar-heading">
             NGƯỜI DÙNG
@@ -136,7 +153,8 @@
                 <span class="ml-4">Danh sách khách hàng</span>
             </a>
           </li>
-          
+          @endcan
+          @can('nhanvien-list')
           <li class="relative px-6 py-3">
           <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
             aria-hidden="true"></span>
@@ -146,7 +164,8 @@
                 <span class="ml-4">Danh sách nhân viên</span>
             </a>
           </li>
-
+          @endcan
+          @can('nhomnhanvien-list')
           <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
@@ -156,17 +175,18 @@
                   <span class="ml-4">Nhóm nhân viên</span>
               </a>
           </li>
-
+          @endcan
+          @can('quyen-list')
           <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
               <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                  href="{{ route('quyens.create') }}">
+                  href="{{ route('quyens.index') }}">
                   <i class="fas fa-solid fa-users"></i>
                   <span class="ml-4">Quyền</span>
               </a>
           </li>
-
+          @endcan
 
             {{-- <li class="relative px-6 py-3">
         <a
@@ -403,7 +423,7 @@
     </li> --}}
             <li class="relative px-6 py-3">
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="{{ route('lops.index') }}">
+                    href="{{ route('danhmucs.index') }}">
                     <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path

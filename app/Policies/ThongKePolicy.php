@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\HoaDon;
 use App\Models\NhanVien;
+use App\Models\ThongKe;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class HoaDonPolicy
+class ThongKePolicy
 {
     use HandlesAuthorization;
 
@@ -16,25 +16,37 @@ class HoaDonPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $user)
+    public function viewAny(NhanVien $nhanVien)
     {
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\NhanVien  $nhanVien
-     * @param  \App\Models\HoaDon  $hoaDon
+     * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $user)
+    public function view(NhanVien $nhanVien, ThongKe $thongKe)
     {
-        return $user->checkQuyenAccess('hoadononl_list');
+        //
     }
 
-    public function details(NhanVien $user)
+    public function theoSanPham(NhanVien $user)
     {
-        return $user->checkQuyenAccess('hoadononl_details');
+        return $user->checkQuyenAccess('tktheosanpham_index');
+    }
+
+    
+    public function theoHinhThucKD(NhanVien $user)
+    {
+        return $user->checkQuyenAccess('tktheohinhthuckinhdoanh_index');
+    }
+
+    public function doanhThu(NhanVien $user)
+    {
+        return $user->checkQuyenAccess('tktongdoanhthu_index');
     }
 
     /**
@@ -43,43 +55,43 @@ class HoaDonPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $user)
+    public function create(NhanVien $nhanVien)
     {
-
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\NhanVien  $nhanVien
-     * @param  \App\Models\HoaDon  $hoaDon
+     * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $user)
+    public function update(NhanVien $nhanVien, ThongKe $thongKe)
     {
-        return $user->checkQuyenAccess('hoadononl_edit');
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\NhanVien  $nhanVien
-     * @param  \App\Models\HoaDon  $hoaDon
+     * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $user)
+    public function delete(NhanVien $nhanVien, ThongKe $thongKe)
     {
-        return $user->checkQuyenAccess('hoadononl_delete');
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\NhanVien  $nhanVien
-     * @param  \App\Models\HoaDon  $hoaDon
+     * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $user)
+    public function restore(NhanVien $nhanVien, ThongKe $thongKe)
     {
         //
     }
@@ -88,10 +100,10 @@ class HoaDonPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\NhanVien  $nhanVien
-     * @param  \App\Models\HoaDon  $hoaDon
+     * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $user)
+    public function forceDelete(NhanVien $nhanVien, ThongKe $thongKe)
     {
         //
     }
