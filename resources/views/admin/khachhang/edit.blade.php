@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="h-full pb-16 overflow-y-auto">
+    <main class="h-full pb-16">
         <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto py-4">
           <form action="{{ route('khachhangs.update', ['khachhang_id' => $khachhang->khachhang_id]) }}" method="post" enctype="multipart/form-data">
@@ -42,11 +42,6 @@
           <div class="mb-6 w-40p">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
             <input name="email" value="{{ $khachhang->email }}" placeholder="Nhập email" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
-          </div>
-
-          <div class="mb-6 w-40p">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mật khẩu</label>
-            <input name="password" value="{{ $khachhang->password }}" placeholder="Nhập mật khẩu" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="password">
           </div>
 
           <div class="mb-6 w-40p">

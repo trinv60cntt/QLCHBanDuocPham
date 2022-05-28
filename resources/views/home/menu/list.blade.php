@@ -84,7 +84,7 @@
             <div class="col w-1/4 product-item">
               <div class="border-product mr-5 mb-5 shadow-lg">
                 <div class="product-image">
-                  <a href="{{ route('menus.details', ['sanPham_id' => $cate->sanPham_id]) }}"><img src="storage/sanpham/1/{{ $cate->hinhAnh }}" alt="ion muoi"></a>
+                  <a href="{{ route('menus.details', ['sanPham_id' => $cate->sanPham_id]) }}"><img src="storage/sanpham/{{ $cate->hinhAnh }}" alt="ion muoi"></a>
                 </div>
                 <div class="product-info text-left">
                     <h3 class="truncate2 font-bold text-lg mb-5">{{  $cate->tenSP  }}</h3>

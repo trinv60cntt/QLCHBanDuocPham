@@ -89,7 +89,7 @@ class AdminHoaDonOffLineController extends Controller
         <input type="hidden" name="sanPhamId[]" value="'.$sp->sanPham_id.'" />
         <td>
           <div class="flex justify-center">
-            <img height="100px" width="100px" src="storage/sanpham/1/'.$sp->hinhAnh.'" alt="San pham" class="sanpham-img mx-auto">
+            <img height="100px" width="100px" src="storage/sanpham/'.$sp->hinhAnh.'" alt="San pham" class="sanpham-img mx-auto">
           </div>
         </td>
         <td class="p-4 px-6 text-center">

@@ -152,3 +152,7 @@ label {
 .btn-quickly-statistical.disabled {
   background: #333;
 }
+
+.details-table {
+  max-width: 800px;
+}

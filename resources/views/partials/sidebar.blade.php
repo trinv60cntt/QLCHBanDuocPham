@@ -183,7 +183,7 @@
               <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ route('quyens.index') }}">
                   <i class="fas fa-solid fa-users"></i>
-                  <span class="ml-4">Quyền</span>
+                  <span class="ml-4">Danh sách quyền</span>
               </a>
           </li>
           @endcan

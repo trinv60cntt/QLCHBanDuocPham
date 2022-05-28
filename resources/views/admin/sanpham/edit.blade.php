@@ -41,7 +41,7 @@
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ảnh sản phẩm</label>
               <input name="hinhAnh" type="file" class="w-full p-0 border-0 text-sm text-gray-700 dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:outline-none focus:shadow-outline-purple form-input">
               <div class="mt-2">
-                <img src="storage/sanpham/1/{{ $sanpham->hinhAnh }}" alt="San pham" >
+                <img src="storage/sanpham/{{ $sanpham->hinhAnh }}" alt="San pham" >
               </div>
             </div>  
 

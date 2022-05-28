@@ -28,6 +28,13 @@
     @yield('css')
   </head>
   <body>
+    @php
+    $user = auth()->user();
+    // dd($user);
+      if($user == null) {
+        return view('login');
+      }
+    @endphp
     <div
       class="flex h-screen bg-gray-50 dark:bg-gray-900"
       :class="{ 'overflow-hidden': isSideMenuOpen }"

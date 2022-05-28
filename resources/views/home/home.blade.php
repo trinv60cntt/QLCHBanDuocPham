@@ -79,7 +79,7 @@
               @foreach ($sanPhamCovid as $sanPhamCovidItem)
                   <div class="border-product mr-5 mb-5 shadow-lg">
                       <div class="product-image">
-                        <a href="{{ route('menus.details', ['sanPham_id' => $sanPhamCovidItem->sanPham_id]) }}"><img src="storage/sanpham/1/{{ $sanPhamCovidItem->hinhAnh }}" alt="ion muoi"></a>
+                        <a href="{{ route('menus.details', ['sanPham_id' => $sanPhamCovidItem->sanPham_id]) }}"><img src="storage/sanpham/{{ $sanPhamCovidItem->hinhAnh }}" alt="ion muoi"></a>
                       </div>
                       <div class="product-info text-left">
                           <h3 class="truncate2 font-bold text-lg mb-5">{{ $sanPhamCovidItem->tenSP }}</h3>
@@ -102,7 +102,7 @@
                 @foreach ($sanphams as $sanpham)
                     <div class="border-product mr-5 mb-5 shadow-lg">
                         <div class="product-image">
-                            <a href="{{ route('menus.details', ['sanPham_id' => $sanpham->sanPham_id]) }}"><img src="storage/sanpham/1/{{ $sanpham->hinhAnh }}" alt="ion muoi"></a>
+                            <a href="{{ route('menus.details', ['sanPham_id' => $sanpham->sanPham_id]) }}"><img src="storage/sanpham/{{ $sanpham->hinhAnh }}" alt="ion muoi"></a>
                         </div>
                         <div class="product-info text-left">
                             <h3 class="truncate2 font-bold text-lg mb-5">{{ $sanpham->tenSP }}</h3>

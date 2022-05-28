@@ -14,8 +14,8 @@ use App\Http\Controllers;
 |
 */
 // Login - Logout
-Route::get('/admin', 'App\Http\Controllers\AdminNhanVienController@loginAdmin');
-Route::post('/admin', 'App\Http\Controllers\AdminNhanVienController@postLoginAdmin');
+Route::get('/login', 'App\Http\Controllers\AdminNhanVienController@loginAdmin');
+Route::post('/login', 'App\Http\Controllers\AdminNhanVienController@postLoginAdmin');
 Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
 // Route::get('/home', 'App\Http\Controllers\HomeController@index');
@@ -299,6 +299,12 @@ Route::prefix('admin')->group(function () {
       'as' => 'khachhangs.search',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@search'
     ]);
+
+    Route::get('/details/{khachhang_id}', [
+      'as' => 'khachhangs.details',
+      'uses' => 'App\Http\Controllers\AdminKhachHangController@details',
+      // 'middleware' => 'can:hoadononl-details'
+    ]);
   });
 
   Route::prefix('nhanviens')->group(function () {
@@ -340,6 +346,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/tim-kiem', [
       'as' => 'nhanviens.search',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@search'
+    ]);
+
+    Route::get('/details/{nhanvien_id}', [
+      'as' => 'nhanviens.details',
+      'uses' => 'App\Http\Controllers\AdminNhanVienController@details',
+      // 'middleware' => 'can:hoadononl-details'
     ]);
   });
 

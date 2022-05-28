@@ -170,5 +170,8 @@ class AdminNhanVienController extends Controller
     // dd($request->all());
   }
 
-
+  public function details($nhanvien_id) {
+    $nhanvien = $this->nhanvien->find($nhanvien_id);
+    return view('admin.nhanvien.details', compact('nhanvien'));
+  }
 }

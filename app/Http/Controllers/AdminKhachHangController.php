@@ -127,4 +127,9 @@ class AdminKhachHangController extends Controller
 
     return view('admin.khachhang.search', compact('khachhangs', 'search_customer'));
   }
+
+  public function details($khachhang_id) {
+    $khachhang = $this->khachhang->find($khachhang_id);
+    return view('admin.khachhang.details', compact('khachhang'));
+  }
 }
