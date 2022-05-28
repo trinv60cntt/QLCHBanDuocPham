@@ -35,7 +35,7 @@
               <li class="flex">
                 <a
                   class="inline-flex items-center w-full py-1 text-sm font-semibold transition-colors duration-150"
-                  href="#"
+                  href="{{ route('khachhang.index') }}"
                 >
                   <svg
                     class="w-4 h-4 mr-3"

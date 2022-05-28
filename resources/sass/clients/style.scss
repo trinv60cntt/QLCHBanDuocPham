@@ -185,3 +185,8 @@
 //   border: 1px solid transparent;
 //   border-radius: 0.35rem;
 // }
+
+.form-input[readonly] {
+  background-color: #eaecf4;
+  opacity: 1;
+}

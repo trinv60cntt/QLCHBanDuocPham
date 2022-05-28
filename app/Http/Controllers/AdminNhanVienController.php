@@ -94,7 +94,7 @@ class AdminNhanVienController extends Controller
         'ngaySinh' => $request->ngaySinh,
         'diaChi' => $request->diaChi,
         'email' => $request->email,
-        'password' => Hash::make($request->password),
+        // 'password' => Hash::make($request->password),
         'sdt' => $request->sdt,
         'vaiTro_id' => $request->vaiTro_id,
       ];
@@ -106,7 +106,7 @@ class AdminNhanVienController extends Controller
       }
       $dataUploadFeatureImage = $this->storageTraitUpload($request, 'hinhAnh', 'nhanvien');
       if (!empty($dataUploadFeatureImage)) {
-        $dataProductCreate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
+        $dataProductUpdate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
       }
       $this->nhanvien->find($nhanvien_id)->update($dataProductUpdate);
       $nhanvien = $this->nhanvien->find($nhanvien_id);

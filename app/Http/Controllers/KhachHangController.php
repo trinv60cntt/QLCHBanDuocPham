@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\HoaDon;
 use App\Models\ChiTietHD;
+use App\Models\KhachHang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -14,10 +15,61 @@ class KhachHangController extends Controller
 
   public function __construct(
     HoaDon $hoadon,
-    ChiTietHD $chitiethd
+    ChiTietHD $chitiethd,
+    KhachHang $khachhang
   ) {
     $this->hoadon = $hoadon;
     $this->chitiethd = $chitiethd;
+    $this->khachhang = $khachhang;
+  }
+
+  public function index()
+  {
+    // dd(Session::get('khachhang_id'));
+    $khachhang_id = Session::get('khachhang_id');
+    $khachhang = $this->khachhang->find($khachhang_id);
+    return view('home.khachhang.index', compact('khachhang'));
+  }
+
+  public function edit() {
+    $khachhang_id = Session::get('khachhang_id');
+    $khachhang = $this->khachhang->find($khachhang_id);
+
+    return view('home.khachhang.edit', compact('khachhang'));
+  }
+
+  public function update(Request $request) {
+    $khachhang_id = Session::get('khachhang_id');
+    try {
+      DB::beginTransaction();
+      $dataProductUpdate = [
+        'hotenNV' => $request->hotenNV,
+        'ngaySinh' => $request->ngaySinh,
+        'diaChi' => $request->diaChi,
+        'email' => $request->email,
+        // 'password' => Hash::make($request->password),
+        'sdt' => $request->sdt,
+        // 'vaiTro_id' => $request->vaiTro_id,
+      ];
+      if ($request->gioiTinh == 1) {
+        $dataProductUpdate['gioiTinh'] = 1;
+      }
+      else {
+        $dataProductUpdate['gioiTinh'] = 0;
+      }
+      $dataUploadFeatureImage = $this->storageTraitUpload($request, 'hinhAnh', 'khachhang');
+      if (!empty($dataUploadFeatureImage)) {
+        $dataProductUpdate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
+      }
+      $this->khachhang->find($khachhang_id)->update($dataProductUpdate);
+      $khachhang = $this->khachhang->find($khachhang_id);
+
+      DB::commit();
+      return redirect()->route('khachhang.index');
+    } catch (\Exception $exception) {
+      DB::rollBack();
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+    }
   }
 
   public function lichsu() {

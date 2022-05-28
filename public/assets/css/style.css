@@ -156,3 +156,11 @@ label {
 .details-table {
   max-width: 800px;
 }
+
+.w-70p {
+  width: 70%;
+}
+
+.w-86p {
+  width: 86%;
+}
