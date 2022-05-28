@@ -115,59 +115,58 @@
             </ul>
         </div>
       </div>
-      <div class="col w-4p5">
-        <table class="details details-table mx-auto mt-2" cellpadding="0" cellspacing="0">
-          <tbody><tr>
-              <td>
-                  <table class="m-14 mt-5" cellpadding="2" cellspacing="10">
-                      <tbody><tr>
-                          <td colspan="3">
-                              <h3 class="text-center mb-4"><b>THÔNG TIN CHI TIẾT</b></h3>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td rowspan="8"><img src="storage/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
-                      </tr>
-                      <tr>
-                          <td>Tên khách hàng:</td>
-                          <td>{{ $khachhang->hoKH }} {{ $khachhang->tenKH }}</td>
-                      </tr>
-                      <tr>
-                          <td>Giới tính:</td>
-                          <td>{{ $khachhang->gioiTinh == 1 ? 'Nam' : 'Nữ' }}</td>
-                      </tr>
-                      <tr>
-                          <td>Ngày sinh:</td>
-                          <td>{{ str_replace('-', '/', date('d-m-Y', strtotime($khachhang->ngaySinh))) }}</td>
-                      </tr>
-                      <tr>
-                          <td>Địa chỉ:</td>
-                          <td>{{ $khachhang->diaChi }}</td>
-                      </tr>
-                      <tr>
-                          <td>Email:</td>
-                          <td>{{ $khachhang->email }}</td>
-                      </tr>
-                      <tr>
-                          <td>Số điện thoại:</td>
-                          <td>{{ $khachhang->sdt }}</td>
-                      </tr>
-
-                  </tbody></table>
-              </td>
-          </tr>
-      </tbody></table>
-      <div class="mt-6 flex justify-center items-center">
-        <a href="{{ route('khachhang.edit') }}"
-        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-        Cập nhật
-        </a>
-        &nbsp;|&nbsp;
-        <button id="go-back"
+      <div class="col w-4p5 flex justify-center">
+        <div class="details">
+          <h2 class="font-bold text-3xl text-center mb-5">ĐỔI MẬT KHẨU</h2>
+          <div>
+            <form action="{{ route('khachhang.luuMatKhau') }}" method="post" enctype="multipart/form-data">
+              @csrf
+            <div class="flex max-w-lg mx-auto items-center mb-3">
+              <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mật khẩu cũ</label>
+              <input name="oldPass" placeholder="Nhập mật khẩu cũ"
+              class="@error('password') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+              value="{{ old('oldPass') }}"
+              type="password">
+            </div>
+            @error('oldPass')
+            <p class="text-red-500 text-right mb-2 w-68p ml-1">{{ $message }}</p>
+            @enderror
+            <div class="flex max-w-lg mx-auto items-center mb-3">
+              <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mật khẩu mới</label>
+              <input name="newPass" placeholder="Nhập mật khẩu mới"
+              class="@error('password') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+              value="{{ old('newPass') }}"
+              type="password">
+            </div>
+            @error('newPass')
+            <p class="text-red-500 text-right mb-2 w-84p ml-1">{{ $message }}</p>
+            @enderror
+            <div class="max-w-lg mb-3">
+              <i class="text-sm">(*)Mật khẩu phải chứa ít nhất 8 ký tự, ít nhất 1 số, ít nhất 1 chữ cái viết hoa và ít nhất 1 chữ cái thường</i>
+            </div>
+            <div class="flex max-w-lg mx-auto items-center mb-3">
+              <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nhập lại mật khẩu</label>
+              <input name="againPass" placeholder="Nhập lại mật khẩu"
+              class="@error('password') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+              value="{{ old('againPass') }}"
+              type="password">
+            </div>
+            @error('againPass')
+            <p class="text-red-500 text-right mb-2 w-3/4 ml-1">{{ $message }}</p>
+            @enderror
+          </div>
+          <div class="mt-10 flex justify-center items-center">
+            <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+              Lưu
+            </button>
+            &nbsp;|&nbsp;
+            <button id="go-back"
             class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
             Quay lại
-        </button>
-    </div>
+            </button>
+          </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

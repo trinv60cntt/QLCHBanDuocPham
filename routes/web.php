@@ -671,12 +671,22 @@ Route::prefix('khachhang')->group(function () {
   Route::get('/edit', [
     'as' => 'khachhang.edit',
     'uses' => 'App\Http\Controllers\KhachHangController@edit',
-    'middleware' => 'CheckLoggedOut'
   ]);
 
   Route::post('/update', [
     'as' => 'khachhang.update',
     'uses' => 'App\Http\Controllers\KhachHangController@update'
+  ]);
+
+  Route::get('/doimatkhau', [
+    'as' => 'khachhang.doimatkhau',
+    'uses' => 'App\Http\Controllers\KhachHangController@doimatkhau',
+  ]);
+
+
+  Route::post('/luumatkhau', [
+    'as' => 'khachhang.luuMatKhau',
+    'uses' => 'App\Http\Controllers\KhachHangController@luuMatKhau'
   ]);
 
 });

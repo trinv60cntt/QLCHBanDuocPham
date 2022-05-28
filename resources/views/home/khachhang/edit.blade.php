@@ -69,6 +69,29 @@
               </li>
               <li class="flex">
                 <a
+                  class="inline-flex items-center w-full py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  href="{{ route('khachhang.doimatkhau') }}"
+                >
+                  <svg
+                    class="w-4 h-4 mr-3"
+                    aria-hidden="true"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                    ></path>
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  <span>Đổi mật khẩu</span>
+                </a>
+              </li>
+              <li class="flex">
+                <a
                   class="inline-flex items-center w-full py-1 text-sm font-semibold"
                   href="{{ URL::to('/logout-checkout') }}"
                 >
@@ -97,7 +120,7 @@
           <h2 class="font-bold text-3xl text-center mb-5">CẬP NHẬT THÔNG TIN CÁ NHÂN</h2>
           <hr>
           <div>
-            <form action="{{ route('canhans.update') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('khachhang.update') }}" method="post" enctype="multipart/form-data">
               @csrf
             <div class="flex max-w-lg mx-auto items-center mb-3">
               <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ khách hàng</label>
@@ -143,12 +166,12 @@
             <input name="sdt" value="{{ $khachhang->sdt }}" placeholder="Nhập số điện thoại" class="w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
             </div>
 
-            <div class="flex max-w-lg mx-auto items-center mb-3">
+            <div class="flex max-w-lg mx-auto items-center mb-3 flex-wrap justify-center">
               <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Ảnh khách hàng</label>
               <input name="hinhAnh" type="file" class="w-2/3 p-0 border-0 text-sm text-gray-700 dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:outline-none focus:shadow-outline-purple mt-2">
-              {{-- <div class="mt-2">
+              <div class="mt-2">
                 <img src="storage/khachhang/{{ $khachhang->hinhAnh }}" alt="San pham" >
-              </div> --}}
+              </div>
             </div>
 
           </div>

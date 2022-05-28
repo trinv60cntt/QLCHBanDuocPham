@@ -9,9 +9,11 @@ use App\Models\ChiTietHD;
 use App\Models\KhachHang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Traits\StorageImageTrait;
 
 class KhachHangController extends Controller
 {
+  use StorageImageTrait;
 
   public function __construct(
     HoaDon $hoadon,
@@ -43,13 +45,12 @@ class KhachHangController extends Controller
     try {
       DB::beginTransaction();
       $dataProductUpdate = [
-        'hotenNV' => $request->hotenNV,
+        'hoKH' => $request->hoKH,
+        'tenKH' => $request->tenKH,
         'ngaySinh' => $request->ngaySinh,
         'diaChi' => $request->diaChi,
         'email' => $request->email,
-        // 'password' => Hash::make($request->password),
         'sdt' => $request->sdt,
-        // 'vaiTro_id' => $request->vaiTro_id,
       ];
       if ($request->gioiTinh == 1) {
         $dataProductUpdate['gioiTinh'] = 1;
@@ -60,11 +61,14 @@ class KhachHangController extends Controller
       $dataUploadFeatureImage = $this->storageTraitUpload($request, 'hinhAnh', 'khachhang');
       if (!empty($dataUploadFeatureImage)) {
         $dataProductUpdate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
+        Session::put('hinhAnh', $dataUploadFeatureImage['file_name']);
       }
       $this->khachhang->find($khachhang_id)->update($dataProductUpdate);
       $khachhang = $this->khachhang->find($khachhang_id);
 
       DB::commit();
+      Session::put('hoKH', $request->hoKH);
+      Session::put('tenKH', $request->tenKH);
       return redirect()->route('khachhang.index');
     } catch (\Exception $exception) {
       DB::rollBack();
@@ -124,5 +128,38 @@ class KhachHangController extends Controller
         ], 500);
       }
     }
+  }
+
+  
+  public function doimatkhau() {
+    return view('home.khachhang.doimatkhau');
+  }
+
+  public function luuMatKhau(Request $request) {
+    $khachhang_id = Session::get('khachhang_id');
+    $khachhang_password = Session::get('password');
+
+    $oldPass = $request->oldPass;
+    $newPass = $request->newPass;
+    $againPass = $request->againPass;
+
+    if (md5($oldPass) !== $khachhang_password) {
+      return back()->withInput()->withErrors(['oldPass' => 'Mật khẩu cũ không đúng']);
+    }
+
+    if (md5($newPass) == $khachhang_password) {
+      return back()->withInput()->withErrors(['newPass' => 'Mật khẩu mới phải khác mật khẩu cũ']);
+    }
+
+    if ($newPass != $againPass) {
+      return back()->withInput()->withErrors(['againPass' => 'Mật khẩu nhập lại không khớp']);
+    }
+
+    $khachhang = $this->khachhang->find($khachhang_id);
+    $khachhang->update([
+      'password' => md5($request->newPass),
+    ]);
+
+    return redirect()->route('khachhang.index');
   }
 }

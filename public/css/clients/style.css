@@ -150,3 +150,16 @@
 .avatar-time {
   color: #718198;
 }
+
+.form-input[readonly] {
+  background-color: #eaecf4;
+  opacity: 1;
+}
+
+.w-68p {
+  width: 68%;
+}
+
+.w-84p {
+  width: 84%;
+}

@@ -96,6 +96,7 @@ class CheckoutController extends Controller
       Session::put('email', $result->email);
       Session::put('sdt', $result->sdt);
       Session::put('hinhAnh', $result->hinhAnh);
+      Session::put('password', $result->password);
       return Redirect::to('/home');
     } else {
       return Redirect::to('/login-checkout');
