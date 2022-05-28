@@ -20,6 +20,7 @@ Route::group(['prefix' => 'login', 'middleware' => 'CheckLoggedIn'], function() 
 });
 Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
+
 // Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
 // BE
@@ -638,6 +639,15 @@ Route::get('/update/{rowId}', 'App\Http\Controllers\CartController@update');
 // Checkout
 Route::get('/login-checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
 Route::get('/logout-checkout', 'App\Http\Controllers\CheckoutController@logout_checkout');
+
+//Login facebook
+Route::get('/login-facebook','App\Http\Controllers\CheckoutController@login_facebook');
+Route::get('/login-checkout/callback','App\Http\Controllers\CheckoutController@callback_facebook');
+
+//Login  google
+Route::get('/login-google','App\Http\Controllers\CheckoutController@login_google');
+Route::get('/google/callback','App\Http\Controllers\CheckoutController@callback_google');
+
 Route::get('/register-checkout', 'App\Http\Controllers\CheckoutController@register_checkout');
 Route::post('/order-place', 'App\Http\Controllers\CheckoutController@order_place');
 Route::post('/add-customer', 'App\Http\Controllers\CheckoutController@add_customer');

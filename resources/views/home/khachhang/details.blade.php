@@ -14,7 +14,7 @@
   ?>
   <div class="container p-8 mx-auto">
     <div class="row flex">
-      <div class="col w-1p5 pr-5">
+      <div class="col w-1p5">
         <div class="bg-white shadow-lg p-2">
           <img
           class=""

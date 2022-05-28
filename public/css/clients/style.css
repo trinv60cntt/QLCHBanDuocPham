@@ -163,3 +163,17 @@
 .w-84p {
   width: 84%;
 }
+
+.SeparatorRow-horizontalLine {
+  border-top: 1px solid #edeae9;
+  flex: 1 1 auto;
+  margin-top: 8px;
+  min-width: 1px;
+  padding-top: 8px;
+}
+
+.LoginDefaultView-separatorRowLabel {
+  color: #cfcbcb !important;
+  font-size: 16px;
+  margin: 0 8px;
+}

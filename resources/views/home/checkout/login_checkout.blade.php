@@ -13,8 +13,16 @@
                     <h1 class="mb-3 text-3xl text-center font-semibold text-gray-700 dark:text-gray-200">
                       Đăng nhập
                     </h1>
+                    <a href="{{ URL::to('/login-facebook') }}" class="flex justify-center items-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-blue-700 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+                        <i class="fa-brands fa-facebook-square text-xl mr-2"></i> <span class="mb-1">Đăng nhập bằng Facebook</span>
+                    </a>
+
+                    <a href="{{ URL::to('/login-google') }}" class="flex justify-center items-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-600 focus:outline-none focus:shadow-outline-purple">
+                        <i class="fa-brands fa-google text-xl mr-2"></i> <span class="mb-1">Đăng nhập bằng Google</span>
+                    </a>
+                    <span class="mt-2 flex text-center items-center"><span class="SeparatorRow-horizontalLine"></span><span class="SeparatorRow-label LoginDefaultView-separatorRowLabel">or</span><span class="SeparatorRow-horizontalLine"></span></span>
                     @include('errors.note')
-                    <label class="block text-sm">
+                    <label class="block text-sm mt-2">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>
                         <input type="text" name="email_account" value="{{ old('email') }}"
                             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"

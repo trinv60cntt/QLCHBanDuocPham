@@ -9,7 +9,9 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Carbon\Carbon;
-
+use App\Models\Social;
+use App\Models\KhachHang;
+use Laravel\Socialite\Facades\Socialite;
 
 session_start();
 
@@ -39,7 +41,6 @@ class CheckoutController extends Controller
 
     $customer_id = DB::table('khachhang')->insertGetId($data);
 
-    // Session::put('khachhang_id', $request->khachhang_id);
     Session::put('khachhang_id', $customer_id);
     Session::put('tenKH', $request->tenKH);
 
@@ -107,5 +108,94 @@ class CheckoutController extends Controller
     return view('home.announceGioHang');
   }
 
+  public function login_facebook(){
+    return Socialite::driver('facebook')->redirect();
+  }
 
+  public function callback_facebook(){
+    $provider = Socialite::driver('facebook')->user();
+    $account = Social::where('provider','facebook')->where('provider_user_id',$provider->getId())->first();
+    if($account){
+        $account_name = KhachHang::where('khachhang_id',$account->khachhang_id)->first();
+        Session::put('tenKH', $account_name->tenKH);
+        Session::put('khachhang_id', $account_name->khachhang_id);
+        Session::put('hinhAnh', $account_name->hinhAnh);
+    }else{
+        $social = new Social([
+            'provider_user_id' => $provider->getId(),
+            'provider' => 'facebook'
+        ]);
+
+        $orang = KhachHang::where('email',$provider->getEmail())->first();
+
+        if(!$orang){
+            $orang = KhachHang::create([
+                'hoKH' => '',
+                'tenKH' => $provider->getName(),
+                'gioiTinh' => 1,
+                'ngaySinh' => '2000-01-01',
+                'diaChi' => '',
+                'email' => $provider->getEmail(),
+                'password' => '',
+                'sdt' => '',
+                'hinhAnh' => 'avatar.jpg',
+            ]);
+        }
+        $social->login()->associate($orang);
+        $social->save();
+
+        $account_name = KhachHang::where('khachhang_id',$account->khachhang_id)->first();
+
+        Session::put('tenKH', $account_name->tenKH);
+        Session::put('khachhang_id', $account_name->khachhang_id);
+        Session::put('hinhAnh', $account_name->hinhAnh);
+      }
+      return redirect('/home')->with('message', 'Đăng nhập Facebook thành công');
+  }
+
+  public function login_google(){
+    return Socialite::driver('google')->redirect();
+  }
+  public function callback_google(){
+    $provider = Socialite::driver('google')->user();
+    $account = Social::where('provider','google')->where('provider_user_id',$provider->getId())->first();
+    if($account){
+        $account_name = KhachHang::where('khachhang_id',$account->khachhang_id)->first();
+        Session::put('hoKH', $account_name->hoKH);
+        Session::put('tenKH', $account_name->tenKH);
+        Session::put('khachhang_id', $account_name->khachhang_id);
+        Session::put('hinhAnh', $account_name->hinhAnh);
+    }else{
+        $social = new Social([
+            'provider_user_id' => $provider->getId(),
+            'provider' => 'google'
+        ]);
+
+        $orang = KhachHang::where('email',$provider->getEmail())->first();
+
+        if(!$orang){
+            $orang = KhachHang::create([
+                'hoKH' => '',
+                'tenKH' => $provider->getName(),
+                'gioiTinh' => 1,
+                'ngaySinh' => '2000-01-01',
+                'diaChi' => '',
+                'email' => $provider->getEmail(),
+                'password' => '',
+                'sdt' => '',
+                'hinhAnh' => 'avatar.jpg',
+            ]);
+        }
+        $social->login()->associate($orang);
+        $social->save();
+
+        $account = Social::where('provider','google')->where('provider_user_id',$provider->getId())->first();
+        $account_name = KhachHang::where('khachhang_id',$account->khachhang_id)->first();
+
+        Session::put('tenKH', $account_name->tenKH);
+        Session::put('khachhang_id', $account_name->khachhang_id);
+        Session::put('hinhAnh', $account_name->hinhAnh);
+      }
+      return redirect('/home')->with('message', 'Đăng nhập Google thành công');
+  }
 }

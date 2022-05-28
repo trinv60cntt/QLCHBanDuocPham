@@ -61,7 +61,14 @@
 }
 
 .fa-users-gear,
-.fa-users {
+.fa-users,
+.fa-user-slash
+{
+  font-size: 15px;
+  margin-left: 2px;
+}
+
+.fa-user-tag {
   font-size: 15px;
   margin-left: 2px;
 }

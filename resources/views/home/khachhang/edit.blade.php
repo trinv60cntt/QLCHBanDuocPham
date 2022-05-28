@@ -23,7 +23,7 @@
   ?>
   <div class="container p-8 mx-auto">
     <div class="row flex">
-      <div class="col w-1p5 pr-5">
+      <div class="col w-1p5">
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
@@ -124,7 +124,7 @@
               @csrf
             <div class="flex max-w-lg mx-auto items-center mb-3">
               <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ khách hàng</label>
-              <input name="hoKH" placeholder="Nhập mật khẩu cũ"
+              <input name="hoKH" placeholder="Nhập họ"
               class="@error('hoKH') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               value="{{ $khachhang->hoKH }}"
               type="text">
@@ -132,7 +132,7 @@
 
             <div class="flex max-w-lg mx-auto items-center mb-3">
               <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên khách hàng</label>
-              <input name="tenKH" placeholder="Nhập mật khẩu cũ"
+              <input name="tenKH" placeholder="Nhập tên"
               class="@error('tenKH') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               value="{{ $khachhang->tenKH }}"
               type="text">
