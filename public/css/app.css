@@ -805,6 +805,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .cursor-pointer {
   cursor: pointer;
 }
+.cursor-default {
+  cursor: default;
+}
 .appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;

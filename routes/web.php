@@ -210,6 +210,11 @@ Route::prefix('admin')->group(function () {
       'middleware' => 'can:sanpham-delete',
       'middleware' => 'CheckLoggedOut'
     ]);
+
+    Route::post('/tim-kiem', [
+      'as' => 'sanphams.search',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@search'
+    ]);
   });
 
   Route::prefix('users')->group(function () {

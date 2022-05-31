@@ -109,6 +109,15 @@
         });
       // });
     </script>
+    <script>
+      $(".scroll-to-top").click(function () {
+        setTimeout(() => {
+            $('html, body').animate({
+            scrollTop: $(".comment-product").offset().top - 100 + 'px'
+            }, 200);
+        }, 10);
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -121,9 +130,34 @@
           </div>
         </div>
         <div class="col w-1/2 details-right pl-5 pr-3">
-          <h1 class="title-product text-2xl font-medium pb-4">
+          <h1 class="title-product text-2xl font-medium">
             {{ $sanpham->tenSP }}
           </h1>
+          <ul class="flex justify-end items-center">
+            @for($count = 1; $count <= 5; $count++)
+              @php
+                if($count <= $rating) {
+                  $color = 'color: #f59e0b;';
+                } else {
+                  $color = 'color: #ccc;';
+                }
+              @endphp
+              <li title="Đánh giá sao"
+              class="cursor-default"
+              style="{{ $color }} font-size: 26px;"
+              >
+              &#9733;
+              </li>
+            @endfor
+            {{-- @php dd($rating); @endphp --}}
+            <li class="mt-1 ml-2">
+              <a class="link scroll-to-top">{{ $countRating }} Đánh giá</a>
+            </li>
+            <li class="mt-1 ml-2">
+              <span>|</span>
+              <a class="link scroll-to-top">{{ $countComment }} Bình luận</a>
+            </li>
+          </ul>
           <div class="detail-line"></div>
           <div class="pt-4">
             <span class="detail-price text-3xl">{{ str_replace(',', '.', number_format($sanpham->donGia)) }}đ</span><span class="text-2xl"> / {{ $sanpham->donViTinh }}</span>
@@ -197,20 +231,20 @@
             <p><b>Bạn chấm sản phẩm này bao nhiêu sao?</b></p>
             <ul class="flex">
               @for($count = 1; $count <= 5; $count++)
-                @php
+                {{-- @php
                   if($count <= $rating) {
                     $color = 'color: #f59e0b;';
                   } else {
                     $color = 'color: #ccc;';
                   }
-                @endphp
+                @endphp --}}
                 <li title="Đánh giá sao"
                 id="{{ $sanpham->sanPham_id }}-{{ $count }}"
                 data-index="{{ $count }}"
                 data-product_id="{{ $sanpham->sanPham_id }}"
                 data-rating="{{ $rating }}"
                 class="rating"
-                style="cursor: pointer; {{ $color }} font-size: 30px;"
+                style="cursor: pointer; color: #ccc; font-size: 30px;"
                 >
                 &#9733;
                 </li>

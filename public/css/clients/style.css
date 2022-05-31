@@ -177,3 +177,10 @@
   font-size: 16px;
   margin: 0 8px;
 }
+
+.link {
+  color: #1d48ba;
+  position: relative;
+  display: inline;
+  cursor: pointer;
+}

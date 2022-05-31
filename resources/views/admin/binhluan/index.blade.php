@@ -140,18 +140,20 @@
                                     <td class="px-4 py-3 text-sm">
                                         @if ($binhluan->tinhTrang == 0)
                                             <input type="button" data-comment_status="1" data-comment_id="{{ $binhluan->binhLuan_id }}" id="{{ $binhluan->sanPham_id }}" 
-                                            class="comment_duyet_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-green-500 hover:bg-green-500 focus:outline-none focus:shadow-outline-purple" 
+                                            class="cursor-pointer comment_duyet_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-500 border border-transparent rounded-lg active:bg-green-500 hover:bg-green-500 focus:outline-none focus:shadow-outline-purple" 
                                             value="Duyệt bình luận">
                                         @else
                                             <input type="button" data-comment_status="0" data-comment_id="{{ $binhluan->binhLuan_id }}" id="{{ $binhluan->sanPham_id }}" 
-                                            class="comment_duyet_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-500 border border-transparent rounded-lg active:bg-red-500 hover:bg-red-500 focus:outline-none focus:shadow-outline-purple" 
+                                            class="cursor-pointer comment_duyet_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-500 border border-transparent rounded-lg active:bg-red-500 hover:bg-red-500 focus:outline-none focus:shadow-outline-purple" 
                                             value="Bỏ duyệt">
                                         @endif
                                     </td>
 
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="flex items-center space-x-4 text-sm">
-                                            <span data-comment_id="{{ $binhluan->binhLuan_id }}" class="icon-reply cursor-pointer text-purple-600"><i class='fas fa-solid fa-reply text-purple-600'></i> Trả lời</span>
+                                        <div class="flex items-center text-sm">
+                                        @if ($binhluan->tinhTrang == 1)
+                                            <span data-comment_id="{{ $binhluan->binhLuan_id }}" class="mr-4 icon-reply cursor-pointer text-purple-600"><i class='fas fa-solid fa-reply text-purple-600'></i> Trả lời</span>
+                                        @endif
                                             {{-- <a href="#"
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Edit">

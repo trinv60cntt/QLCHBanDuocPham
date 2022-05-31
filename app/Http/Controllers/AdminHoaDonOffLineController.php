@@ -67,7 +67,7 @@ class AdminHoaDonOffLineController extends Controller
       DB::table('chitiethdoff')->insert($order_d_data);
     }
 
-    return redirect()->route('hoadonoff.index');
+    return redirect()->route('hoadonoffline.index');
   }
 
   public function getSanPham($sanPham_id_fk)
@@ -86,7 +86,7 @@ class AdminHoaDonOffLineController extends Controller
     foreach ($sanpham as $key => $sp) {
       $output .= '
       <tr class="js-product-count">
-        <input type="hidden" name="sanPhamId[]" value="'.$sp->sanPham_id.'" />
+        <input type="hidden" name="sanPhamId[]" value="'.$sp->sanPham_id.'" class="product-id" />
         <td>
           <div class="flex justify-center">
             <img height="100px" width="100px" src="storage/sanpham/'.$sp->hinhAnh.'" alt="San pham" class="sanpham-img mx-auto">

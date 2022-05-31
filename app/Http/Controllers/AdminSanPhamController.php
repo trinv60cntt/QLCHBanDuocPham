@@ -31,13 +31,26 @@ class AdminSanPhamController extends Controller
     $this->nhasanxuat = $nhasanxuat;
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $sanphams = $this->sanpham->latest()->paginate(5);
+    // $sanphams = $this->sanpham->latest()->paginate(5);
+    // dd($request->tenSP);
+    $htmlOption = $this->getDanhMuc($danhMucChaId = '');
+    if(!empty($request->query('tenSP'))) {
+      $search = DB::table('san_phams')->join('danh_mucs', 'danh_mucs.danhMuc_id','=', 'san_phams.danhMuc_id')->where('tenSP','like','%'. $request->tenSP .'%');
+      // dd($search);
+    }
+    if(!empty($search)) {
+      $sanphams = $search->paginate(5);
+    }
+    else {
+      $sanphams = DB::table('san_phams')->join('danh_mucs', 'danh_mucs.danhMuc_id','=', 'san_phams.danhMuc_id')->orderBy('san_phams.created_at', 'DESC')->where('san_phams.deleted_at', NULL)->paginate(5);
+    }
+    // dd($sanphams);
     // foreach ($sanphams as $value) {
     //   dd($value['created_at']);
     // }
-    return view('admin.sanpham.index', compact('sanphams'));
+    return view('admin.sanpham.index', compact('sanphams', 'htmlOption'));
   }
 
   public function create()
@@ -163,4 +176,5 @@ class AdminSanPhamController extends Controller
       ], 500);
     }
   }
+
 }

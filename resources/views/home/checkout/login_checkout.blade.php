@@ -20,7 +20,7 @@
                     <a href="{{ URL::to('/login-google') }}" class="flex justify-center items-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-600 focus:outline-none focus:shadow-outline-purple">
                         <i class="fa-brands fa-google text-xl mr-2"></i> <span class="mb-1">Đăng nhập bằng Google</span>
                     </a>
-                    <span class="mt-2 flex text-center items-center"><span class="SeparatorRow-horizontalLine"></span><span class="SeparatorRow-label LoginDefaultView-separatorRowLabel">or</span><span class="SeparatorRow-horizontalLine"></span></span>
+                    <span class="mt-2 flex text-center items-center"><span class="SeparatorRow-horizontalLine"></span><span class="SeparatorRow-label LoginDefaultView-separatorRowLabel">Hoặc</span><span class="SeparatorRow-horizontalLine"></span></span>
                     @include('errors.note')
                     <label class="block text-sm mt-2">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>

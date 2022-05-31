@@ -76,6 +76,12 @@
           });
       });
     </script>
+    <script>
+      $(document).ready(function () {
+        $('.total-price').text($('.total-price-hidden').text());
+        $('.total-pay').text($('.total-pay-hidden').text());
+      });
+    </script>
 @endsection
 
 @section('content')
@@ -268,6 +274,8 @@
       
           </tbody>
         </table>
+        <span class="hidden total-price-hidden">{{ Cart::priceTotal(0, ',', '.') }}đ</span>
+        <span class="hidden total-pay-hidden">{{ number_format(Cart::totalFloat() + 15000, 0, ',', '.')}}đ</span>
         </div>
         <div class="detail-line my-4"></div>
         <form action="{{ URL::to('/order-place') }}" method="post">
@@ -332,7 +340,7 @@
             <h3 class="text-xl font-bold text-blue-600">THÔNG TIN ĐƠN HÀNG</h3>
             <div class="flex justify-between px-4">
               <span class="font-bold">Tổng tiền</span>
-              <span class="font-bold">{{ Cart::priceTotal(0, ',', '.') }}đ</span>
+              <span class="font-bold total-price">{{ Cart::priceTotal(0, ',', '.') }}đ</span>
             </div>
     
             <div class="flex justify-between px-4">
@@ -355,7 +363,7 @@
               "
             >
               <span class="text-xl font-bold">Cần thanh toán</span>
-              <span class="text-2xl font-bold text-blue-800">
+              <span class="text-2xl font-bold text-blue-800 total-pay">
                 {{ number_format(Cart::totalFloat() + 15000, 0, ',', '.')}}đ
               </span>
             </div>

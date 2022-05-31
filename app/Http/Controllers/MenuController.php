@@ -55,13 +55,12 @@ class MenuController extends Controller
 
 
   public function details($sanPham_id, Request $request) {
-    // $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
-    // dd(date("YmdHi", strtotime($now)));
-    // $sanpham = $this->sanpham->find($sanPham_id);
     $sanpham = $this->sanpham->find($sanPham_id);
     $rating = DanhGiaSao::where('sanPham_id', $sanPham_id)->avg('soSao');
     $rating = round($rating);
-    return view('home.menu.details', compact('sanpham', 'rating'));
+    $countRating = DanhGiaSao::where('sanPham_id', $sanPham_id)->count();;
+    $countComment = BinhLuan::where('sanPham_id', $sanPham_id)->where('tinhTrang', 1)->count();;
+    return view('home.menu.details', compact('sanpham', 'rating', 'countRating','countComment'));
   }
 
   public function getCategory($danhMuc_id)

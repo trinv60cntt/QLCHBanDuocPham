@@ -69,6 +69,12 @@
       });
   });
 </script>
+<script>
+  $(document).ready(function () {
+    $('.total-price').text($('.total-price-hidden').text());
+    $('.total-pay').text($('.total-pay-hidden').text());
+  });
+</script>
 <?php
 $content = Cart::content();
 ?>
@@ -253,3 +259,5 @@ $content = Cart::content();
 
   </tbody>
 </table>
+<span class="hidden total-price-hidden">{{ Cart::priceTotal(0, ',', '.') }}đ</span>
+<span class="hidden total-pay-hidden">{{ number_format(Cart::totalFloat() + 15000, 0, ',', '.')}}đ</span>
