@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\NhanVien;
+use App\Models\User;
 use App\Models\ThongKe;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -16,7 +16,7 @@ class ThongKePolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $nhanVien)
+    public function viewAny(User $nhanVien)
     {
         //
     }
@@ -28,23 +28,23 @@ class ThongKePolicy
      * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $nhanVien, ThongKe $thongKe)
+    public function view(User $nhanVien, ThongKe $thongKe)
     {
         //
     }
 
-    public function theoSanPham(NhanVien $user)
+    public function theoSanPham(User $user)
     {
         return $user->checkQuyenAccess('tktheosanpham_index');
     }
 
     
-    public function theoHinhThucKD(NhanVien $user)
+    public function theoHinhThucKD(User $user)
     {
         return $user->checkQuyenAccess('tktheohinhthuckinhdoanh_index');
     }
 
-    public function doanhThu(NhanVien $user)
+    public function doanhThu(User $user)
     {
         return $user->checkQuyenAccess('tktongdoanhthu_index');
     }
@@ -55,7 +55,7 @@ class ThongKePolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $nhanVien)
+    public function create(User $nhanVien)
     {
         //
     }
@@ -67,7 +67,7 @@ class ThongKePolicy
      * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $nhanVien, ThongKe $thongKe)
+    public function update(User $nhanVien, ThongKe $thongKe)
     {
         //
     }
@@ -79,7 +79,7 @@ class ThongKePolicy
      * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $nhanVien, ThongKe $thongKe)
+    public function delete(User $nhanVien, ThongKe $thongKe)
     {
         //
     }
@@ -91,7 +91,7 @@ class ThongKePolicy
      * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $nhanVien, ThongKe $thongKe)
+    public function restore(User $nhanVien, ThongKe $thongKe)
     {
         //
     }
@@ -103,7 +103,7 @@ class ThongKePolicy
      * @param  \App\Models\ThongKe  $thongKe
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $nhanVien, ThongKe $thongKe)
+    public function forceDelete(User $nhanVien, ThongKe $thongKe)
     {
         //
     }

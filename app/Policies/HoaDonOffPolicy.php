@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\HoaDonOff;
-use App\Models\NhanVien;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class HoaDonOffPolicy
@@ -16,7 +16,7 @@ class HoaDonOffPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $nhanVien)
+    public function viewAny(User $nhanVien)
     {
         //
     }
@@ -28,12 +28,12 @@ class HoaDonOffPolicy
      * @param  \App\Models\HoaDonOff  $hoaDonOff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $user)
+    public function view(User $user)
     {
         return $user->checkQuyenAccess('hoadonoff_list');
     }
 
-    public function details(NhanVien $user)
+    public function details(User $user)
     {
         return $user->checkQuyenAccess('hoadonoff_details');
     }
@@ -44,7 +44,7 @@ class HoaDonOffPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $user)
+    public function create(User $user)
     {
         return $user->checkQuyenAccess('hoadonoff_details');
     }
@@ -56,7 +56,7 @@ class HoaDonOffPolicy
      * @param  \App\Models\HoaDonOff  $hoaDonOff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $user)
+    public function update(User $user)
     {
         return $user->checkQuyenAccess('hoadonoff_edit');
     }
@@ -68,7 +68,7 @@ class HoaDonOffPolicy
      * @param  \App\Models\HoaDonOff  $hoaDonOff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $user)
+    public function delete(User $user)
     {
         return $user->checkQuyenAccess('hoadonoff_edit');
     }
@@ -80,7 +80,7 @@ class HoaDonOffPolicy
      * @param  \App\Models\HoaDonOff  $hoaDonOff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $user)
+    public function restore(User $user)
     {
         //
     }
@@ -92,7 +92,7 @@ class HoaDonOffPolicy
      * @param  \App\Models\HoaDonOff  $hoaDonOff
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $user)
+    public function forceDelete(User $user)
     {
         //
     }

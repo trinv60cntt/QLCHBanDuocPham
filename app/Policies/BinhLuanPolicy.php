@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\BinhLuan;
-use App\Models\NhanVien;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BinhLuanPolicy
@@ -16,7 +16,7 @@ class BinhLuanPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $nhanVien)
+    public function viewAny(User $nhanVien)
     {
         //
     }
@@ -28,7 +28,7 @@ class BinhLuanPolicy
      * @param  \App\Models\BinhLuan  $binhLuan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $user)
+    public function view(User $user)
     {
         return $user->checkQuyenAccess('binhluan_list');
     }
@@ -39,7 +39,7 @@ class BinhLuanPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $nhanVien)
+    public function create(User $nhanVien)
     {
         //
     }
@@ -51,7 +51,7 @@ class BinhLuanPolicy
      * @param  \App\Models\BinhLuan  $binhLuan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $nhanVien, BinhLuan $binhLuan)
+    public function update(User $nhanVien, BinhLuan $binhLuan)
     {
         //
     }
@@ -63,7 +63,7 @@ class BinhLuanPolicy
      * @param  \App\Models\BinhLuan  $binhLuan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $nhanVien, BinhLuan $binhLuan)
+    public function delete(User $nhanVien, BinhLuan $binhLuan)
     {
         //
     }
@@ -75,7 +75,7 @@ class BinhLuanPolicy
      * @param  \App\Models\BinhLuan  $binhLuan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $nhanVien, BinhLuan $binhLuan)
+    public function restore(User $nhanVien, BinhLuan $binhLuan)
     {
         //
     }
@@ -87,7 +87,7 @@ class BinhLuanPolicy
      * @param  \App\Models\BinhLuan  $binhLuan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $nhanVien, BinhLuan $binhLuan)
+    public function forceDelete(User $nhanVien, BinhLuan $binhLuan)
     {
         //
     }

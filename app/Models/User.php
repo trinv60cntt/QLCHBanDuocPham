@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\NhanVien as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class NhanVien extends Authenticatable
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -19,9 +19,9 @@ class NhanVien extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $table = 'nhanvien';
+    protected $table = 'users';
     protected $guarded = [];
-    protected $primaryKey = 'nhanvien_id';
+    protected $primaryKey = 'id';
     // protected $fillable = [
     //     'name',
     //     'email',
@@ -61,4 +61,8 @@ class NhanVien extends Authenticatable
             return false;
         }
     }
+
+    // public function message() {
+    //     return $this->hasMany("App\Models\Message");
+    // }
 }

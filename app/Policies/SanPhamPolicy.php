@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\NhanVien;
+use App\Models\User;
 use App\Models\SanPham;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -16,7 +16,7 @@ class SanPhamPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $nhanVien)
+    public function viewAny(User $nhanVien)
     {
         //
     }
@@ -28,7 +28,7 @@ class SanPhamPolicy
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $user)
+    public function view(User $user)
     {
         return $user->checkQuyenAccess('sanpham_list');
     }
@@ -39,7 +39,7 @@ class SanPhamPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $user)
+    public function create(User $user)
     {
         return $user->checkQuyenAccess('sanpham_add');
     }
@@ -51,7 +51,7 @@ class SanPhamPolicy
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $user)
+    public function update(User $user)
     {
         return $user->checkQuyenAccess('sanpham_edit');
     }
@@ -63,7 +63,7 @@ class SanPhamPolicy
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $user)
+    public function delete(User $user)
     {
         return $user->checkQuyenAccess('sanpham_delete');
     }
@@ -75,7 +75,7 @@ class SanPhamPolicy
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $user)
+    public function restore(User $user)
     {
         //
     }
@@ -87,7 +87,7 @@ class SanPhamPolicy
      * @param  \App\Models\SanPham  $sanPham
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $user)
+    public function forceDelete(User $user)
     {
         //
     }

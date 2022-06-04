@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InboxController;
 use App\Http\Controllers;
 
 /*
@@ -21,7 +22,7 @@ Route::group(['prefix' => 'login', 'middleware' => 'CheckLoggedIn'], function() 
 Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
 
-// Route::get('/home', 'App\Http\Controllers\HomeController@index');
+Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
 // BE
 Route::prefix('admin')->group(function () {
@@ -356,19 +357,19 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminNhanVienController@store'
     ]);
 
-    Route::get('/edit/{nhanvien_id}', [
+    Route::get('/edit/{id}', [
       'as' => 'nhanviens.edit',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@edit',
       'middleware' => 'can:nhanvien-edit',
       'middleware' => 'CheckLoggedOut'
     ]);
 
-    Route::post('/update/{nhanvien_id}', [
+    Route::post('/update/{id}', [
       'as' => 'nhanviens.update',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@update'
     ]);
 
-    Route::get('/delete/{nhanvien_id}', [
+    Route::get('/delete/{id}', [
       'as' => 'nhanviens.delete',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@delete',
       'middleware' => 'can:nhanvien-delete',
@@ -380,7 +381,7 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminNhanVienController@search'
     ]);
 
-    Route::get('/details/{nhanvien_id}', [
+    Route::get('/details/{id}', [
       'as' => 'nhanviens.details',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@details',
       // 'middleware' => 'can:hoadononl-details'
@@ -707,3 +708,22 @@ Route::prefix('khachhang')->group(function () {
 });
 
 Route::get('/Add-Cart/{id}', 'App\Http\Controllers\AdminHoaDonOffLineController@AddCart');
+
+// Route::get('/', function () {
+//   return view('welcome');
+// });
+
+// Auth::routes();
+
+
+// Auth::routes();
+
+// Route::group(['middleware' => 'auth'], function () {
+//   Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//   Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
+//   Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
+// });
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
+Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');

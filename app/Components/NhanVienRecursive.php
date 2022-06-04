@@ -12,14 +12,14 @@ class NhanVienRecursive
 		$this->data = $data;
 	}
 
-	public  function NhanVienRecursive($nhanvien_id_fk, $nhanvien_id = 0, $text = '')
+	public  function NhanVienRecursive($nhanvien_id_fk, $id = 0, $text = '')
 	{
 
     foreach ($this->data as $value) {
-      if ($value['nhanvien_id'] != '' && $nhanvien_id_fk == $value['nhanvien_id']) {
-        $this->htmlSelectNhanVien .= "<option selected value='" . $value['nhanvien_id'] . "'>" . $value['hotenNV'] . "</option>";
+      if ($value['id'] != '' && $nhanvien_id_fk == $value['id']) {
+        $this->htmlSelectNhanVien .= "<option selected value='" . $value['id'] . "'>" . $value['hotenNV'] . "</option>";
       } else {
-        $this->htmlSelectNhanVien .= "<option value='" . $value['nhanvien_id'] . "'>" . $value['hotenNV'] . "</option>";
+        $this->htmlSelectNhanVien .= "<option value='" . $value['id'] . "'>" . $value['hotenNV'] . "</option>";
 			}
     }
     return $this->htmlSelectNhanVien;

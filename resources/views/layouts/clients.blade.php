@@ -11,6 +11,7 @@
     <meta name="keywords" content="keywords,here">
     <base href="{{ asset('') }}">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css" />
     <link rel="stylesheet" href="clientsAssets/css/style.css" />
     <link rel="stylesheet" href="css/clients/style.css" />
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
@@ -23,6 +24,23 @@
 			height: 100vh;
 		}
 	</style> --}}
+  <style>
+		#journal-scroll::-webkit-scrollbar {
+            width: 6px;
+            cursor: pointer;
+           
+
+        }
+        #journal-scroll::-webkit-scrollbar-track {
+            background-color: rgba(229, 231, 235, var(--bg-opacity));
+            cursor: pointer;
+          
+        }
+        #journal-scroll::-webkit-scrollbar-thumb {
+            cursor: pointer;
+            background-color: #a0aec0;
+                   }
+	</style>
 </head>
 
 <body class="font-sans leading-normal tracking-normal">
@@ -291,6 +309,81 @@
 
     @yield('content')
 
+    <div class="w-80 h-96 bg-white rounded shadow-2xl fixed bottom-0 right-0 z-50 hidden">
+    
+      <nav class="w-full h-10 bg-gray-900 rounded-tr rounded-tl flex justify-between items-center">
+          <div class="flex justify-center items-center">
+            <i class="mdi mdi-arrow-left font-normal text-gray-300 ml-1"></i>
+            <img src="https://i.imgur.com/IAgGUYF.jpg" class="rounded-full ml-1" width="25" height="25">
+            <span class="text-xs font-medium text-gray-300 ml-1">Alex cairo</span>
+          </div>
+
+          <div class="flex items-center">
+            <i class="mdi mdi-video text-gray-300 mr-4"></i>
+            <i class="mdi mdi-phone text-gray-300 mr-2"></i>
+            <i class="mdi mdi-dots-vertical text-gray-300 mr-2"></i>
+          </div>
+      </nav>
+      <div class="overflow-auto px-1 py-1" style="height: 19rem;" id="journal-scroll">
+        <div class="flex items-center pr-10">
+          <img src="https://i.imgur.com/IAgGUYF.jpg" class="rounded-full shadow-xl" width="15" height="15" style="box-shadow: ">
+          <span class="flex ml-1  h-auto bg-gray-900 text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end" style="font-size: 10px;">Hi Dr.Hendrikson, I haven't been feeling well for past few days. <span class="text-gray-400 pl-1" style="font-size: 8px;">01:25am</span></span>
+        </div>
+        <div class="flex justify-end pt-2 pl-10">
+          <span class="bg-green-900 h-auto text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end flex justify-end " style="font-size: 10px;">Lets jump on a video call. <span class="text-gray-400 pl-1" style="font-size: 8px;">02.30am</span></span>
+        </div>
+        <div class="flex justify-center">
+          <span class="text-gray-500 text-xs pt-4" style="font-size: 8px;">Call started at 02:33 am</span>
+        </div>
+        <div class="flex justify-center">
+          <span class="text-gray-500 text-xs" style="font-size: 8px;">Call ended at 02:33 am</span>
+        </div>
+        <div class="flex items-center pr-10 mt-1">
+          <img src="https://i.imgur.com/IAgGUYF.jpg" class="rounded-full shadow-xl" width="15" height="15">
+          <span class="flex ml-1  h-auto bg-gray-900 text-gray-200 text-xs p-1 font-normal rounded-sm px-1 items-end" style="font-size: 10px;">How often should i take the medicine? <span class="text-gray-400 pl-1" style="font-size: 8px;">01:25am</span></span>
+        </div>
+        <div class="flex justify-end pt-2 pl-10">
+          <span class="bg-green-900 h-auto text-gray-200 text-xs font-normal p-1 rounded-sm px-1 items-end flex justify-end " style="font-size: 10px;">Twice a day, at breakfast and before bed <span class="text-gray-400 pl-1" style="font-size: 8px;">02.30am</span></span>
+        </div>
+        <div class="flex items-center pr-10 pt-2">
+          <img src="https://i.imgur.com/IAgGUYF.jpg" class="rounded-full shadow-xl" width="15" height="15">
+          <span class="flex ml-1  h-auto bg-gray-900 text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end" style="font-size: 10px;">Thanks a lot doc<span class="text-gray-400 pl-1" style="font-size: 8px;">01:25am</span></span>
+        </div>
+        <div class="flex justify-end pt-2 pl-10">
+          <span class="bg-green-900 h-auto text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end flex justify-end " style="font-size: 10px;">Thats my duty, mention not  <span class="text-gray-400 pl-1" style="font-size: 8px;">02.30am</span></span>
+        </div>
+        <div class="flex items-center pr-10 pt-2">
+          <img src="https://i.imgur.com/IAgGUYF.jpg" class="rounded-full shadow-xl" width="15" height="15">
+          <span class="flex ml-1  h-auto bg-gray-900 text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end" style="font-size: 10px;">sorry to bother again but can i ask you one more favour?<span class="text-gray-400 pl-1" style="font-size: 8px;">01:25am</span></span>
+        </div>
+        <div class="flex justify-end pt-2 pl-10">
+          <span class="bg-green-900 h-auto text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end flex justify-end " style="font-size: 10px;">yeah sure, go ahead?<span class="text-gray-400 pl-1" style="font-size: 8px;">02.30am</span></span>
+        </div>
+        <div class="flex items-center pr-10 pt-2">
+          <img src="https://i.imgur.com/IAgGUYF.jpg" class="rounded-full shadow-xl" width="15" height="15">
+          <span class="flex ml-1  h-auto bg-gray-900 text-gray-200 text-xs font-normal rounded-sm px-1 p-1 items-end" style="font-size: 10px;">I really had a scary feeling about this, can please advice some tricks to overcome my anxiety?<span class="text-gray-400 pl-1" style="font-size: 8px;">01:25am</span></span>
+        </div>
+          <div class=" " id="chatmsg">
+          </div>
+      </div>
+      <div class="flex justify-between items-center p-1 ">
+        <div class="relative">
+          <i class="mdi mdi-emoticon-excited-outline absolute top-1 left-1 text-gray-400" style="font-size: 17px !important;font-weight: bold;"></i>
+        <input type="text" class="rounded-full pl-6 pr-12 py-2 focus:outline-none  h-auto placeholder-gray-100 bg-gray-900 text-white" style="font-size: 11px;width: 250px;" placeholder="Type a message..." id="typemsg">
+        <i class="mdi mdi-paperclip absolute right-8 top-1 transform -rotate-45 text-gray-400"></i>
+        <i class="mdi mdi-camera absolute right-2 top-1 text-gray-400"></i>
+        </div>
+        <div class="w-7 h-7 rounded-full bg-blue-300 text-center items-center flex justify-center hover:bg-gray-900 hover:text-white">
+          <i class="mdi mdi-microphone "></i>
+        </div>
+        <div class="w-7 h-7 rounded-full bg-blue-300 text-center items-center flex justify-center">
+          <button class="w-7 h-7 rounded-full text-center items-center flex justify-center focus:outline-none hover:bg-gray-900 hover:text-white" onclick="sendbtn();"><i class="mdi mdi-send "></i></button>
+        </div>
+      </div>
+    </div>
+    <button type="button">
+
+    </button>
     <footer id="footer" class="footer py-16">
         <div class="container">
           <div class="flex flex-wrap">
@@ -411,6 +504,19 @@
             $('.open-profile').addClass('hidden');
           }, 150)
         });
+      </script>
+      <script>
+        function sendbtn() {
+          var printtext = document.getElementById('chatmsg');
+          var copytext = document.getElementById('typemsg');
+          var currentdate = new Date();
+          var copiedtext = copytext.value;
+
+          var printnow = '<div class="flex justify-end pt-2 pl-10">'+'<span class="bg-green-900 h-auto text-gray-200 text-xs font-normal rounded-sm px-1 items-end flex justify-end overflow-hidden " style="font-size: 10px;">'+copiedtext+'<span class="text-gray-400 pl-1" style="font-size: 8px;">'+currentdate.getHours()+':'+currentdate.getMinutes()+'</span>'+'</span>'+'</div>';
+          printtext.insertAdjacentHTML('beforeend', printnow);
+          var box = document.getElementById('journal-scroll');
+          box.scrollTop = box.scrollHeight;
+        }
       </script>
 </body>
 </html>

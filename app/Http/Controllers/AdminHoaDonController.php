@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\HoaDon;
 use App\Models\SanPham;
 use App\Models\ChiTietHD;
-use App\Models\NhanVien;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Components\NhanVienRecursive;
@@ -17,7 +17,7 @@ class AdminHoaDonController extends Controller
     HoaDon $hoadon,
     SanPham $sanpham,
     ChiTietHD $chitiethd,
-    Nhanvien $nhanvien
+    User $nhanvien
   ) {
     $this->hoadon = $hoadon;
     $this->chitiethd = $chitiethd;

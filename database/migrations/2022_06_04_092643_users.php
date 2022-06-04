@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Nhanvien extends Migration
+class Users extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class Nhanvien extends Migration
      */
     public function up()
     {
-        Schema::create('nhanvien', function (Blueprint $table) {
-            $table->bigIncrements('nhanvien_id');
+        Schema::create('users', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('hotenNV');
             $table->boolean('gioiTinh');
             $table->date('ngaySinh');
             $table->string('diaChi');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('sdt');
@@ -38,6 +38,6 @@ class Nhanvien extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nhanvien');
+        Schema::dropIfExists('users');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\HoaDon;
-use App\Models\NhanVien;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class HoaDonPolicy
@@ -16,7 +16,7 @@ class HoaDonPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $user)
+    public function viewAny(User $user)
     {
     }
 
@@ -27,12 +27,12 @@ class HoaDonPolicy
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $user)
+    public function view(User $user)
     {
         return $user->checkQuyenAccess('hoadononl_list');
     }
 
-    public function details(NhanVien $user)
+    public function details(User $user)
     {
         return $user->checkQuyenAccess('hoadononl_details');
     }
@@ -43,7 +43,7 @@ class HoaDonPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $user)
+    public function create(User $user)
     {
 
     }
@@ -55,7 +55,7 @@ class HoaDonPolicy
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $user)
+    public function update(User $user)
     {
         return $user->checkQuyenAccess('hoadononl_edit');
     }
@@ -67,7 +67,7 @@ class HoaDonPolicy
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $user)
+    public function delete(User $user)
     {
         return $user->checkQuyenAccess('hoadononl_delete');
     }
@@ -79,7 +79,7 @@ class HoaDonPolicy
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $user)
+    public function restore(User $user)
     {
         //
     }
@@ -91,7 +91,7 @@ class HoaDonPolicy
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $user)
+    public function forceDelete(User $user)
     {
         //
     }

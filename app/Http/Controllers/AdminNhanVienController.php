@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\NhanVien;
+use App\Models\User;
 use App\Models\VaiTro;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ class AdminNhanVienController extends Controller
   use StorageImageTrait;
 
   private $nhanvien;
-  public function __construct(NhanVien $nhanvien, VaiTro $vaitro)
+  public function __construct(User $nhanvien, VaiTro $vaitro)
   {
     $this->nhanvien = $nhanvien;
     $this->vaitro = $vaitro;
@@ -157,6 +157,7 @@ class AdminNhanVienController extends Controller
   public function postLoginAdmin(Request $request)
   {
     // dd($request->has('remember_me'));
+    // dd($request->email);
     $remember = $request->has('remember_me') ? true : false;
     // dd(bcrypt($request->password));
     if (auth()->attempt([

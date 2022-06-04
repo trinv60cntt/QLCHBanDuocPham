@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\NhanVien;
+use App\Models\User;
 use App\Models\VaiTro;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ class AdminCaNhanController extends Controller
   use StorageImageTrait;
 
   private $nhanvien;
-  public function __construct(NhanVien $nhanvien, VaiTro $vaitro)
+  public function __construct(User $nhanvien, VaiTro $vaitro)
   {
     $this->nhanvien = $nhanvien;
     $this->vaitro = $vaitro;
@@ -27,20 +27,20 @@ class AdminCaNhanController extends Controller
 
   public function index()
   {
-    $nhanvien_id = Auth::user()->nhanvien_id;
-    $nhanvien = $this->nhanvien->find($nhanvien_id);
+    $id = Auth::user()->id;
+    $nhanvien = $this->nhanvien->find($id);
     return view('admin.canhan.index', compact('nhanvien'));
   }
 
   public function edit() {
-    $nhanvien_id = Auth::user()->nhanvien_id;
-    $nhanvien = $this->nhanvien->find($nhanvien_id);
+    $id = Auth::user()->id;
+    $nhanvien = $this->nhanvien->find($id);
     
     return view('admin.canhan.edit', compact('nhanvien'));
   }
 
   public function update(Request $request) {
-    $nhanvien_id = Auth::user()->nhanvien_id;
+    $id = Auth::user()->id;
     try {
       DB::beginTransaction();
       $dataProductUpdate = [
@@ -62,8 +62,8 @@ class AdminCaNhanController extends Controller
       if (!empty($dataUploadFeatureImage)) {
         $dataProductUpdate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
       }
-      $this->nhanvien->find($nhanvien_id)->update($dataProductUpdate);
-      $nhanvien = $this->nhanvien->find($nhanvien_id);
+      $this->nhanvien->find($id)->update($dataProductUpdate);
+      $nhanvien = $this->nhanvien->find($id);
 
       DB::commit();
       return redirect()->route('canhans.index');
@@ -78,7 +78,7 @@ class AdminCaNhanController extends Controller
   }
 
   public function luuMatKhau(Request $request) {
-    $nhanvien_id = Auth::user()->nhanvien_id;
+    $id = Auth::user()->id;
     $nhanvien_password = Auth::user()->password;
 
     $oldPass = $request->oldPass;
@@ -97,7 +97,7 @@ class AdminCaNhanController extends Controller
       return back()->withInput()->withErrors(['againPass' => 'Mật khẩu nhập lại không khớp']);
     }
 
-    $nhanvien = $this->nhanvien->find($nhanvien_id);
+    $nhanvien = $this->nhanvien->find($id);
     $nhanvien->update([
       'password' => Hash::make($request->newPass),
     ]);

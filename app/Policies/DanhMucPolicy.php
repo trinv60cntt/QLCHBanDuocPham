@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\DanhMuc;
-use App\Models\NhanVien;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DanhMucPolicy
@@ -16,7 +16,7 @@ class DanhMucPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(NhanVien $nhanVien)
+    public function viewAny(User $nhanVien)
     {
         //
     }
@@ -28,7 +28,7 @@ class DanhMucPolicy
      * @param  \App\Models\DanhMuc  $danhMuc
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(NhanVien $user)
+    public function view(User $user)
     {
         return $user->checkQuyenAccess('danhmuc_list');
     }
@@ -39,7 +39,7 @@ class DanhMucPolicy
      * @param  \App\Models\NhanVien  $nhanVien
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(NhanVien $user)
+    public function create(User $user)
     {
         return $user->checkQuyenAccess('danhmuc_add');
     }
@@ -51,7 +51,7 @@ class DanhMucPolicy
      * @param  \App\Models\DanhMuc  $danhMuc
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(NhanVien $user)
+    public function update(User $user)
     {
         return $user->checkQuyenAccess('danhmuc_edit');
     }
@@ -63,7 +63,7 @@ class DanhMucPolicy
      * @param  \App\Models\DanhMuc  $danhMuc
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(NhanVien $user)
+    public function delete(User $user)
     {
         return $user->checkQuyenAccess('danhmuc_delete');
     }
@@ -75,7 +75,7 @@ class DanhMucPolicy
      * @param  \App\Models\DanhMuc  $danhMuc
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(NhanVien $nhanVien, DanhMuc $danhMuc)
+    public function restore(User $nhanVien, DanhMuc $danhMuc)
     {
         //
     }
@@ -87,7 +87,7 @@ class DanhMucPolicy
      * @param  \App\Models\DanhMuc  $danhMuc
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(NhanVien $nhanVien, DanhMuc $danhMuc)
+    public function forceDelete(User $nhanVien, DanhMuc $danhMuc)
     {
         //
     }

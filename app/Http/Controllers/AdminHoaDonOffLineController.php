@@ -7,7 +7,7 @@ use App\Models\HoaDon;
 use App\Models\HoaDonOff;
 use App\Models\SanPham;
 use App\Models\ChiTietHD;
-use App\Models\NhanVien;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Components\SanPhamRecursive;
@@ -22,7 +22,7 @@ class AdminHoaDonOffLineController extends Controller
     HoaDonOff $hoadonoff,
     SanPham $sanpham,
     ChiTietHD $chitiethd,
-    Nhanvien $nhanvien
+    User $nhanvien
   ) {
     $this->hoadon = $hoadon;
     $this->hoadonoff = $hoadonoff;
