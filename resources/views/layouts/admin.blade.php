@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
 
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Styles -->
+    {{-- <link href="{{ asset('css/app1.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    @livewireStyles
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
@@ -60,6 +66,7 @@
         });
       });
     </script> --}}
+    @livewireScripts
   </body>
 </html>
 

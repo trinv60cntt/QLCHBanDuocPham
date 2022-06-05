@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="clientsAssets/css/style.css" />
     <link rel="stylesheet" href="css/clients/style.css" />
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Styles -->
+    {{-- <link href="{{ asset('css/app1.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    @livewireStyles
+
     <!--Totally optional :) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/9315670d89.js" crossorigin="anonymous"></script>
@@ -45,7 +53,7 @@
 
 <body class="font-sans leading-normal tracking-normal">
 
-    <nav class="flex items-center justify-between flex-wrap bg-white p-4 pl-6 fixed w-full z-10 top-0">
+    <nav class="nav-home-page flex items-center justify-between flex-wrap bg-white p-4 pl-6 fixed w-full z-10 top-0">
         <div class="header-logo flex items-center flex-shrink-0 text-white mr-6">
             <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
                 <img src="clientsAssets/img/logo.png" alt="Pharmacy Number 2">
@@ -308,8 +316,7 @@
     </div>
 
     @yield('content')
-
-    <div class="w-80 h-96 bg-white rounded shadow-2xl fixed bottom-0 right-0 z-50 hidden">
+    {{-- <div class="live-chat w-80 h-96 bg-white rounded shadow-2xl fixed bottom-28 right-3 z-50 hidden">
     
       <nav class="w-full h-10 bg-gray-900 rounded-tr rounded-tl flex justify-between items-center">
           <div class="flex justify-center items-center">
@@ -380,10 +387,11 @@
           <button class="w-7 h-7 rounded-full text-center items-center flex justify-center focus:outline-none hover:bg-gray-900 hover:text-white" onclick="sendbtn();"><i class="mdi mdi-send "></i></button>
         </div>
       </div>
-    </div>
-    <button type="button">
-
-    </button>
+    </div> --}}
+  </div>
+    <a href="{{ url('/inbox') }}" class="livechat-button livechat-button--icon screen__chat-button bottom-10 right-3 rounded-full">
+      <i class="fas fa-solid fa-comments text-2xl"></i>
+    </a>
     <footer id="footer" class="footer py-16">
         <div class="container">
           <div class="flex flex-wrap">
@@ -517,6 +525,16 @@
           var box = document.getElementById('journal-scroll');
           box.scrollTop = box.scrollHeight;
         }
+        $(document).ready(function(){
+          $('.livechat-button').on('click', () => {
+            if($('.live-chat').hasClass('hidden')) {
+              $('.live-chat').removeClass('hidden');
+            } else {
+              $('.live-chat').addClass('hidden');
+            }
+          });
+        });
       </script>
+    @livewireScripts
 </body>
 </html>

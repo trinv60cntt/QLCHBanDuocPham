@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 .chatbox {
-  height: 80vh !important;
+  height: 85.5vh !important;
   overflow-y: scroll;
 }
 .message-box {

@@ -1,11 +1,11 @@
 <div>
-    <div class="row justify-content-center">
+    <div class="flex justify-center">
         {{-- @php dd($users) @endphp --}}
         @if($adminLogin->is_admin == true)
-            <div class="col-md-4" wire:init>
-                <div class="card">
+            <div class="w-4/12 px-4" wire:init>
+                <div class="card card-v1">
                     <div class="card-header">
-                        Users
+                        Khách hàng
                     </div>
                     <div class="card-body chatbox p-0">
                         <ul class="list-group list-group-flush" wire:poll="render">
@@ -16,7 +16,7 @@
                                 <a href="{{ route('inbox.show', $user->id) }}" class="text-dark link">
                                     <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
                                         <img class="img-fluid avatar" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png">
-                                        @if($user->is_online) <i class="fa fa-circle text-success online-icon"></i> @endif
+                                        @if($user->is_online) <i class="fa fa-circle text-green-500 online-icon"></i> @endif
                                         {{ $user->name }}
                                         @if(filled($not_seen))
                                             <div class="badge badge-success rounded">{{ $not_seen->count() }}</div>
@@ -29,8 +29,8 @@
                 </div>
             </div>
         @endif
-        <div class="col-md-8">
-            <div class="card">
+        <div class="w-4/6 mx-auto">
+            <div class="card card-v2">
                 <div class="card-header">
                     {{ $sender->name }}
                 </div>
@@ -62,7 +62,7 @@
                             </div>
                         @endforeach
                     @else
-                        No messages to show
+                        Không có tin nhắn nào để hiển thị
                     @endif
                 </div>
                 <div class="card-footer">
@@ -80,13 +80,13 @@
                             @else
                                 No file is uploaded.
                             @endif
-                        <div class="row">
-                            <div class="col-md-7">
-                                <input wire:model="message" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" @if(!$file) required @endif>
+                        <div class="flex">
+                            <div class="w-7/12">
+                                <input wire:model="message" class="form-input input shadow-none inline-block w-full" placeholder="Type a message" @if(!$file) required @endif>
                             </div>
                             @if(empty($file))
-                                <div class="col-md-1">
-                                    <button type="button" class="border" id="file-area">
+                                <div class="w-1/12 flex justify-center">
+                                    <button type="button" id="file-area">
                                         <label>
                                             <i class="fa fa-file-upload"></i>
                                             <input type="file" wire:model="file">
@@ -94,8 +94,8 @@
                                     </button>
                                 </div>
                                 @endif
-                            <div class="col-md-4">
-                                <button class="btn btn-primary d-inline-block w-100"><i class="far fa-paper-plane"></i> Send</button>
+                            <div class="w-4/12 flex justify-center">
+                                <button class="btn btn-primary inline-block w-full"><i class="far fa-paper-plane"></i> Send</button>
                             </div>
                         </div>
                     </form>
