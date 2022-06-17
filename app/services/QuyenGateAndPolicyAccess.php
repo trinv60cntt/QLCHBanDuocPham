@@ -13,6 +13,7 @@ class QuyenGateAndPolicyAccess {
     $this->defineGateHoaDonOnl();
     $this->defineGateHoaDonOff();
     $this->defineGateBinhLuan();
+    $this->defineGateTuVan();
     $this->defineGateThongKe();
     $this->defineGateKhachHang();
     $this->defineGateNhanVien();
@@ -92,5 +93,9 @@ class QuyenGateAndPolicyAccess {
     Gate::define('quyen-add', 'App\Policies\QuyenPolicy@create');
     Gate::define('quyen-edit', 'App\Policies\QuyenPolicy@update');
     Gate::define('quyen-delete', 'App\Policies\QuyenPolicy@delete');
+  }
+
+  public function defineGateTuVan() {
+    Gate::define('tuvan-list', 'App\Policies\TuVanPolicy@view');
   }
 }

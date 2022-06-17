@@ -6,9 +6,8 @@
 
 @section('content')
     <main class="h-full pb-16 overflow-y-auto">
-        <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto py-4">
-          <form action="{{ route('quyens.store') }}" method="post" class="form-validate">
+          <form action="{{ route('quyens.update', ['quyen_id' => $quyen->quyen_id]) }}" method="post" enctype="multipart/form-data" class="form-validate">
             @csrf
             {{-- <div class="mb-6">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn module cần phân quyền</label>
@@ -35,19 +34,43 @@
 
             <div class="mb-6 w-40p form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mã Quyền</label>
-              <input name="tenQuyen" class="tenQuyen w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="tenQuyen" placeholder="Nhập mã quyền"
+                  class="@error('tenQuyen') error @enderror tenQuyen w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  value="{{ $quyen->tenQuyen }}"
+                  type="text">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 
             <div class="mb-6 w-40p form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên Quyền</label>
-              <input name="moTa" class="moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="moTa" placeholder="Nhập tên quyền"
+                  class="@error('moTa') error @enderror moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  value="{{ $quyen->moTa }}"
+                  type="text">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
+
+            {{-- <div class="mb-6 w-40p form-group">
+              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn module cần phân quyền</label>
+              <input type="hidden" name="moTaModule" class="mota-module">
+              <select name="module_parent" class="module-parent w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2 pr-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
+                <option value="">Chọn tên module</option>
+                @foreach(config('quyens.table_module') as $key => $moduleItem)
+                  <option value="{{ $key }}">{{ $moduleItem }}</option>
+                @endforeach
+              </select>
+              <div class="form-message text-red-600 mt-2"></div>
+            </div> --}}
 
             <div class="mb-6 w-40p form-group">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn module cần phân quyền</label>
               <input type="hidden" name="moTaModule" class="mota-module">
+                @foreach ($allQuyen as $quyenItem)
+                  @if($quyenItem->quyen_id === $quyen->parent_id)
+                    <?php $maQuyen = $quyenItem->tenQuyen ?>
+                  @endif
+                @endforeach
+                <input type="hidden" class="parent-id-hidden" value="{{ $maQuyen }}">
               <select name="module_parent" class="module-parent w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2 pr-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
                 <option value="">Chọn tên module</option>
                 @foreach(config('quyens.table_module') as $key => $moduleItem)
@@ -75,6 +98,21 @@
 @section('js')
 <script>
   $(document).ready(function(){
+    var parentIdHidden = $('.parent-id-hidden').val();
+    console.log(parentIdHidden);
+    $('select option').each(function() {
+      console.log($(this).val());
+      if($(this).val() == parentIdHidden) {
+        console.log('true');
+        $(this).attr("selected", true);
+      }
+      else {
+        $(this).attr("selected", false);
+      }
+    });
+    var moTaModuleSelected = $('select option[selected]').text();
+    $('.mota-module').val(moTaModuleSelected);
+
     $('select').on('change', function() {
         var moduleParent = $('.module-parent').val();
         $('select option').each(function() {
@@ -88,6 +126,7 @@
         var moTaModuleSelected = $('select option[selected]').text();
         $('.mota-module').val(moTaModuleSelected);
       });
+    
   });
 </script>
 <script src="admins/khachhang/add.js"></script>

@@ -325,11 +325,6 @@ Route::prefix('admin')->group(function () {
       'middleware' => 'CheckLoggedOut'
     ]);
 
-    Route::post('/tim-kiem', [
-      'as' => 'khachhangs.search',
-      'uses' => 'App\Http\Controllers\AdminKhachHangController@search'
-    ]);
-
     Route::get('/details/{khachhang_id}', [
       'as' => 'khachhangs.details',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@details',

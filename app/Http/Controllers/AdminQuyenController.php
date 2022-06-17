@@ -22,9 +22,19 @@ class AdminQuyenController extends Controller
     $this->quyen = $quyen;
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $quyens = $this->quyen->latest()->paginate(10);
+    $quyens = $this->quyen->where('parent_id', '!=', 0)->latest()->paginate(10);
+
+    if(!empty($request->query('moTa'))) {
+      $search = DB::table('quyens')->where('moTa','like','%'. $request->moTa .'%');
+    }
+    if(!empty($search)) {
+      $quyens = $search->where('parent_id', '!=', 0)->paginate(10);
+    }
+    else {
+      $quyens = DB::table('quyens')->orderBy('quyens.created_at', 'DESC')->where('parent_id', '!=', 0)->paginate(10);
+    }
     return view('admin.quyen.index', compact('quyens'));
   }
 
@@ -62,29 +72,38 @@ class AdminQuyenController extends Controller
     return redirect()->route('quyens.index');
   }
 
-  public function edit($vaiTro_id)
+  public function edit($quyen_id)
   {
-    $quyenCha = $this->quyen->where('parent_id', 0)->get();
-    $vaitro = $this->vaitro->find($vaiTro_id);
-    $quyensChecked = $vaitro->quyens;
-    return view('admin.vaitro.edit', compact('quyenCha', 'vaitro', 'quyensChecked'));
+    $quyen = $this->quyen->find($quyen_id);
+    $allQuyen = $this->quyen->all();
+    return view('admin.quyen.edit', compact('quyen', 'allQuyen'));
   }
 
-  public function update(Request $request, $vaiTro_id)
+  public function update(Request $request, $quyen_id)
   {
-    $role = $this->vaitro->find($vaiTro_id);
-    $role->update([
-      'tenVT' => $request->tenVT,
+    $quyen = Quyen::where('tenQuyen', '=', $request->module_parent)->first();
+    if ($quyen == null) {
+      $quyen = Quyen::create([
+        'tenQuyen' => $request->module_parent,
+        'moTa' => $request->moTaModule,
+        'parent_id' => 0,
+      ]);
+    }
+
+    $quyenUpdate = $this->quyen->find($quyen_id);
+    $quyenUpdate->update([
+      'tenQuyen' => $request->tenQuyen,
       'moTa' => $request->moTa,
+      'parent_id' => $quyen->quyen_id,
     ]);
 
-    $role->quyens()->sync($request->quyen_id);
-    return redirect()->route('vaitros.index');
+
+    return redirect()->route('quyens.index');
   }
 
-  public function delete($vaiTro_id) {
+  public function delete($quyen_id) {
     try {
-      $this->vaitro->find($vaiTro_id)->delete();
+      $this->quyen->find($quyen_id)->delete();
       return response()->json([
         'code' => 200,
         'message' => 'success'

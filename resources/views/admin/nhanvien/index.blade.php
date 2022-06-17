@@ -19,14 +19,13 @@
                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Thêm mới
             </a>
-            <form action="{{ URL::to('admin/nhanviens/tim-kiem') }}" method="post">
-                @csrf
+            <form action="{{ route('nhanviens.index') }}" method="get">
                 <table style="margin: auto; width:350px;">
                     <tbody>
 
                     <tr>
                         <td class="text-gray-500"><b>Tên nhân viên: </b></td>
-                        <td><input type="text" name="keywords_submit" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
+                        <td><input type="text" name="tenNV" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
                     </tr>
 
                     <tr>
@@ -77,13 +76,13 @@
                                         {{ $nhanvien->sdt }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap name-category">
-                                        {{ optional($nhanvien->vaitro)->moTa }}
+                                        {{ $nhanvien->moTa }}
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
                                         <div class="flex items-center text-sm">
-                                            <a href="{{ route('nhanviens.edit', ['nhanvien_id' => $nhanvien->nhanvien_id]) }}"><i class='fa fa-edit text-purple-600'></i></a>&nbsp;|&nbsp;
-                                            <a href="{{ route('nhanviens.details', ['nhanvien_id' => $nhanvien->nhanvien_id]) }}"><i class='fa fa-info-circle text-purple-600'></i></a>&nbsp;|&nbsp;
-                                            <a href="#" data-url="{{ route('nhanviens.delete', ['nhanvien_id' => $nhanvien->nhanvien_id]) }}" class="js-action-delete"><i class='fa fa-trash text-purple-600'></i></a>
+                                            <a href="{{ route('nhanviens.edit', ['id' => $nhanvien->id]) }}"><i class='fa fa-edit text-purple-600'></i></a>&nbsp;|&nbsp;
+                                            <a href="{{ route('nhanviens.details', ['id' => $nhanvien->id]) }}"><i class='fa fa-info-circle text-purple-600'></i></a>&nbsp;|&nbsp;
+                                            <a href="#" data-url="{{ route('nhanviens.delete', ['id' => $nhanvien->id]) }}" class="js-action-delete"><i class='fa fa-trash text-purple-600'></i></a>
                                         </div>
                                     </td>
                                 </tr>

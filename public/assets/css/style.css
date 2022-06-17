@@ -334,3 +334,11 @@ label {
   padding: 1px;
   font-weight: 700;
 }
+
+.alert-error {
+  color: #78261f;
+  background-color: #fadbd8;
+  border-color: #f8ccc8;
+  text-align: center;
+  height: 35px;
+}

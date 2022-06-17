@@ -11,7 +11,7 @@
 @section('content')
     <main class="h-full pb-16">
         <div class="container px-6 mx-auto py-4">
-            <form action="{{ route('nhanviens.store') }}" method="post" enctype="multipart/form-data" id="form-nhanvien">
+            <form action="{{ route('nhanviens.store') }}" method="post" enctype="multipart/form-data" class="form-validate">
                 @csrf
                 <div class="mb-6 w-40p form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên nhân viên</label>
@@ -91,8 +91,8 @@
                     </select>
                 </div>
 
-                <button type="submit" id="MyButton-nhanvien"
-                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                <button type="submit"
+                    class="btn-submit px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Thêm mới
                 </button>
             </form>
@@ -104,7 +104,7 @@
     <script src="admins/khachhang/add.js"></script>
     <script>
         Validator({
-          form: '#form-nhanvien',
+        form: '.form-validate',
           formGroupSelector: '.form-group',
           errorSelector: '.form-message',
           rules: [
@@ -113,17 +113,22 @@
             Validator.isRequired('.diaChi'),
             Validator.isRequired('.email'),
             Validator.isEmail('.email'),
-            Validator.isRequired('.password'),
-            // Validator.minLength('.password', 6),
+             // Password
+             Validator.isRequired('.password'),
+            Validator.minLength('.password', 6),
+            Validator.includeOneNumber('.password'),
+            Validator.includeOneCharacter('.password'),
+            Validator.includeOneUppercase('.password'),
+
             Validator.isRequired('.sdt'),
             Validator.isRequired('.hinhAnh'),
 
           ],
-    
+
         });
     
         
-        $("#MyButton-nhanvien").click(function () {
+        $(".btn-submit").click(function () {
         setTimeout(() => {
             $('html, body').animate({
             scrollTop: $(".form-group.invalid:first").offset().top

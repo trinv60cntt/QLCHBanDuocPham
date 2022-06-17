@@ -50,6 +50,7 @@
         </div>
       </form>
       <hr class="mt-4">
+      <p class="alert-error mt-5 text-2xl hidden">Không có dữ liệu.</p>
       <h2 class="font-bold text-gray-600 text-3xl title-line hidden mt-4 text-center">BIỂU ĐỒ DOANH THU</h2>
       <div id="chart" style="height: 250px;"></div>
       <div class="table-details hidden">
@@ -124,6 +125,10 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
+            if (data.length === 0) {
+              $('.alert-error').removeClass('hidden');
+            } else {
+            $('.alert-error').addClass('hidden');
             $('.title-line').removeClass('hidden')
             $('.table-details').removeClass('hidden')
             chart.setData(data);
@@ -136,6 +141,7 @@
               html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm'>" + fmdate + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOff + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOnl + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtTotal + "</td></tr>";
             }
             $(".wrap-table").html(html);
+            }
           }
         });
       })
@@ -168,6 +174,10 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
+            if (data.length === 0) {
+              $('.alert-error').removeClass('hidden');
+            } else {
+            $('.alert-error').addClass('hidden');
             $('.title-line').removeClass('hidden')
             $('.table-details').removeClass('hidden')
             chart.setData(data);
@@ -180,6 +190,7 @@
               html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm'>" + fmdate + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOff + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOnl + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtTotal + "</td></tr>";
             }
             $(".wrap-table").html(html);
+            }
           }
         });
       })

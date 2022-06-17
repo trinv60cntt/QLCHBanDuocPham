@@ -13,12 +13,11 @@ $khachhangs = Session::get('email');
 @endsection
 
 @section('js')
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
     $(document).ready(function(){
         const heightCardV1 = $('.card-v1').height();
-        console.log("🚀 ~ file: homenew.blade.php ~ line 17 ~ $ ~ heightCardV1", heightCardV1)
         const heightCardV2 = $('.card-v2').height();
-        console.log("🚀 ~ file: homenew.blade.php ~ line 19 ~ $ ~ heightCardV2", heightCardV2)
         $('.card-v1').css("height", heightCardV2 + "px");
     });
 

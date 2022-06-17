@@ -43,8 +43,9 @@ class CheckoutController extends Controller
 
     Session::put('khachhang_id', $customer_id);
     Session::put('tenKH', $request->tenKH);
+    Session::put('hinhAnh', 'avatar.jpg');
 
-    return Redirect::to('/login-checkout');
+    return Redirect::to('/');
   }
 
   public function order_place(Request $request) {
@@ -100,7 +101,7 @@ class CheckoutController extends Controller
       Session::put('password', $result->password);
       return Redirect::to('/home');
     } else {
-      return Redirect::to('/login-checkout');
+      return back()->withInput()->with('error', '• Tài khoản hoặc mật khẩu chưa đúng');
     }
   }
 

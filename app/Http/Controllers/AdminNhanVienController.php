@@ -25,10 +25,20 @@ class AdminNhanVienController extends Controller
     $this->vaitro = $vaitro;
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $nhanviens = $this->nhanvien->paginate(5);
-    return view('admin.nhanvien.index', compact('nhanviens'));
+    $htmlOption = $this->getVaiTro($vaiTro_id_fk = '');
+    if(!empty($request->query('tenNV'))) {
+      $search = DB::table('users')->join('vai_tros', 'vai_tros.vaiTro_id','=', 'users.vaiTro_id')->where('hotenNV','like','%'. $request->tenNV .'%');
+    }
+    if(!empty($search)) {
+      $nhanviens = $search->paginate(5);
+    }
+    else {
+      $nhanviens = DB::table('users')->join('vai_tros', 'vai_tros.vaiTro_id','=', 'users.vaiTro_id')->orderBy('users.created_at', 'DESC')->where('users.deleted_at', NULL)->paginate(5);
+    }
+
+    return view('admin.nhanvien.index', compact('nhanviens', 'htmlOption'));
   }
 
   public function create()
@@ -79,14 +89,14 @@ class AdminNhanVienController extends Controller
     }
   }
 
-  public function edit($nhanvien_id) {
-    $nhanvien = $this->nhanvien->find($nhanvien_id);
+  public function edit($id) {
+    $nhanvien = $this->nhanvien->find($id);
     $htmlOptionVaiTro = $this->getVaiTro($nhanvien->vaiTro_id);
     
     return view('admin.nhanvien.edit', compact('nhanvien', 'htmlOptionVaiTro'));
   }
 
-  public function update(Request $request, $nhanvien_id) {
+  public function update(Request $request, $id) {
     try {
       DB::beginTransaction();
       $dataProductUpdate = [
@@ -108,8 +118,8 @@ class AdminNhanVienController extends Controller
       if (!empty($dataUploadFeatureImage)) {
         $dataProductUpdate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
       }
-      $this->nhanvien->find($nhanvien_id)->update($dataProductUpdate);
-      $nhanvien = $this->nhanvien->find($nhanvien_id);
+      $this->nhanvien->find($id)->update($dataProductUpdate);
+      $nhanvien = $this->nhanvien->find($id);
 
       DB::commit();
       return redirect()->route('nhanviens.index');
@@ -119,9 +129,9 @@ class AdminNhanVienController extends Controller
     }
   }
 
-  public function delete($nhanvien_id) {
+  public function delete($id) {
     try {
-      $this->nhanvien->find($nhanvien_id)->delete();
+      $this->nhanvien->find($id)->delete();
       return response()->json([
         'code' => 200,
         'message' => 'success'
@@ -171,8 +181,8 @@ class AdminNhanVienController extends Controller
     // dd($request->all());
   }
 
-  public function details($nhanvien_id) {
-    $nhanvien = $this->nhanvien->find($nhanvien_id);
+  public function details($id) {
+    $nhanvien = $this->nhanvien->find($id);
     return view('admin.nhanvien.details', compact('nhanvien'));
   }
 }

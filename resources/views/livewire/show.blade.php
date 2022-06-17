@@ -82,7 +82,7 @@
                             @endif
                         <div class="flex">
                             <div class="w-7/12">
-                                <input wire:model="message" class="form-input input shadow-none inline-block w-full" placeholder="Type a message" @if(!$file) required @endif>
+                                <input wire:model="message" class="form-input input shadow-none inline-block w-full" placeholder="Nhập tin nhắn" @if(!$file) required @endif>
                             </div>
                             @if(empty($file))
                                 <div class="w-1/12 flex justify-center">
@@ -95,7 +95,7 @@
                                 </div>
                                 @endif
                             <div class="w-4/12 flex justify-center">
-                                <button class="btn btn-primary inline-block w-full"><i class="far fa-paper-plane"></i> Send</button>
+                                <button class="btn btn-primary inline-block w-full"><i class="far fa-paper-plane"></i> Gửi</button>
                             </div>
                         </div>
                     </form>

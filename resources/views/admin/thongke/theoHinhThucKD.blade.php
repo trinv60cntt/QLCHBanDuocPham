@@ -51,6 +51,7 @@
 
       </form>
       <hr class="mt-4">
+      <p class="alert-error mt-5 text-2xl hidden">Không có dữ liệu.</p>
       <div class="wrap-chart mt-4 hidden">
         <canvas id="myChart" style="width:100%;max-width:600px" class="m-auto"></canvas>
       </div>
@@ -100,6 +101,10 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
+            if (data[0].DoanhThuOff === 0 && data[0].DoanhThuOnl === 0) {
+              $('.alert-error').removeClass('hidden');
+            } else {
+            $('.alert-error').addClass('hidden');
             $('.wrap-chart').removeClass('hidden')
             $('.table-details').removeClass('hidden')
             var getKey = Object.keys(data[0]);
@@ -149,6 +154,7 @@
                 }
               }
             });
+            }
           }
         });
       })
@@ -169,6 +175,11 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
+            console.log(data);
+            if (data[0].DoanhThuOff === 0 && data[0].DoanhThuOnl === 0) {
+              $('.alert-error').removeClass('hidden');
+            } else {
+            $('.alert-error').addClass('hidden');
             $('.wrap-chart').removeClass('hidden')
             $('.table-details').removeClass('hidden')
             var getKey = Object.keys(data[0]);
@@ -218,6 +229,7 @@
             }
           }
         });
+            }
           }
         });
       })

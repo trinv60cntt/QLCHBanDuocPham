@@ -11,7 +11,7 @@
 @section('content')
     <main class="h-full pb-16">
         <div class="container px-6 mx-auto py-4">
-            <form action="{{ route('khachhangs.store') }}" method="post" enctype="multipart/form-data" id="form-1">
+            <form action="{{ route('khachhangs.store') }}" method="post" enctype="multipart/form-data" class="form-validate">
                 @csrf
                 <div class="mb-6 w-40p form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ khách hàng</label>
@@ -105,7 +105,7 @@
     <script src="admins/khachhang/add.js"></script>
     <script>
         Validator({
-          form: '#form-1',
+          form: '.form-validate',
           formGroupSelector: '.form-group',
           errorSelector: '.form-message',
           rules: [
@@ -115,8 +115,14 @@
             Validator.isRequired('.diaChi'),
             Validator.isRequired('.email'),
             Validator.isEmail('.email'),
+
+            // Password
             Validator.isRequired('.password'),
             Validator.minLength('.password', 6),
+            Validator.includeOneNumber('.password'),
+            Validator.includeOneCharacter('.password'),
+            Validator.includeOneUppercase('.password'),
+
             Validator.isRequired('.sdt'),
             Validator.isRequired('.hinhAnh'),
 

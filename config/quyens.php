@@ -14,13 +14,14 @@ return [
     'hoadononl' => 'Đơn đặt hàng trực tuyến',
     'hoadonoff' => 'Đơn đặt hàng tại quầy',
     'binhluan' => 'Bình luận',
+    'tuvan' => 'Tư vấn',
     'tktheosanpham' => 'Thống kê theo sản phẩm',
     'tktheohinhthuckinhdoanh' => 'Thống kê theo hình thức kinh doanh',
     'tktongdoanhthu' => 'Thống kê tổng doanh thu',
     'khachhang' => 'Danh sách khách hàng',
     'nhanvien' => 'Danh sách nhân viên',
     'nhomnhanvien' => 'Nhóm nhân viên',
-    'quyen' => 'Danh sách quyền'
+    'danhsachquyen' => 'Danh sách quyền'
   ],
 
   'module_children' => [

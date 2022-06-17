@@ -11,6 +11,7 @@ $khachhangs = Session::get('email');
 @endsection
 
 @section('js')
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
     $(document).ready(function(){
         const heightCardV1 = $('.card-v1').height();

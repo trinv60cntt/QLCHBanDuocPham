@@ -172,6 +172,45 @@ Validator.minLength = function (selector, min, message) {
   };
 }
 
+Validator.equalLength = function (selector, min, message) {
+  return {
+    selector: selector,
+    test: function (value) {
+      return value.length = min ? undefined : message || `Vui lòng nhập tối thiểu ${min} kí tự`;
+    }
+  };
+}
+
+Validator.includeOneNumber = function (selector, message) {
+  return {
+    selector: selector,
+    test: function (value) {
+      var regex = /.*[0-9].*/;
+      return regex.test(value) ? undefined : message || 'Mật khẩu của bạn phải chứa ít nhất 1 số';
+    }
+  };
+}
+
+Validator.includeOneCharacter = function (selector, message) {
+  return {
+    selector: selector,
+    test: function (value) {
+      var regex = /.*[a-z].*/;
+      return regex.test(value) ? undefined : message || 'Mật khẩu của bạn phải chứa ít nhất 1 chữ cái thường';
+    }
+  };
+}
+
+Validator.includeOneUppercase = function (selector, message) {
+  return {
+    selector: selector,
+    test: function (value) {
+      var regex = /.*[A-Z].*/;
+      return regex.test(value) ? undefined : message || 'Mật khẩu của bạn phải chứa ít nhất 1 chữ cái viết hoa';
+    }
+  };
+}
+
 Validator.isConfirmed = function (selector, getConfirmValue, message) {
   return {
     selector: selector, 

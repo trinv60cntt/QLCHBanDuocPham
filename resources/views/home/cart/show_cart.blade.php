@@ -82,6 +82,31 @@
         $('.total-pay').text($('.total-pay-hidden').text());
       });
     </script>
+    <script src="admins/khachhang/add.js"></script>
+    <script>
+        Validator({
+        form: '.form-validate',
+          formGroupSelector: '.form-group',
+          errorSelector: '.form-message',
+          rules: [
+            Validator.isRequired('.diaChi'),
+            Validator.isRequired('.hoTenKH'),
+            Validator.isRequired('.sdt'),
+            Validator.isRequired('.email'),
+            Validator.isEmail('.email'),
+          ],
+
+        });
+
+        $(".btn-submit").click(function () {
+        setTimeout(() => {
+            $('html, body').animate({
+            scrollTop: $(".form-group.invalid:first").offset().top - 70 + 'px'
+            }, 200);
+        }, 10);
+
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -278,7 +303,7 @@
         <span class="hidden total-pay-hidden">{{ number_format(Cart::totalFloat() + 15000, 0, ',', '.')}}đ</span>
         </div>
         <div class="detail-line my-4"></div>
-        <form action="{{ URL::to('/order-place') }}" method="post">
+        <form action="{{ URL::to('/order-place') }}" method="post" class="form-validate">
           @csrf
           <?php
           $customer_id = Session::get('khachhang_id');
@@ -293,12 +318,13 @@
         <div class="info-address bg-white">
           <div class="p-4 rounded-md shadow">
             <h3 class="text-xl font-bold"><span class="text-blue-600 text-2xl">01</span> Địa chỉ giao hàng</h3> 
-            <div class="px-4 pt-2">
+            <div class="px-4 pt-2 form-group">
               <p class="font-bold">Địa chỉ:</p>
               <input name="diaChi" placeholder="Địa chỉ" 
               value="{{ $diaChi }}"
-              class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+              class="diaChi w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
               type="text">
+              <div class="form-message text-red-600 mt-2"></div>
             </div>
           </div>
         </div>
@@ -310,26 +336,31 @@
             <h3 class="text-xl font-bold"><span class="text-blue-600 text-2xl">02</span> Thông tin liên lạc</h3> 
             <div class="px-4 pt-2">
               <div class="row flex flex-wrap">
-                <div class="col w-1/2 pr-2">
+                <div class="col w-1/2 pr-2 form-group">
                   <input name="hoTenKH" placeholder="Nhập họ và tên"
                   value="{{ trim($hoTenKH) }}"
-                  class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  class="hoTenKH w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text">
+                  <div class="form-message text-red-600 mt-2"></div>
                 </div>
-                <div class="col w-1/2 pl-2">
+                <div class="col w-1/2 pl-2 form-group">
                   <input name="sdt" placeholder="Nhập số điện thoại"
                   value="{{ $sdt }}"
-                  class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                  class="sdt w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   type="text">
+                  <div class="form-message text-red-600 mt-2"></div>
                 </div>
               </div>
-        
-              <input name="email" placeholder="Nhập Email"
-              value="{{ $email }}"
-              class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-              type="text">
+
+              <div class="form-group">
+                <input name="email" placeholder="Nhập Email"
+                value="{{ $email }}"
+                class="email w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                type="text">
+                <div class="form-message text-red-600 mt-2"></div>
+              </div>
             </div>
-     
+
           </div>
         </div>
 
@@ -382,6 +413,7 @@
         <div class="mt-4">
     
             <input type="submit" name="send_order_place" value="Xác nhận đặt hàng" class="
+            btn-submit
             w-full
             py-2
             text-center text-white

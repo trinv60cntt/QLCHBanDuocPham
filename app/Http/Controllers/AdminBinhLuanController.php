@@ -48,4 +48,26 @@ class AdminBinhLuanController extends Controller
     $binhluan->save();
   }
 
+  public function delete($binhLuan_id) {
+    try {
+      $binhluan = $this->binhluan->all();
+      foreach ($binhluan as $item) {
+        if($item->binhLuanCha_id == $binhLuan_id) {
+          $this->binhluan->find($item['binhLuan_id'])->delete();
+        }
+      }
+      $this->binhluan->find($binhLuan_id)->delete();
+      return response()->json([
+        'code' => 200,
+        'message' => 'success'
+      ], 200);
+
+    } catch (\Exception $exception) {
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+      return response()->json([
+        'code' => 500,
+        'message' => 'fail'
+      ], 500);
+    }
+  }
 }

@@ -102,6 +102,7 @@
               </a>
           </li>
           @endcan
+          @if (Auth::user()->vaiTro_id === 5)
           <li class="relative px-6 py-3">
             <span class="hidden absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
@@ -111,6 +112,7 @@
                   <span class="ml-4">Tư vấn trực tuyến</span>
               </a>
           </li>
+          @endif
           @can('tktheosanpham-index')
           <hr class="sidebar-divider">
           <div class="sidebar-heading">

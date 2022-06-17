@@ -18,9 +18,17 @@ class AdminKhachHangController extends Controller
     $this->khachhang = $khachhang;
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $khachhangs = $this->khachhang->latest()->paginate(5);
+    if(!empty($request->query('tenKH'))) {
+      $search = DB::table('khachhang')->where(DB::raw("concat(hoKH, ' ', tenKH)"), 'LIKE', "%". $request->tenKH. "%");
+    }
+    if(!empty($search)) {
+      $khachhangs = $search->paginate(5);
+    }
+    else {
+      $khachhangs = DB::table('khachhang')->orderBy('khachhang.created_at', 'DESC')->where('khachhang.deleted_at', NULL)->paginate(5);
+    }
     return view('admin.khachhang.index', compact('khachhangs'));
   }
 

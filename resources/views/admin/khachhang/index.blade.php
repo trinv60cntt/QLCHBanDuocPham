@@ -24,25 +24,15 @@
                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Thêm khách hàng
             </a>
-            <form action="{{ URL::to('admin/khachhangs/tim-kiem') }}" method="post">
-                @csrf
+            <form action="{{ route('khachhangs.index') }}" method="get">
                 <table style="margin: auto; width:350px;">
                     <tbody>
-                    {{-- <tr>
-                        <td><b>Mã nhân viên: </b></td>
-                        <td><input type="text" id="maNV" name="maNV" class="form-control" value=""></td>
-                    </tr> --}}
+
                     <tr>
                         <td class="text-gray-500"><b>Tên khách hàng: </b></td>
-                        <td><input type="text" name="keywords_submit" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
+                        <td><input type="text" name="tenKH" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
                     </tr>
-                    {{-- <tr>
-                        <td><b>Giới tính: </b></td>
-                        <td>
-                        <input type="radio" name="gioiTinh" value="1"> Nam
-                        <input style="margin-left: 10px;" type="radio" name="gioiTinh" value="0"> Nữ
-                        </td>
-                    </tr> --}}
+
                     <tr>
                         <td colspan="2" align="center" style="padding-left: 91px;padding-top: 10px;">
                             <input type="submit" value="Tìm kiếm" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" name="searchBtn">

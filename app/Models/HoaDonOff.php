@@ -16,6 +16,6 @@ class HoaDonOff extends Model
   public $timestamps = true;
 
   public function nhanvien() {
-    return $this->belongsTo(NhanVien::class, 'nhanvien_id');
-  }
+    return $this->belongsTo(User::class, 'nhanvien_id');
+}
 }

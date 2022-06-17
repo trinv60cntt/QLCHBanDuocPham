@@ -26,7 +26,7 @@
           <div class="w-1/5 mr-3">
             <p class="">Từ ngày <input type="text" id="datepicker" class="input-date w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" ></p> 
           </div>
-          
+
           <div class="w-1/5 mr-3">
             <p>Đến ngày <input type="text" id="datepicker2" class="input-date w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" ></p> 
           </div>
@@ -72,6 +72,7 @@
 
       </form>
       <hr class="mt-4">
+      <p class="alert-error mt-5 text-2xl hidden">Không có dữ liệu.</p>
       <div class="wrap-chart mt-4 hidden">
         <canvas id="myChart" style="width:100%;max-width:1100px" class="m-auto"></canvas>
       </div>
@@ -126,6 +127,10 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
+            if (data.length === 0) {
+              $('.alert-error').removeClass('hidden');
+            } else {
+            $('.alert-error').addClass('hidden');
             $('.wrap-chart').removeClass('hidden')
             $('.table-details').removeClass('hidden')
 
@@ -175,6 +180,7 @@
                 }
               }
             });
+            }
           }
         });
       })
@@ -196,6 +202,10 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
+            if (data.length === 0) {
+              $('.alert-error').removeClass('hidden');
+            } else {
+            $('.alert-error').addClass('hidden');
             $('.wrap-chart').removeClass('hidden')
             $('.table-details').removeClass('hidden')
 
@@ -245,6 +255,7 @@
                 }
               }
             });
+            }
           }
         });
       })
