@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\SanPham;
-use App\services\GatePolicyAccess;
+use App\services\GateAccess;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,9 +28,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Define Quyen
-        $quyengateAndPolicy = new GatePolicyAccess();
-        $quyengateAndPolicy->setGatePolicyAccess();
-
+        $quyengateAndPolicy = new GateAccess();
+        $quyengateAndPolicy->setgate();
+        
         // $this->defineGateDanhMuc();
 
         // Gate::define('sanpham-index', function ($user) {
