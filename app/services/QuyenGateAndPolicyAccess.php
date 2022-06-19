@@ -4,9 +4,9 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Gate;
 
-class QuyenGateAndPolicyAccess {
+class GatePolicyAccess {
 
-  public function setGateAndPolicyAccess() {
+  public function setGatePolicyAccess() {
     $this->defineGateNhaSanXuat();
     $this->defineGateDanhMuc();
     $this->defineGateSanPham();

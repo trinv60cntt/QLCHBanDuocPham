@@ -8,10 +8,10 @@ use App\Models\DanhMuc;
 
 class HomeController extends Controller
 {
-  public function index() { 
+  public function index() {
     $sanphams = SanPham::where('banChay', 1)->latest()->take(6)->get();
     $sanPhamCovid = SanPham::where('danhMuc_id', 11)->latest()->take(6)->get();
-    
+
     return view('home.home', compact('sanphams', 'sanPhamCovid'));
   }
 
