@@ -124,16 +124,16 @@
   <section class="mod mod-details-product py-10">
     <div class="container mx-auto">
       <div class="row flex flex-wrap">
-        <div class="col w-1/2 pl-3 pr-5">
+        <div class="col w-full lg:w-1/2 pl-3 pr-5">
           <div class="img-left">
             <img src="storage/sanpham/{{ $sanpham->hinhAnh }}" alt="xit mui">
           </div>
         </div>
-        <div class="col w-1/2 details-right pl-5 pr-3">
+        <div class="col w-full lg:w-1/2 details-right pl-5 pr-3">
           <h1 class="title-product text-2xl font-medium">
             {{ $sanpham->tenSP }}
           </h1>
-          <ul class="flex justify-end items-center">
+          <ul class="flex items-center justify-start lg:justify-end">
             @for($count = 1; $count <= 5; $count++)
               @php
                 if($count <= $rating) {
@@ -149,7 +149,7 @@
               &#9733;
               </li>
             @endfor
-            {{-- @php dd($rating); @endphp --}}
+
             <li class="mt-1 ml-2">
               <a class="link scroll-to-top">{{ $countRating }} Đánh giá</a>
             </li>
@@ -226,9 +226,9 @@
 
       <div class="mt-5 ml-4 comment-product py-3 px-4 bg-blue-200 rounded-t-2xl shadow-lg">
         <div class="box-title text-xl">Đánh Giá & Nhận Xét</div>
-        <div class="bg-blue-200 p-4">
+        <div class="bg-blue-200 lg:p-4">
           <div class="">
-            <p><b>Bạn chấm sản phẩm này bao nhiêu sao?</b></p>
+            <p class="text-sm"><b>Bạn chấm sản phẩm này bao nhiêu sao?</b></p>
             <ul class="flex">
               @for($count = 1; $count <= 5; $count++)
                 {{-- @php
@@ -253,11 +253,11 @@
             <form>
             <input placeholder="Nhập họ và tên"
             value=""
-            class="comment_name w-40p px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+            class="comment_name w-full lg:w-2/5 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
             type="text">
             <textarea name="noiDung" class="comment_content w-full form-input form-input-lg" rows="3" placeholder="Nhập nội dung bình luận (Vui lòng gõ tiếng Việt có dấu)…" spellcheck="false"></textarea>
             <div class="add-to-cart mt-3 flex justify-end">
-              <button type="submit" class="btn text-xl send-comment">Gửi bình luận</button>
+              <button type="submit" class="btn text-xl send-comment w-full lg:w-1/4">Gửi bình luận</button>
             </div>
             <div id="notify_comment"></div>
             </form>

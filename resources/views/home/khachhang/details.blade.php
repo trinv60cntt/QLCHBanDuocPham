@@ -14,7 +14,7 @@
   ?>
   <div class="container p-8 mx-auto">
     <div class="row flex">
-      <div class="col w-1p5">
+      <div class="col w-1p5 hidden lg:block">
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
@@ -106,7 +106,7 @@
             </ul>
         </div>
       </div>
-      <div class="col w-4p5">
+      <div class="col w-full lg:w-4p5">
         <div class="details">
             <h2 class="title-details text-center py-4 text-2xl">CHI TIẾT ĐƠN ĐẶT HÀNG</h2>
             <hr>

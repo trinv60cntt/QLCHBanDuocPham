@@ -17,7 +17,7 @@
                     tuyến.</p>
             </div>
             <div class="row flex flex-wrap justify-center mt-4">
-                <div class="col w-1/3">
+                <div class="col w-1/2 px-2 lg:w-1/3">
                     <a href="#">
                         <div class="category-item" style="background-image: url('assets/img/bg-tpcn.png')">
                             <div class="category-overlay text-center">
@@ -27,7 +27,7 @@
                     </a>
                 </div>
 
-                <div class="col w-1/3">
+                <div class="col w-1/2 px-2 lg:w-1/3">
                     <a href="#">
                         <div class="category-item" style="background-image: url('assets/img/bg-thuoc.png')">
                             <div class="category-overlay text-center">
@@ -37,7 +37,7 @@
                     </a>
                 </div>
 
-                <div class="col w-1/3">
+                <div class="col w-1/2 px-2 lg:w-1/3">
                     <a href="#">
                         <div class="category-item" style="background-image: url('assets/img/bg-covid.png')">
                             <div class="category-overlay text-center">
@@ -47,7 +47,7 @@
                     </a>
                 </div>
 
-                <div class="col w-1/3">
+                <div class="col w-1/2 px-2 lg:w-1/3">
                     <a href="#">
                         <div class="category-item" style="background-image: url('assets/img/bg-chamsoccanhan.png')">
                             <div class="category-overlay text-center">
@@ -57,7 +57,7 @@
                     </a>
                 </div>
 
-                <div class="col w-1/3">
+                <div class="col w-1/2 px-2 lg:w-1/3">
                     <a href="#">
                         <div class="category-item" style="background-image: url('assets/img/bg-chamsocsacdep.png')">
                             <div class="category-overlay text-center">

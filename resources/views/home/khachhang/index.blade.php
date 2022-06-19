@@ -23,7 +23,7 @@
   ?>
   <div class="container p-8 mx-auto">
     <div class="row flex">
-      <div class="col w-1p5">
+      <div class="col w-1p5 hidden lg:block">
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
@@ -115,17 +115,20 @@
             </ul>
         </div>
       </div>
-      <div class="col w-4p5">
+      <div class="col w-full lg:w-4p5">
         <table class="details details-table mx-auto mt-2" cellpadding="0" cellspacing="0">
           <tbody><tr>
               <td>
-                  <table class="m-14 mt-5" cellpadding="2" cellspacing="10">
+                  <table class="m-5 md:m-14 mt-5" cellpadding="2" cellspacing="10">
                       <tbody><tr>
                           <td colspan="3">
                               <h3 class="text-center mb-4"><b>THÔNG TIN CHI TIẾT</b></h3>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="inline ml-20 md:ml-0 md:hidden">
+                        <td><img src="storage/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
+                    </tr>
+                      <tr class="hidden ml-20 md:ml-0 md:table-row">
                           <td rowspan="8"><img src="storage/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
                       </tr>
                       <tr>

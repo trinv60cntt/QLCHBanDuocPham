@@ -32,7 +32,6 @@ class MenuController extends Controller
 
     if (isset($_GET['sort_by'])) {
       $sort_by = $_GET['sort_by'];
-  
       if($sort_by == 'giam_dan') {
         $category_by_id = SanPham::orderBy('donGia', 'DESC')->paginate(12)->appends(request()->query());
       } else if($sort_by == 'tang_dan') {
@@ -49,7 +48,6 @@ class MenuController extends Controller
     else {
       $category_by_id = SanPham::orderBy('sanpham_id', 'DESC')->get();
     }
-
     return view('home.menu.index', compact('sanphams', 'categorys', 'category_by_id'));
   }
 
@@ -76,6 +74,7 @@ class MenuController extends Controller
         // dd('1');
         $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)
         ->orderBy('donGia', 'DESC')->paginate(6)->appends(request()->query());
+        // dd($category_by_id);
       } else if($sort_by == 'tang_dan') {
         $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)
         ->orderBy('donGia', 'ASC')->paginate(6)->appends(request()->query());
@@ -153,7 +152,7 @@ class MenuController extends Controller
       foreach($comment_rep as $key => $rep_comment) {
       if($rep_comment->binhLuanCha_id == $comment->binhLuan_id) {
       $output .='
-    <div class="form-imput mt-4 bg-green-500 ml-10 p-3 rounded-full">
+    <div class="form-imput mt-4 bg-green-500 -ml-1 p-3 rounded-full sm:ml-3 lg:ml-10">
       <div class="flex">
         <div class="mr-3">
           <div class="avatar-comment flex items-center rounded-full">

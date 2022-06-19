@@ -7,10 +7,36 @@
 @section('content')
 
 @section('js')
+  <script src="admins/khachhang/add.js"></script>
   <script>
     document.getElementById('go-back').addEventListener('click', () => {
       history.back();
     });
+  </script>
+  <script>
+      Validator({
+      form: '.form-validate',
+        formGroupSelector: '.form-group',
+        errorSelector: '.form-message',
+        rules: [
+          Validator.isRequired('.hoKH'),
+          Validator.isRequired('.tenKH'),
+          Validator.isRequired('.ngaySinh'),
+          Validator.isRequired('.diaChi'),
+
+          Validator.isRequired('.sdt'),
+        ],
+      });
+
+
+      $(".btn-submit").click(function () {
+      setTimeout(() => {
+          $('html, body').animate({
+          scrollTop: $(".form-group.invalid:first").offset().top - 73 + 'px'
+          }, 200);
+      }, 10);
+
+      });
   </script>
 @endsection
 
@@ -23,7 +49,7 @@
   ?>
   <div class="container p-8 mx-auto">
     <div class="row flex">
-      <div class="col w-1p5">
+      <div class="col w-1p5 hidden lg:block">
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
@@ -115,27 +141,33 @@
             </ul>
         </div>
       </div>
-      <div class="col w-4p5 flex justify-center">
+      <div class="col w-full lg:w-4p5">
         <div class="details">
           <h2 class="font-bold text-3xl text-center mb-5">CẬP NHẬT THÔNG TIN CÁ NHÂN</h2>
           <hr>
           <div>
-            <form action="{{ route('khachhang.update') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('khachhang.update') }}" method="post" enctype="multipart/form-data" class="form-validate">
               @csrf
-            <div class="flex max-w-lg mx-auto items-center mb-3">
-              <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ khách hàng</label>
-              <input name="hoKH" placeholder="Nhập họ"
-              class="@error('hoKH') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-              value="{{ $khachhang->hoKH }}"
-              type="text">
+            <div class="max-w-lg mx-auto items-center mb-3 form-group">
+              <div class="flex">
+                <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ khách hàng</label>
+                <input name="hoKH" placeholder="Nhập họ"
+                class="@error('hoKH') error @enderror hoKH w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                value="{{ $khachhang->hoKH }}"
+                type="text">
+              </div>
+              <div class="form-message text-red-600 mt-2 text-right"></div>
             </div>
 
-            <div class="flex max-w-lg mx-auto items-center mb-3">
-              <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên khách hàng</label>
-              <input name="tenKH" placeholder="Nhập tên"
-              class="@error('tenKH') error @enderror password w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-              value="{{ $khachhang->tenKH }}"
-              type="text">
+            <div class="max-w-lg mx-auto items-center mb-3 form-group">
+              <div class="flex">
+                <label for="email" class="w-1/3 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên khách hàng</label>
+                <input name="tenKH" placeholder="Nhập tên"
+                class="@error('tenKH') error @enderror tenKH w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                value="{{ $khachhang->tenKH }}"
+                type="text">
+              </div>
+              <div class="form-message text-red-600 mt-2 text-right"></div>
             </div>
 
             <div class="flex max-w-lg mx-auto items-center mb-3">
@@ -146,14 +178,20 @@
               </div>
             </div>
 
-            <div class="flex max-w-lg mx-auto items-center mb-3">
-              <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Ngày sinh</label>
-              <input name="ngaySinh" value="{{ $khachhang->ngaySinh }}" type="date" class="w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" >
+            <div class="max-w-lg mx-auto items-center mb-3 form-group">
+              <div class="flex">
+                <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Ngày sinh</label>
+                <input name="ngaySinh" value="{{ $khachhang->ngaySinh }}" type="date" class="ngaySinh w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" >
+              </div>
+              <div class="form-message text-red-600 mt-2 text-right"></div>
             </div>
 
-            <div class="flex max-w-lg mx-auto items-center mb-3">
-              <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ</label>
-            <input name="diaChi" value="{{ $khachhang->diaChi }}" placeholder="Nhập địa chỉ" class="w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+            <div class="max-w-lg mx-auto items-center mb-3 form-group">
+              <div class="flex">
+                <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ</label>
+                <input name="diaChi" value="{{ $khachhang->diaChi }}" placeholder="Nhập địa chỉ" class="diaChi w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              </div>
+              <div class="form-message text-red-600 mt-2 text-right"></div>
             </div>
 
             <div class="flex max-w-lg mx-auto items-center mb-3">
@@ -161,9 +199,12 @@
               <input name="email" readonly value="{{ $khachhang->email }}" placeholder="Nhập email" class="w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
             </div>
 
-            <div class="flex max-w-lg mx-auto items-center mb-3">
-              <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Số điện thoại</label>
-            <input name="sdt" value="{{ $khachhang->sdt }}" placeholder="Nhập số điện thoại" class="w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+            <div class="max-w-lg mx-auto items-center mb-3 form-group">
+              <div class="flex">
+                <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Số điện thoại</label>
+                <input name="sdt" value="{{ $khachhang->sdt }}" placeholder="Nhập số điện thoại" class="sdt w-2/3 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              </div>
+              <div class="form-message text-red-600 mt-2 text-right"></div>
             </div>
 
             <div class="flex max-w-lg mx-auto items-center mb-3 flex-wrap justify-center">
@@ -176,7 +217,7 @@
 
           </div>
           <div class="mt-10 flex justify-center items-center">
-            <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            <button type="submit" class="btn-submit px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
               Lưu
             </button>
             &nbsp;|&nbsp;

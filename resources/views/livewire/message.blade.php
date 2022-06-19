@@ -36,7 +36,7 @@
             </div>
         @endif
         @endif
-        <div class="w-4/6 mx-auto">
+        <div class="md:w-4/6 mx-auto">
             <div class="card card-v2">
                 <div class="card-header">
                     @if(isset($clicked_user)) {{ $clicked_user->name }}

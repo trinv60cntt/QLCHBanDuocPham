@@ -151,9 +151,9 @@ class KhachHangController extends Controller
       return back()->withInput()->withErrors(['newPass' => 'Mật khẩu mới phải khác mật khẩu cũ']);
     }
 
-    if ($newPass != $againPass) {
-      return back()->withInput()->withErrors(['againPass' => 'Mật khẩu nhập lại không khớp']);
-    }
+    // if ($newPass != $againPass) {
+    //   return back()->withInput()->withErrors(['againPass' => 'Mật khẩu nhập lại không khớp']);
+    // }
 
     $khachhang = $this->khachhang->find($khachhang_id);
     $khachhang->update([

@@ -6,7 +6,7 @@
 }
 
 .header-bottom {
-    margin-top: 72px;
+    /* margin-top: 72px; */
     background: #242a61;
     color: #fff;
 }
@@ -16,7 +16,6 @@
   border-radius: 100px;
   height: 40px;
   padding: 5px 12px 5px 10px;
-  margin-left: 20px;
   white-space: nowrap;
 }
 
@@ -171,6 +170,13 @@
   background: white;
 }
 
+.border-product-custom {
+  border-radius: 12px;
+  border: 1px solid #d8e0e8;
+  background: white;
+  width: 150px;
+}
+
 .truncate2 {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -293,7 +299,6 @@
 }
 
 .user-form {
-  padding: 45px 75px;
   border-radius: 10px;
   background-color: #ffffff;
   border: solid 1px #e5e5e5;
@@ -308,4 +313,19 @@
 
 .form-group.invalid input{
   border: 1px solid red;
+}
+
+.qty-price {
+  min-height: 44px;
+  max-height: 74px;
+}
+
+.border-1-custom {
+  border-top: 1px solid #d8e0e8;
+}
+
+@media only screen and (min-width: 1024px) {
+  .border-product-custom {
+    width: 176px;
+  }
 }

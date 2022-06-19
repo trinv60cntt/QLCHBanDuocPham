@@ -722,3 +722,6 @@ Route::get('/Add-Cart/{id}', 'App\Http\Controllers\AdminHoaDonOffLineController@
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
 Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
+
+// forgot password
+Route::get('/forgot-password', 'MailController@quen_mat_khau');

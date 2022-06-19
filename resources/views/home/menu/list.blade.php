@@ -32,9 +32,9 @@
       <img src="assets/img/banner-1.png" alt="banner 1" class="w-full">
     </div>
     <div class="container container-aaa">
-      <h1 class="text-4xl pt-5 pb-3 font-semibold menu-title">Tra cứu thuốc kê đơn</h1>
+      <h1 class="text-base lg:text-4xl pt-5 pb-3 font-semibold menu-title">Tra cứu thuốc kê đơn</h1>
       <div class="row">
-        <div class="col w-1/4 px-4">
+        <div class="col w-full lg:w-1/4 lg:px-4">
           <div class="group-filter">
             <h2 class="font-semibold text-3xl">Bộ lọc</h2>
             <div class="my-5">
@@ -77,21 +77,18 @@
             </div>
           </div>
         </div>
-        <div class="col list-products w-3/4 px-4">
+        <div class="col w-full list-products lg:w-3/4 lg:px-4">
           <div class="row">
             @foreach ($category_by_id as $cate)
-            {{-- @php dd($category_by_id) @endphp --}}
-            <div class="col w-1/4 product-item">
-              <div class="border-product mr-5 mb-5 shadow-lg">
-                <div class="product-image">
-                  <a href="{{ route('menus.details', ['sanPham_id' => $cate->sanPham_id]) }}"><img src="storage/sanpham/{{ $cate->hinhAnh }}" alt="ion muoi"></a>
-                </div>
-                <div class="product-info text-left">
-                    <h3 class="truncate2 font-bold text-lg mb-5">{{  $cate->tenSP  }}</h3>
-                    <span
-                    class="product-price text-lg font-medium">{{ str_replace(',', '.', number_format($cate->donGia)) }}đ</span>
-                    / {{ $cate->donViTinh }}
-                </div>
+            <div class="border-product-custom p-2 mr-3 sm:mr-5 mb-5 shadow-lg lg:p-3">
+              <div class="product-image">
+                <a href="{{ route('menus.details', ['sanPham_id' => $cate->sanPham_id]) }}"><img src="storage/sanpham/{{ $cate->hinhAnh }}" alt="ion muoi"></a>
+              </div>
+              <div class="product-info text-left">
+                  <h3 class="truncate2 font-bold text-lg mb-5">{{  $cate->tenSP  }}</h3>
+                  <span
+                  class="product-price text-lg font-medium">{{ str_replace(',', '.', number_format($cate->donGia)) }}đ</span>
+                  / {{ $cate->donViTinh }}
               </div>
             </div>
             @endforeach

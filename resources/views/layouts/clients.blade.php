@@ -52,7 +52,6 @@
 </head>
 
 <body class="font-sans leading-normal tracking-normal">
-
     <nav class="nav-home-page flex items-center justify-between flex-wrap bg-white p-4 pl-6 fixed w-full z-10 top-0">
         <div class="header-logo flex items-center flex-shrink-0 text-white mr-6">
             <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
@@ -62,7 +61,7 @@
 
         <div class="block lg:hidden">
             <button id="nav-toggle"
-                class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
+                class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600">
                 <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <title>Menu</title>
                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -74,28 +73,28 @@
             id="nav-content">
             <ul class="list-reset lg:flex justify-end flex-1 items-center">
                 <li class="mr-3">
-                    <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                    <a class="inline-block text-gray-600 no-underline hover:underline py-2 px-4"
                         href="#">Trang chủ</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                    <a class="inline-block text-gray-600 no-underline hover:underline py-2 px-4"
                         href="#">Giới thiệu</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                    <a class="inline-block text-gray-600 no-underline hover:underline py-2 px-4"
                         href="{{ route('menus.index') }}">Sản phẩm</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                    <a class="inline-block text-gray-600 no-underline hover:underline py-2 px-4"
                         href="#">Tin tức</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="header-bottom pt-4">
-        <div class="flex justify-center"> 
-            <div class="mb-3 xl:w-2/5">
+    <div class="header-bottom mt-16 py-5">
+        <div class="flex justify-between px-4 lg:justify-center">
+            <div class="hidden lg:block mb-3 lg:w-2/5">
               <form action="{{ URL::to('menu/tim-kiem') }}" autocomplete="off" method="POST">
                 @csrf
                 <div class="input-group relative flex items-stretch w-full mb-4">
@@ -103,7 +102,7 @@
                         class="form-search form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 pb-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         placeholder="Tìm kiếm sản phẩm">
                     <div id="search_ajax" style="display: none;"></div>
-           
+
                     <button type="submit" class="icon-search absolute right-0 btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center">
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
                       class="w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -127,7 +126,7 @@
               
             ?>
             <a href="{{ URL::to('/login-checkout') }}">
-              <div class="border-login flex"> 
+              <div class="border-login ml-0 lg:ml-5 flex"> 
                 <span class="border-avatar"><i class="fas fa-user"></i></span>
                 <p class="text-black font-medium">Đăng nhập / Đăng ký</p> 
               </div>
@@ -241,11 +240,31 @@
               <div class="text-white flex ml-5">
                 <i class="fas fa-shopping-cart text-3xl"></i>
                 <span class="badge">{{ Cart::count() }}</span>
-                <p class="pt-3 pl-1">Giỏ hàng</p>
+                <p class="text-sm pt-3 pl-1">Giỏ hàng</p>
               </div>
             </a>
         </div>
-        <div class="category-list">
+        <div class="mt-3 lg:hidden">
+          <form action="{{ URL::to('menu/tim-kiem') }}" autocomplete="off" method="POST">
+            @csrf
+            <div class="input-group relative flex items-stretch w-full mb-4 px-4">
+                <input type="search" name="keywords_submit" id="keywords"
+                    class="form-search form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 pb-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="Tìm kiếm sản phẩm">
+                <div id="search_ajax" style="display: none;"></div>
+
+                <button type="submit" class="icon-search mr-4 absolute right-0 btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
+                  class="w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path fill="currentColor"
+                      d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
+                  </path>
+                  </svg>
+                </button>
+              </div>
+            </form>
+        </div>
+        <div class="category-list hidden lg:block">
             <ul>
                 <li>
                     <a href="#">Tra cứu thuốc kê đơn</a>
