@@ -1,0 +1,1348 @@
+function resetSelectThanhPhoQuanHuyen() {
+    $('.triggersectionTPQuan').each(function (key, value) {
+        var that = $(value);
+
+        that.find('.active').removeClass('active');
+
+        that.find('.fs-p-xxs-14').html(that.find('.dropdown-search').data('title'));
+
+        // $('.section__nhanHangTaiLC').hide();
+        $('.tabradidoNhanHangNhaThuoc').hide();
+
+        $('.js-search').val('');
+
+        $('.city').attr('data-city', '');
+        $('.district').attr('data-city', '');
+
+
+        $(`input[name='city']`).val('');
+        $(`[inputname='district']`).val('');
+
+        $.each($(`input[name='city']`).data(), function (i) {
+            $(`input[name='city']`).removeAttr("data-" + i);
+        });
+        $.each($(`input[name='district']`).data(), function (i) {
+            $(`input[name='district']`).removeAttr("data-" + i);
+        });
+
+        $('#noi_chuyen_hang').val('');
+
+        $('.district').parent().find('.scrollbar').html('');
+
+    });
+
+    $('.select__region_ward').find('.dropdown-button span').html('<i class="inline-none f-style-normal">Chọn</i> Phường/Xã');
+    $('.select__region_ward').find('.scrollbar').html('');
+    $("input[name='ward']").val('');
+    $('.ward').attr('data-city', '');
+    $.each($(`input[name='ward']`).data(), function (i) {
+        $(`input[name='ward']`).removeAttr("data-" + i);
+    });
+}
+
+// load 1 shop using long lat or shopcode
+function cartLoadShopSuggest(that, param, success = {}) {
+    addLoandingLC();
+    var data = {}, opt = {};
+
+    data.qty = param.qty;
+    data.name = param.name;
+    data.msp = param.msp;
+    data.dvt = param.dvt;
+    data.price = param.price;
+    data.view = param.view;
+
+    data.code = param.code;
+
+    data.lat = param.lat;
+    data.long = param.long;
+
+    opt.success = function (res, that, formData) {
+        success && success(res, that, formData) || null;
+        // $('.sectionForLocation').html(res);
+        // setTimeout(function(){
+        //     // popupChonNhaThuocKhac();
+        // },200);
+
+        removeLoadingLC();
+    };
+
+    opt.complete = function (res, that, formData) {
+
+    };
+
+    if (data.code) {
+        sendSer('/support/ads/adsPlanningUsingCode', data, that, opt);
+    }
+
+    if (data.lat) {
+        sendSer('/support/ads/adsPlanningUsingLatLong', data, that, opt);
+    }
+
+}
+
+
+function loadListCityHaveStores() {
+    var that = $('.loadListCityHaveStores'), opt = {}, data = {};
+
+    data.sf = "filter";
+    data.pp = 300;
+    data.view = 10;
+    data.haveProductCity = 1;
+
+    opt.method = "get";
+
+    opt.success = function (res, that, formData) {
+        that.find('.scrollbar').html(res.html);
+    };
+
+    sendSer('/support/getRegion', data, that, opt);
+}
+
+
+// getLocation();
+window.addEventListener("pageshow", function (event) {
+    var historyTraversal = event.persisted ||
+        (typeof window.performance != "undefined" &&
+            window.performance.navigation.type === 2);
+    if (historyTraversal) {
+        // Handle page restore.
+        window.location.reload();
+    }
+});
+var swiperBuyLater;
+$(function () {
+    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    // showPosition();
+
+    $(document).ready(function () {
+        // section have location
+        initDataUserInfoToCookie();
+        if ($('.loadListCityHaveStores').length) {
+            loadListCityHaveStores();
+        }
+
+        // click item-region
+        $('body').off('click', '.item-region').on('click', '.item-region', function (e) {
+            e.preventDefault();
+
+            //reset time
+            if ($('.radidoGiaoHangTanNoi').is(':checked') && $('.radidoGiaoHangTanNoi').closest('.radio').hasClass('checked')) {
+                resetNgayGio();
+            }
+
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {},
+                textItem = that.html(),
+                currentChoiceHinhThucGiaoHang = $('.currentChoiceHinhThucGiaoHang'),
+                checkBoxGH = currentChoiceHinhThucGiaoHang.find('.paymentship');
+
+            // checkBoxGH = $(".radioGiaoHang[checked='checked']");
+
+            $('.dropdown-menu').removeClass('open');
+            $('.dropdown-button').removeClass('active');
+
+            // add text
+            ans.find('.dropdown-button').attr('data-city', 1);
+            ans.find('.dropdown-button').find('span').html(textItem);
+            // that.closest('.dropdown-menu').next().slideUp();
+
+            that.closest('.dropdown').find('.is-invalid').removeClass('is-invalid ');
+
+            // active
+            $('.item-region').removeClass('active');
+
+            setTimeout(function () {
+                that.addClass('active');
+            }, 100);
+
+            // set data
+            data.pp = 200;
+            data.view = 10;
+
+
+            if (checkBoxGH.data('type') == 'nhan-hang-nha-thuoc') {
+                data.is_have_shop = 1;
+            } else {
+                data.is_have_shop = null;
+            }
+
+            // set value query
+            if (ans.hasClass('select__region_city')) {
+
+                data.city_id = data.htcity;
+                $('.select__region_district').find('.is-invalid').removeClass('is-invalid');
+
+            } else if (ans.hasClass('select__region_district')) {
+                data.district_id = data.htdistrict;
+            }
+
+            // opt
+            opt.method = "get";
+            opt.success = function (res, that, formData) {
+                console.log(checkBoxGH.data('type'));
+                // city choice
+                if (ans.hasClass('select__region_city')) {
+                    console.log('city');
+
+                    //vtp covid
+                    resetHidden();
+
+                    // set region orther
+                    $('.select__region_district').find('.dropdown-button span').html('<i class="inline-none f-style-normal">Chọn</i> Quận/Huyện');
+                    $('.select__region_district').find('.scrollbar').html(res.html);
+                    $('.select__region_ward').find('.dropdown-button span').html('<i class="inline-none f-style-normal">Chọn</i> Phường/Xã');
+                    $('.select__region_ward').find('.scrollbar').html('');
+                    $('.shopList').show();
+
+                    $("input[name='city']").val(formData.id);
+                    $('input[name="district"]').val('');
+                    $("input[name='ward']").val('');
+
+                    // console.log($("input[name='htdistrict']").data('htdistrict'));
+
+                    if (checkBoxGH.data('type') == 'nhan-hang-nha-thuoc') {
+                        $('.tabradidoNhanHangNhaThuoc').show();
+                        setTimeout(function () {
+                            getShop();
+                        }, 20);
+                    }
+                    // $('.select__region_district').find('.scrollbar').html(res.html);
+                }
+
+                // district choice
+                if (ans.hasClass('select__region_district')) {
+                    console.log('district');
+
+                    //vtp covid
+                    resetHidden();
+
+                    // set region orther
+                    // $('.select__region_district').find('.dropdown-button span').html('Chọn quận/huyện');
+                    // $('.select__region_district').find('.scrollbar').html(res.html);
+                    $('.select__region_ward').find('.dropdown-button span').html('<i class="inline-none f-style-normal">Chọn</i> Phường/Xã');
+                    $('.select__region_ward').find('.scrollbar').html(res.html);
+                    $("input[name='district']").val(formData.id);
+                    // $("input[name='district']").data('htdistrict', that.data('htdistrict'));
+                    $("input[name='ward']").val('');
+
+
+                    if (checkBoxGH.data('type') == 'giao-hang-tan-noi') {
+
+                        $('.tabradidoNhanHangNhaThuoc').hide();
+
+                        setTimeout(function () {
+                            $('.tabradidoGiaoHangTanNoi').show();
+                        }, 90);
+
+                    }
+
+                    if (checkBoxGH.data('type') == 'nhan-hang-nha-thuoc') {
+                        $('.tabradidoNhanHangNhaThuoc').show();
+                        getShop();
+                    }
+
+                }
+
+                // ward choice
+                if (ans.hasClass('select__region_ward')) {
+                    console.log('ward');
+
+                    //vtp covid
+                    resetHidden();
+
+                    $("[name='ward']").val(formData.id);
+                    $("input[name='ward_code']").val(formData.id);
+                    $('.divNoiChuyenHang').show();
+                    $('.divGhiChu').show();
+                }
+
+
+                $("input[name='district']").val() != '' ? $('.divNoiChuyenHang').show() : $('.divNoiChuyenHang').hide();
+                $('#noi_chuyen_hang').val('');
+
+            };
+
+            opt.complete = function (data) {
+                setTimeout(function () {
+                    $('.lc__load').hide();
+                }, 1000);
+            }
+
+            // send server
+            sendSer('/support/getHTRegion', data, that, opt);
+        });
+
+
+        swiperBuyLater = new Swiper('.js-slide--later', {
+            slidesPerView: 5,
+            slidesPerGroup: 5,
+            navigation: {
+                nextEl: '.js-slide--later + .next',
+                prevEl: '.js-slide--later + .next + .prev',
+            },
+            breakpoints: {
+                992: {
+                    slidesPerView: 'auto',
+                    slidesPerGroup: 2,
+                },
+            },
+        });
+
+
+        // $('body').on('change', '.number-product', function (e) {
+        //     reloadGiaohang();
+        // });
+
+        // planning get time giao hàng + phí tại nhà
+        $('body').off('change', '#noi_chuyen_hang').on('change', '#noi_chuyen_hang', function (e) {
+            e.preventDefault();
+            planningTaiNha('#noi_chuyen_hang');
+
+        });
+
+
+        // change divChangeDvt
+        $('body').off('click', '.divChangeDvt').on('click', '.divChangeDvt', function (e) {
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {},
+                closest = that.closest('.divWapperDvt');
+            e.preventDefault();
+
+            that.prop('disabled', true);
+
+            closest.find('.active').removeClass('active');
+
+            setTimeout(function () {
+                that.addClass('active');
+            }, 50);
+
+            console.log(data);
+
+            opt.begin = function (that, formData) {
+
+            };
+
+            opt.success = function (res, that, formData) {
+
+                let source = $('<div>' + res.html + '</div>').hide(),
+                    totalItem = source.find('input[name="countItemInCart"]').val(),
+                    thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+                    blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html()),
+                    item = $('.item--cart-' + formData.id).html(source.find('.item--cart-' + formData.id).html());
+
+                setTimeout(function () {
+                    that.removeClass('disabled').prop('disabled', false);
+                    that.removeClass('disabled').prop('disabled', false);
+                }, 300);
+
+
+                $('.countItemInCart').html("CÓ " + totalItem + " SẢN PHẨM TRONG GIỎ HÀNG");
+                $('.menuCartItemCount').html(totalItem);
+
+                productCount();
+
+            };
+
+            sendSer('/cart/updateCart', data, that, opt);
+
+        });
+
+        $('body').off('click', '.btnDeleteItemBuyLater').on('click', '.btnDeleteItemBuyLater', function (e) {
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {},
+                closest = that.closest('.itemBuyLater');
+            e.preventDefault();
+
+            that.prop('disabled', true);
+
+
+            opt.begin = function (that, formData) {
+                closest.remove();
+
+                if (!$('.itemBuyLater').length) {
+                    $('.buyLateritems').attr('style', 'display:none !important');
+                    $('.titleBuyLater').attr('style', 'display:none !important');
+                }
+            };
+
+            opt.success = function (res, that, formData) {
+
+            };
+
+            sendSer('/cart/removeItemBuyLater', data, that, opt);
+
+        });
+
+
+        // mua sau
+        $('body').off('click', '.btnBuyLater').on('click', '.btnBuyLater', function (e) {
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(),
+                opt = {},
+                cartClosest = ans.closest('.cart-product');
+
+            // set data
+            data.qty = 0;
+
+            data.listPromotions = getPromotionChoose();
+            data = Object.assign(data, addDataVourcher());
+
+            opt.begin = function (that, formData) {
+                $('.lc__load').show();
+            };
+
+            opt.success = function (res, that, formData) {
+
+                if (res.mode == 1) {
+                    let source = $('<div>' + res.html + '</div>').hide(),
+                        totalItem = source.find('input[name="countItemInCart"]').val(),
+                        thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+                        blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html()),
+                        cartItem = $('.js--cart-render').html(source.find('.js--cart-render').html()),
+                        itemBuyLater = source.find('.itemBuyLater');
+
+                    $('.countItemInCart').html("CÓ " + totalItem + " SẢN PHẨM TRONG GIỎ HÀNG");
+                    $('.menuCartItemCount').html(totalItem);
+
+                    cartClosest.slideUp(100);
+
+                    $('.buyLateritems').show();
+                    $('.titleBuyLater').show();
+
+                    setTimeout(function () {
+                        cartClosest.remove();
+                    }, 101);
+
+                    var existItem = $('.itemBuyLater[data-id="' + res.message + '"');
+
+                    existItem.remove();
+
+                    setTimeout(function () {
+                        swiperBuyLater.prependSlide(itemBuyLater);
+                    }, 10);
+
+                    reloadGiaohang();
+                }
+
+                // var swiper;
+                // $('.wapperBuyLater').prepend(res.html);
+
+                // nextItem.after(source);
+                // source.show();
+
+                //total quantity = 0 -> gio hang rong
+                if (res.mode == 0) {
+
+                    $('.lc-main').before(res.html);
+
+                    $('.menuCartItemCount').remove();
+
+                    $('.lc-main:eq(1)').slideUp(100);
+
+                    setTimeout(function () {
+                        $('.lc-main:eq(1)').remove();
+                    }, 100);
+
+                }
+
+                setTimeout(function () {
+                    checkAllowTTOL();
+                }, 300);
+            };
+
+            opt.complete = function (res, that, formData) {
+                $('.lc__load').hide();
+                lc_dropdown();
+                // conflictKM();
+                productCount();
+                callAfterLoadItemCart();
+                sliderLater();
+            };
+
+            sendSer('/cart/updateCart', data, that, opt);
+
+        });
+
+
+        // count items
+        productCount();
+
+
+        // check shop shop__item
+        $('body').off('click', '.shop__item').on('click', '.shop__item', function (e) {
+            $('.section__nhanHangTaiLC').show();
+        });
+
+
+        // Tu dong Get Hinh Thuc Giao Hang -> Chi giao hang tai shop
+        function getDeliveryAtPageLoaded () {
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {};
+            $("[name='hinh_thuc_nhan_hang']").val(2); // 2 => giao-hang-tai-shop
+            $('.triggersectionTPQuan').show();
+            $('.radidoNhanHangNhaThuoc').prop('checked', true);
+
+            $('.radioGiaoHang').not(that).prop("checked", false).removeAttr("checked").removeClass("currentChoiceHinhThucGiaoHang");
+
+            $('.div-giao-hang-tai-shop').attr("checked", "checked");
+            $('.div-giao-hang-tai-shop').addClass("checked");
+
+            $("#nhan-hang-tai-nha-thuoc-label").addClass('currentChoiceHinhThucGiaoHang');
+
+            data.is_have_shop = 1;
+            data.pp = 300;
+            data.view = 10;
+            opt.method = "get";
+
+            let currentPlaceHolderText = $('.search-custom-tinh-thanh').attr("placeholder");
+            opt.begin = function (that, formData) {
+                $('.search-custom-tinh-thanh').attr("placeholder", 'Đang tải tỉnh thành, vui lòng đợi trong giây lát.');
+            };
+
+            opt.success = function (res, that, formData) {
+                $('.select__region_city').find('.scrollbar').html(res.html);
+                $('.search-custom-tinh-thanh').attr("placeholder", currentPlaceHolderText);
+
+                var currentChoiceHinhThucGiaoHang = $('.currentChoiceHinhThucGiaoHang'),
+                    checkBoxGH = currentChoiceHinhThucGiaoHang.find('.paymentship');
+
+                // // nhận hàng tại nhà thuốc
+                if (checkBoxGH.data('type') == 'nhan-hang-nha-thuoc') {
+
+                    //vtp covid
+                    resetHidden();
+
+                    $('.tabradidoNhanHangNhaThuoc').show();
+                    $('.tabradidoGiaoHangTanNoi').hide();
+
+                    $("[name='hinh_thuc_nhan_hang']").val(2);
+                    clearPhiGiaoHang();
+
+                }
+
+                // // giao hàng tận nơi
+                // if (checkBoxGH.data('type') == 'giao-hang-tan-noi') {
+                //     $('.tabradidoNhanHangNhaThuoc').hide();
+                //     $('.tabradidoGiaoHangTanNoi').hide();
+                //
+                //     $("[name='hinh_thuc_nhan_hang']").val(1);
+                //     if ($("[name='district']").val()) {
+                //         $('.giaoTaiNha').show();
+                //     }
+                // }
+
+                resetSelectThanhPhoQuanHuyen();
+                removeLoadingLC();
+
+            };
+
+            // send server
+            sendSer('/support/getHTRegion', data, that, opt);
+
+        }
+
+        // Check can delivery at home and run script
+        if($("#can_delivery_at_home").val() == "0"){
+            getDeliveryAtPageLoaded()
+        }
+
+        // radioGiaoHang click
+        $('body').off('click', '.radioGiaoHang').on('click', '.radioGiaoHang', function (e) {
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {};
+            $(this).find('input[type="radio"]').prop('checked', true);
+
+            e.preventDefault();
+            if (!validateTax()) {
+                return false;
+            }
+
+            if ($('.radidoGiaoHangTanNoi').is(':checked') && $('.radidoGiaoHangTanNoi').closest('.radio').hasClass('checked')) {
+                resetNgayGio();
+                // showPhiGiaoHangDefault();
+            }
+
+            if (!DETECT_PHONE($('input[phone]').val())) {
+                $('input[phone]').addClass('is-invalid').next().find('span').text('Số điện thoại không hợp lệ');
+                return false;
+            }
+
+            if (that.find('.paymentship').data('type') == 'nhan-hang-nha-thuoc') {
+                data.is_have_shop = 1;
+            }
+
+            // data.sf = "filter";
+            data.pp = 300;
+            data.view = 10;
+
+            // begin
+            $('.radioGiaoHang').not(that).prop("checked", false).removeAttr("checked").removeClass("currentChoiceHinhThucGiaoHang");
+
+            that.attr("checked", "checked");
+
+
+            setTimeout(function () {
+                that.addClass('currentChoiceHinhThucGiaoHang');
+            }, 30)
+
+            $('.triggersectionTPQuan').show();
+            opt.method = "get";
+
+            opt.begin = function (that, formData) {
+                addLoandingLC()
+            };
+
+            opt.success = function (res, that, formData) {
+                $('.select__region_city').find('.scrollbar').html(res.html);
+
+                var currentChoiceHinhThucGiaoHang = $('.currentChoiceHinhThucGiaoHang'),
+                    checkBoxGH = currentChoiceHinhThucGiaoHang.find('.paymentship');
+
+                // nhận hàng tại nhà thuốc
+                if (checkBoxGH.data('type') == 'nhan-hang-nha-thuoc') {
+
+                    //vtp covid
+                    resetHidden();
+
+                    $('.tabradidoNhanHangNhaThuoc').show();
+                    $('.tabradidoGiaoHangTanNoi').hide();
+
+                    $("[name='hinh_thuc_nhan_hang']").val(2);
+                    clearPhiGiaoHang();
+
+                }
+
+                // giao hàng tận nơi
+                if (checkBoxGH.data('type') == 'giao-hang-tan-noi') {
+                    $('.tabradidoNhanHangNhaThuoc').hide();
+                    $('.tabradidoGiaoHangTanNoi').hide();
+
+                    $("[name='hinh_thuc_nhan_hang']").val(1);
+                    if ($("[name='district']").val()) {
+                        $('.giaoTaiNha').show();
+                    }
+                }
+
+                resetSelectThanhPhoQuanHuyen();
+                removeLoadingLC();
+
+            };
+
+
+            // send server
+            sendSer('/support/getHTRegion', data, that, opt);
+        });
+
+        loadDataFormCookie();
+
+        saveDataUserInfoToCookie();
+
+
+        $('body').off('click', '.chonNgayGiao').on('click', '.chonNgayGiao', function (e) {
+            e.preventDefault();
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent(), opt = {};
+
+            if (!validateAddress()) {
+                return false;
+            }
+
+            that.addClass('active').parent().find('.active').not(that).removeClass('active').closest('.cs-dropdown').find('.chonNgayGiaoCurrent')
+                .html(that.children(":first").html());
+
+            //cai tren nhieu luc ko work, nen them dong này
+            that.closest('.cs-dropdown').find('.chonNgayGiaoCurrent').html(that.children(":first").html());
+
+
+            ans.closest('.dropdown-menu').removeClass('open');
+
+
+            let datePicked = new Date(that.attr('data-date'));
+
+            let now = new Date();
+            let dateClone;
+            if ($('.radidoGiaoHangTanNoi').prop("checked", true) && $('.radidoGiaoHangTanNoi').closest('.radio').hasClass('checked')) {
+                dateClone = new Date($('#thoi_gian_giao_du_kien_tai_nha').val());
+            } else {
+                dateClone = new Date($('#thoi_gian_giao_du_kien_tai_shop').val());
+            }
+            let isToday = dateClone.getDate() == now.getDate() &&
+                dateClone.getMonth() == now.getMonth() &&
+                dateClone.getFullYear() == now.getFullYear();
+
+            console.log(datePicked, now, dateClone);
+            if (dateClone.getHours() !== 0 && getDateFormat(datePicked) == getDateFormat(dateClone)) {
+                loadHourPick(dateClone.getHours(), 21, isToday)
+            } else {
+                datePicked.getTime() > now.getTime() ? loadHourPick(8, 21) : loadHourPick(now.getHours(), 21);
+            }
+
+            // resetGio();
+
+
+            $('input[name="thoi_gian_nhan_hang_tai_nha"]').val(that.attr('data-date'));
+            $('input[name="ngaySelected"]').val(that.closest('.cs-dropdown').find('.chonNgayGiaoCurrent').html());
+            $('.wrapChonNgayGiao').find('.dropdown-button').removeClass('is-invalid');
+            $('.alert-chonNgayGiao').hide();
+        });
+
+        // xóa sp
+        $('body').off('click', '.js-remove').on('click', '.js-remove', function (e) {
+            e.preventDefault();
+            var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {};
+
+            that.closest('.cart-product').remove();
+
+            data.qty = 0;
+            data.listPromotions = getPromotionChoose();
+            data = Object.assign(data, addDataVourcher());
+
+            opt.begin = function (that, formData) {
+                $('.dropdown-promotion').addClass('disable');
+            };
+
+            opt.complete = function () {
+                lc_dropdown();
+                $('.dropdown-promotion').removeClass('disable');
+                callAfterLoadItemCart();
+                productCount();
+                // conflictKM();
+                sliderLater();
+            };
+
+            opt.success = function (res, that, formData) {
+
+                if (res.mode == 1) {
+                    let source = $('<div>' + res.html + '</div>').hide(),
+                        totalItem = source.find('input[name="countItemInCart"]').val(),
+                        thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+                        blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html()),
+                        cartItem = $('.js--cart-render').html(source.find('.js--cart-render').html());
+
+                    $('.countItemInCart').html("CÓ " + totalItem + " SẢN PHẨM TRONG GIỎ HÀNG");
+
+                    $('.menuCartItemCount').html(totalItem);
+
+                    reloadGiaohang();
+
+                }
+
+                if (res.mode == 0) {
+
+                    $('.lc-main').before(res.html);
+
+                    $('.menuCartItemCount').remove();
+
+                    $('.lc-main:eq(1)').slideUp(100);
+
+                    setTimeout(function () {
+                        $('.lc-main:eq(1)').remove();
+                    }, 100);
+
+                }
+
+                setTimeout(function () {
+                    checkAllowTTOL();
+                }, 300);
+
+            }
+            sendSer('/cart/updateCart', data, that, opt);
+
+        });
+
+
+        //button buy products near
+        addProductNear()
+
+    });
+});
+
+
+function planningTaiNha(element = '#noi_chuyen_hang', loading = true) {
+    console.log('reloadGiaoHang:' + loading);
+    var that = $(element), data = that.data(), parent = that.parent(), ans = parent.parent().parent(), opt = {};
+    loading ? addLoandingLC() : disableDoneOrder();
+
+    if (!that.val()) {
+        loading ? removeLoadingLC() : enableDoneOrder();
+        return;
+    }
+
+    var city = $('input[name="city"]'), district = $('input[name="district"]'), ward = $('input[name="ward"]');
+    data.thanhpho_id = city.val();
+
+    data.htcity = city.val();
+    data.htdistrict = district.val();
+    data.htward = ward.val();
+    // data.ward_code = ward.val();
+
+    data.ho_ten = $('input[name="ho_ten"]').val();
+    data.phone = $('input[name="phone"]').val();
+    data.dia_chi = that.val();
+
+    if (!that.val()) return;
+
+    that.prop('disabled', true);
+
+    console.log(data);
+
+    opt.method = "GET";
+
+    opt.begin = function (that, formData) {
+        $('#thoi_gian_giao_du_kien_tai_nha').val('');
+    };
+
+    opt.success = function (res, that, formData) {
+        that.prop('disabled', false);
+        // console.log( res.time );
+        console.log( res.note );
+
+        $('#thoi_gian_giao_du_kien_tai_nha').val(res.expire_date);
+        $('#expire_date').val(res.expire_date);
+
+        $('#current_shop_note').val(res.note);
+        $('#current_type_payment').val(res.type_payment);
+        changeSelectTimeReceiveHome(res.expire_date);
+        //check ẩn ttol
+        console.log( res.error_code );
+        checkAllowTTOL(res.error_code);
+
+        reloadThongTinDonHang();
+
+
+        if(res.error_code == 10)
+        {
+            console.log('show');
+            $('.alert-covid').show();
+            $('.time-covid').hide();
+            // $('.ttol-covid').hide();
+        }
+        else
+        {
+            //vtp covid
+            resetHidden();
+        }
+
+        // upNgayGiaoHangBrief();
+        $('.formHinhThucNhanHang').show();
+        $('.table-receive').hide();
+        // $('.field_payment').find('.checked').removeClass('checked');
+        // $('[name="payment"]').val('');
+
+        // setTimeout(function () {
+        //     console.log($('#thoi_gian_giao_du_kien_tai_nha').val());
+        // }, 1000);
+        $('#info_planning').val(res.reponse);
+        $('#request_planning').val(res.request);
+
+        loading ? removeLoadingLC() : enableDoneOrder();
+    };
+
+    opt.complete = function (res, that, formData) {
+        that.prop('disabled', false);
+    };
+
+    sendSer('/support/ads/adsPlanningForCart', data, that, opt);
+}
+
+
+//product count
+function productCount() {
+    var btn_count = $('.js-product--count'), opt = {};
+
+    const MIN = 0, MAX = 999;
+
+
+    opt.begin = function (that, formData) {
+        that.addClass('disabled').prop('disabled', true);
+        $('.dropdown-promotion').addClass('disable');
+        // onPromotionLoading();
+        addLoandingLC();
+    };
+
+    opt.complete = function () {
+        lc_dropdown();
+        $('.dropdown-promotion').removeClass('disable');
+        // conflictKM();
+        // offPromotionLoading();
+        callAfterLoadItemCart();
+        removeLoadingLC();
+    };
+
+    opt.success = function (res, that, formData) {
+
+        let source = $('<div>' + res.html + '</div>').hide(),
+            totalItem = source.find('input[name="countItemInCart"]').val(),
+            thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+            blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html()),
+            cartItem = $('.js--cart-render').html(source.find('.js--cart-render').html());
+
+        setTimeout(function () {
+            that.removeClass('disabled').prop('disabled', false);
+        }, 300);
+
+
+        $('.countItemInCart').html("CÓ " + totalItem + " SẢN PHẨM TRONG GIỎ HÀNG");
+        $('.menuCartItemCount').html(totalItem);
+
+        reloadGiaohang(false);
+        productCount();
+        // conflictKM();
+    };
+
+    btn_count.each(function () {
+        var btn = $(this).find('.button-count'),
+            input = $(this).find('.number-product');
+
+        // -
+        btn.first().off().on('click', function () {
+            var that = $(this), data = that.data();
+            num = parseInt(input.val());
+
+            if (num > 1 && input.val(num - 1)) {
+                data.qty = num - 1;
+
+                let isValidPromotion = checkSLKM(that, input.val());
+                if(!isValidPromotion)
+                {
+                    let parent = that.closest('.cart-product');
+                    let firstPromotionNotCheck = parent.find('.groupPromotionArea1').not('.active').first();
+                    firstPromotionNotCheck.trigger('click');
+                }
+
+                data.listPromotions = getPromotionChoose();
+                data = Object.assign(data, addDataVourcher());
+
+                sendSer('/cart/updateCart', data, that, opt);
+            }
+
+            num == 2 && btn.first().addClass('disabled');
+            num == MAX && btn.last().removeClass('disabled');
+        });
+
+        // +
+        btn.last().off().click(function () {
+
+            var that = $(this), data = that.data();
+
+            num = parseInt(input.val());
+
+            that.addClass('disabled');
+
+
+            if (num < MAX && input.val(num + 1)) {
+                data.qty = num + 1;
+                data.listPromotions = getPromotionChoose();
+                data = Object.assign(data, addDataVourcher());
+                sendSer('/cart/updateCart', data, that, opt);
+            }
+
+            num > MIN && btn.first().removeClass('disabled');
+            num == 998 && btn.last().addClass('disabled');
+        });
+
+    });
+}
+
+function getShop(loading = true) {
+    console.log('-- getShop:' + loading);
+    var city = $('input[name="city"]'),
+        district = $('input[name="district"]'),
+        ward = $('input[name="ward"]'),
+        data = {}, opt = {};
+
+    // data.thanhpho_id = city.val();
+    // data.quan_id = district.val();
+    // data.ward_id = ward.val();
+    data.htcity = city.val();
+    data.htdistrict = district.val();
+    data.htward = ward.val();
+
+    console.log(data.htcity + ', ' + data.htdistrict + ', ' + data.htward);
+
+    data.ho_ten = $('input[name="ho_ten"]').val();
+    data.phone = $('input[name="phone"]').val();
+
+    data.sf = 'filter';
+    data.pp = 100;
+    data.view = 10;
+
+    opt.method = "GET";
+    opt.begin = function (res, that, formData) {
+        $('.shopList').html('Đang tải...');
+        loading ? addLoandingLC() : disableDoneOrder();
+    };
+
+    opt.success = function (res, that, formData) {
+
+        $('.shopList').html(res.html);
+        // check box
+        var checkedShop = $('.checkFormShopList').find('.checked');
+        var time = checkedShop.find('.shopStatus').data('time');
+        var shopNote = checkedShop.find('.shopStatus').data('note');
+        var typePayment = checkedShop.find('.shopStatus').data('payment');
+        console.log('init: ' + time + ' ' + shopNote);
+
+        $('#thoi_gian_giao_du_kien_tai_shop').val(time);
+        $('#current_shop_note').val(shopNote);
+        $('#current_type_payment').val(typePayment);
+
+        changeSelectTimeReceiveShop(time);
+        checkAllowTTOL();
+
+        var radio = $('.checkFormShopList').find('.radio');
+        // var status = $(this).find('.shopStatus');
+
+        $('.formHinhThucNhanHang').show();
+        $('.table-receive').hide();
+        // $('.field_payment').find('.checked').removeClass('checked');
+        // $('[name="payment"]').val('');
+
+        radio.off('click').click(function () {
+
+            var time = $(this).find('.shopStatus').data('time');
+            var shopNote = $(this).find('.shopStatus').data('note');
+            var typePayment = $(this).find('.shopStatus').data('payment');
+            $('#thoi_gian_giao_du_kien_tai_shop').val(time);
+            $('#current_shop_note').val(shopNote);
+            $('#current_type_payment').val(typePayment);
+
+            $('.lc__load').show();
+
+            changeSelectTimeReceiveShop(time);
+            checkAllowTTOL();
+            // $('.chonNgayGiao').removeClass('active');
+            // $('.chonNgayGiao').first().addClass('active');
+
+
+            setTimeout(function () {
+                $('.lc__load').hide();
+                console.log(time);
+                console.log(shopNote);
+
+            }, 500);
+
+
+            radio.removeClass('checked');
+
+            $(this).addClass('checked');
+
+        });
+
+
+        // load more
+        setTimeout(function () {
+            vuLoadMoreShop();
+            // $('.section__nhanHangTaiLC').show();
+            loading ? removeLoadingLC() : enableDoneOrder();
+        }, 50);
+
+
+    };
+
+    sendSer('/support/getShopV2', data, '', opt);
+}
+
+
+function loadDataFormCookie() {
+    // load data form cookie
+    $('.inputInfoCustomer').each(function (index, value) {
+        // console.log(index);
+        var that = $(value), name = that.attr("name"), valueAttr = $.cookie(name);
+
+        if ($.inArray(name, ['gioi_tinh'])) {
+            that.val($.cookie(name));
+            $('.div' + name).html($.cookie(name));
+        }
+
+        $(`.inputInfoCustomer[value="${$.cookie('gioi_tinh')}"]`).prop('checked', true).parent().parent().addClass('checked');
+    });
+
+    if ($.cookie('is_print_invoice') == 1) {
+        $("#is_print_invoice").prop('checked', true);
+        $(".formInfoTax").slideDown();
+    }
+
+    $('.inputInfoTax').each(function (index, value) {
+        var that = $(value), name = that.attr("name"), valueAttr = $.cookie(name);
+        if ($.cookie('is_print_invoice') == 1) {
+            console.log('get cookie');
+            that.val($.cookie(name));
+            $('.div' + name).html($.cookie(name));
+        }
+    });
+
+
+    var nameTextGioiTinh = '';
+    if ($.cookie('gioi_tinh') == 0) {
+        nameTextGioiTinh = 'Anh';
+    } else {
+        nameTextGioiTinh = 'Chị';
+    }
+
+    $('.divho_ten').html(nameTextGioiTinh + ' ' + $('.divho_ten').text());
+
+    setTimeout(function () {
+        let lengthName = $('input[name="ho_ten"]').val().length;
+        if (validateTaxShow() && lengthName >= 3 && lengthName <= 190 && DETECT_PHONE($('input[phone]').val()) && isRadio('.cart-bottom__form').check_form_radio) {
+
+            if(!validateTaxCart()) return;
+            $('.formInfoCustomer').hide();
+
+            $('.js-info-user').show();
+
+            $('.js-info-user').find('.js-tab-val').each(function (key, item) {
+                if (!$(item).text()) {
+                    $(item).closest('.js-table-info').hide();
+                }
+            })
+        }
+    }, 50);
+}
+
+
+function saveDataUserInfoToCookie() {
+    // save data in cookie on sectionInfoCustomer
+    $('body').off('change', '.inputInfoCustomer').on('change', '.inputInfoCustomer', function (e) {
+
+        var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent(), opt = {};
+        var attr = $(this).attr('name');
+        if (typeof attr !== 'undefined' && attr === 'email') {
+            console.log('check cookie email');
+            if(!validateEmail(that.val()))
+            {
+                $.cookie(that.attr("name"), '', {expires: 30});
+                return;
+            }
+        }
+        $.cookie(that.attr("name"), that.val(), {expires: 30});
+
+    });
+    $('body').off('change', '#is_print_invoice').on('change', '#is_print_invoice', function (e) {
+        let value = 0;
+        if ($("#is_print_invoice").is(':checked')) {
+            value = 1;
+        }
+
+        $.cookie("is_print_invoice", value, {expires: 10});
+    });
+
+    $('body').off('change', '.inputInfoTax').on('change', '.inputInfoTax', function (e) {
+        console.log('set cookie');
+        var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent(), opt = {};
+        $.cookie(that.attr("name"), that.val(), {expires: 10});
+    });
+
+
+}
+
+
+function reloadGiaohang(loading = true) {
+    console.log('reloadGiaoHang:' + loading);
+    loading ? addLoandingLC() : disableDoneOrder();
+    console.log($('.radioGiaoHang[checked="checked"]').data('type'));
+
+    currentChoiceHinhThucGiaoHang = $('.currentChoiceHinhThucGiaoHang'),
+        checkBoxGH = currentChoiceHinhThucGiaoHang.find('.paymentship');
+
+
+    if (checkBoxGH.data('type') == 'nhan-hang-nha-thuoc') {
+        clearPhiGiaoHang();
+        $(".item-region.active").length > 0 && getShop(loading);
+        return;
+    }
+
+    if (checkBoxGH.data('type') == 'giao-hang-tan-noi') {
+        planningTaiNha('#noi_chuyen_hang', loading);
+        return;
+    }
+
+    loading ? removeLoadingLC() : enableDoneOrder();
+}
+
+function upNgayGiaoHangBrief() {
+    var receive = $('.table-receive'), date = $("[name='ngaySelected']").val(), time = $('[name="gioSelected"]').val();
+    var table_info = receive.find('.js-table-info'), last = $('.js-tab-val:last-child');
+    table_info.eq(1).find(last).text(`${time}, ${date}`);
+}
+
+function reloadListShop() {
+    if ($('.tabradidoNhanHangNhaThuoc').is(":hidden")) {
+        console.log('hidden');
+    } else {
+        console.log('visibility');
+        // getShop();
+    }
+
+    resetSelectThanhPhoQuanHuyen();
+    reloadPhuongThucThanhToan();
+
+
+    $('.formHinhThucNhanHang').show();
+    $('.table-receive').hide();
+    $('.radidoGiaoHangTanNoi').prop('checked', true) && $('.radidoGiaoHangTanNoi').closest('.radio').hasClass('checked') && $('.tabradidoGiaoHangTanNoi').hide();
+
+}
+
+function clearPhiGiaoHang() {
+    var that = '', opt = {}, data = {};
+    data = Object.assign(data, addDataVourcher());
+    opt.success = function (res, that, formData) {
+        let source = $('<div>' + res.html + '</div>').hide(),
+            thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+            blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html());
+    };
+
+    sendSer('/cart/updatePhiGiaohang', data, that, opt);
+}
+
+function reloadThongTinDonHang() {
+    // $('.phiGiaoHangDuKien').show();
+    // var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent(), opt = {};
+    var that = '', opt = {}, data = {};
+    // data.updateMode = 'phiGiaoHang';
+    data = Object.assign(data, addDataVourcher());
+    opt.success = function (res, that, formData) {
+        let source = $('<div>' + res.html + '</div>').hide(),
+            thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+            blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html());
+    };
+
+    sendSer('/cart/refreshCart', data, that, opt);
+}
+
+function addProductNear() {
+    const MIN = 0, MAX = 999;
+    $(document).on('click', '.add-product-near', function () {
+        var that = $(this), data = that.data(), parent = that.parent(), ans = parent.parent(), opt = {};
+        data.listPromotions = getPromotionChoose();
+        data = Object.assign(data, addDataVourcher());
+
+        opt.begin = function (that, formData) {
+            that.addClass('disabled').prop('disabled', true);
+            addLoandingLC();
+        };
+
+        opt.complete = function () {
+            lc_dropdown();
+            removeLoadingLC();
+            callAfterLoadItemCart();
+            // conflictKM();
+        };
+
+        opt.success = function (res, that, formData) {
+            if ($('.cartEmpty').length > 0) {
+                return window.location.href = '/dat-hang-v3';
+            }
+
+            let source = $('<div>' + res.html + '</div>').hide(),
+                totalItem = source.find('input[name="countItemInCart"]').val(),
+                thongTinDonHang = $('.blockThongTinDonHang').html(source.find('.blockThongTinDonHang').html()),
+                blockVoucher = $('.blockVourcher').html(source.find('.blockVourcher').html());
+            let cartItem = $('.js--cart-render').html(source.find('.js--cart-render').html());
+            // if (itemCart.length > 0) {
+            //     item = $('.item--cart-' + formData.id).html(source.find('.item--cart-' + formData.id).html());
+            // } else {
+            //     $('.cart-wrapper-item').append(source.find('.item--cart-' + formData.id));
+            // }
+
+
+            that.removeClass('disabled').prop('disabled', false);
+            $('html, body').animate({
+                scrollTop: $('.item--cart-' + data.id).offset().top - 50
+            }, 500);
+
+
+            $('.countItemInCart').html("CÓ " + totalItem + " SẢN PHẨM TRONG GIỎ HÀNG");
+            $('.menuCartItemCount').html(totalItem);
+
+            //
+            reloadGiaohang();
+
+            productCount();
+
+            setTimeout(function () {
+                checkAllowTTOL();
+            }, 300);
+        };
+
+        //check max
+        let input = $('.cart-product').find(`.number-product[data-id="${data.id}"]`);
+
+        console.log(input);
+        console.log(input.val());
+
+        if (!input || parseInt(input.val()) !== MAX) {
+            sendSer('/cart/updateCart', data, that, opt);
+        }
+
+        var productObjs = [
+            {
+                'id': data.id,
+                'name': data.name,
+                'price': data.price,
+                'quantity': data.qty,
+            }
+        ];
+        addToCartTrackingAntsomi(productObjs);
+
+    });
+}
+
+function validateTaxShow() {
+    if ($.cookie('is_print_invoice') == 1) {
+        if ($.cookie('business_name') == '' || $.cookie('business_address') == '' || $.cookie('mst') == '') {
+            return false;
+        }
+    }
+    return true;
+}
+
+function resetHidden() {
+    //vtp covid
+    // $('.alert-covid').hide(); // Show covid form
+    $('.time-covid').show();
+    // $('.ttol-covid').show();
+}
+
+function sliderLater() {
+    var swiper = new Swiper('.js-slide--later', {
+        slidesPerView: 5,
+        slidesPerGroup: 5,
+        navigation: {
+            nextEl: '.js-slide--later + .next',
+            prevEl: '.js-slide--later + .next + .prev',
+        },
+        breakpoints: {
+            992: {
+                slidesPerView: 'auto',
+                slidesPerGroup: 2,
+            },
+        },
+    });
+    var swiper = new Swiper('.js-slide--together', {
+        slidesPerView: 5,
+        slidesPerGroup: 5,
+        navigation: {
+            nextEl: '.js-slide--together  + .sw-next',
+            prevEl: '.js-slide--together  + .sw-next + .sw-prev',
+        },
+        breakpoints: {
+            992: {
+                slidesPerView: 'auto',
+                slidesPerGroup: 2,
+            },
+        },
+    });
+
+    var swiper = new Swiper('.js-slide--promo', {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.js-slide--promo  + .sw-next',
+            prevEl: '.js-slide--promo  + .sw-next + .sw-prev',
+        },
+        breakpoints: {
+            992: {
+                slidesPerView: 'auto',
+                slidesPerGroup: 2,
+                spaceBetween: 12
+            },
+        },
+    });
+}
