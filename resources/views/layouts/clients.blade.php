@@ -337,7 +337,7 @@
     @yield('content')
 
   </div>
-    <a href="{{ url('/inbox') }}" class="livechat-button livechat-button--icon screen__chat-button bottom-10 right-3 rounded-full">
+    <a href="{{ url('/inbox') }}" class="livechat-button z-50 livechat-button--icon screen__chat-button bottom-10 right-3 rounded-full">
       <i class="fas fa-solid fa-comments text-2xl"></i>
     </a>
     <footer id="footer" class="footer py-16">

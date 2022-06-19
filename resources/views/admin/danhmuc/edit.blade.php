@@ -10,14 +10,14 @@
         <div class="container px-6 mx-auto py-4">
           <form action="{{ route('danhmucs.update', ['danhMuc_id' => $danhmuc->danhMuc_id]) }}" method="post" id="form-dm-edit">
             @csrf
-            <div class="mb-6 w-40p form-group">
+            <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên danh mục</label>
-              <input name="tenDM" value="{{ $danhmuc->tenDM }}" placeholder="Nhập tên danh mục" class="tenDM w-full pl-8 pr-2 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="tenDM" value="{{ $danhmuc->tenDM }}" placeholder="Nhập tên danh mục" class="tenDM w-full px-2 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
-            <div class="mb-6 w-40p">
+            <div class="mb-6 md:w-2/5">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn danh mục cha</label>
-              <select name="danhMucCha_id" class="w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-8 pr-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
+              <select name="danhMucCha_id" class="w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
                 <option value="0">Chọn danh mục cha</option>
                 {!! $htmlOption !!}
               </select>

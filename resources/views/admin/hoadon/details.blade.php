@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="col w-50p flex mt-1">
-                            <p><span class="font-bold">Nhân viên giao hàng:</span>    
+                            <p><span class="font-bold">Nhân viên giao hàng:</span>
                             @if($hoadon->nhanvien_id === NULL)
                                 Chưa có
                             @endif

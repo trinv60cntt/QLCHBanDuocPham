@@ -16,7 +16,43 @@
             <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
                 DANH SÁCH ĐƠN ĐẶT HÀNG TRỰC TUYẾN
             </h4>
-      
+            <form action="{{ route('hoadons.index') }}" method="get">
+                <table style="margin: auto; width:350px;">
+                    <tbody>
+
+                    <tr>
+                        <td class="text-gray-500"><b>Tình trạng: </b></td>
+                        <td>
+                            <select name="tinhTrang" class="form-select border-1 border-solid border-black w-4/5">
+                                <option value=''>--- Chọn tất cả ---</option>
+                                <option value='0'>Đơn hủy</option>
+                                <option value='1'>Đơn chờ kiểm</option>
+                                <option value='2'>Đã giao cho shipper</option>
+                                <option value='3'>Đã giao hàng</option>
+                                <option value='4'>Đã nhận tiền từ shipper</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-gray-500"><b>Shipper: </b></td>
+                        <td class="pt-3">
+                            <select name="nhanvien_id" class="form-select border-1 border-solid border-black w-4/5">
+                                <option value=''>--- Chọn tất cả ---</option>
+                                {!! $htmlOptionNhanVien !!}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" align="center" style="padding-left: 30px;padding-top: 10px;">
+                            <input type="submit" value="Tìm kiếm" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" name="searchBtn">
+                            <a href="{{ route('hoadons.index') }}" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Làm mới</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
             <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full">
@@ -45,7 +81,7 @@
                                       {{ $hoadon->tongTien }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ date('d/m/Y', strtotime($hoadon->created_at)) }}
+                                        {{ date('d/m/Y', strtotime($hoadon->ngayLap)) }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                     <?php
@@ -73,7 +109,8 @@
                                         @if($hoadon->nhanvien_id === NULL)
                                             Chưa có
                                         @endif
-                                            {{ optional($hoadon->nhanvien)->hotenNV }}
+                                            {{-- {{ optional($hoadon->nhanvien)->hotenNV }} --}}
+                                        {{ $hoadon->hotenNV }}
                                     </td>
 
                                     <td class="px-4 py-3 whitespace-nowrap">
@@ -99,8 +136,8 @@
               <span class="col-span-2"></span> --}}
                     <!-- Pagination -->
                     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                        {{ $hoadons->links() }}
-
+                        {{-- {{ $hoadons->links() }} --}}
+                        {{ $hoadons->appends(['search' => Request::get('page')])->links() }}
                     </span>
                 </div>
             </div>

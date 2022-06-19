@@ -185,6 +185,7 @@ label {
 }
 
 .livechat-button {
+  z-index: 10;
   display: flex;
   align-items: center;
   flex-direction: row;

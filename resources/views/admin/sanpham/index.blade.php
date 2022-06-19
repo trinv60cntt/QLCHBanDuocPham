@@ -24,17 +24,17 @@
                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Thêm sản phẩm
             </a>
-            <form action="{{ route('sanphams.index') }}" method="get">
+            <form action="{{ route('sanphams.index') }}" method="get" class="mt-6 md:mt-0">
                 <table style="margin: auto; width:350px;">
                     <tbody>
 
                     <tr>
                         <td class="text-gray-500"><b>Tên sản phẩm: </b></td>
-                        <td><input type="text" name="tenSP" class="w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
+                        <td><input type="text" name="tenSP" class="w-5/6 md:w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
                     </tr>
 
                     <tr>
-                        <td colspan="2" align="center" style="padding-left: 91px;padding-top: 10px;">
+                        <td colspan="2" align="center" class="pl-24 pt-3">
                             <input type="submit" value="Tìm kiếm" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" name="searchBtn">
                             <a href="{{ route('sanphams.index') }}" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Làm mới</a>
                         </td>
