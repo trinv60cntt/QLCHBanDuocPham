@@ -53,7 +53,7 @@
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
-          src="storage/khachhang/{{ $hinhAnh }}"
+          src="uploads/khachhang/{{ $hinhAnh }}"
           alt=""
           aria-hidden="true"
           />
@@ -211,7 +211,7 @@
               <label for="email" class="w-1/3 block text-sm font-medium text-gray-900 dark:text-gray-300">Ảnh khách hàng</label>
               <input name="hinhAnh" type="file" class="w-2/3 p-0 border-0 text-sm text-gray-700 dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:outline-none focus:shadow-outline-purple mt-2">
               <div class="mt-2">
-                <img src="storage/khachhang/{{ $khachhang->hinhAnh }}" alt="San pham" >
+                <img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" alt="San pham" >
               </div>
             </div>
 

@@ -144,7 +144,7 @@
                 {{-- <span class="border-avatar"><i class="fas fa-user"></i></span> --}}
                 <img
                 class="border-customer"
-                src="storage/khachhang/{{ $hinhAnh }}"
+                src="uploads/khachhang/{{ $hinhAnh }}"
                 alt=""
                 aria-hidden="true"
                 />

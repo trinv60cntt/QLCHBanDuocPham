@@ -19,7 +19,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td rowspan="8"><img src="storage/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
+                                    <td rowspan="8"><img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
                                 </tr>
                                 <tr>
                                     <td>Họ tên khách hàng:</td>

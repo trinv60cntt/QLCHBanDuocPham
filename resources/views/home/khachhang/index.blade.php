@@ -27,7 +27,7 @@
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
-          src="storage/khachhang/{{ $hinhAnh }}"
+          src="uploads/khachhang/{{ $hinhAnh }}"
           alt=""
           aria-hidden="true"
           />
@@ -126,10 +126,10 @@
                           </td>
                       </tr>
                       <tr class="inline ml-20 md:ml-0 md:hidden">
-                        <td><img src="storage/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
+                        <td><img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
                     </tr>
                       <tr class="hidden ml-20 md:ml-0 md:table-row">
-                          <td rowspan="8"><img src="storage/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
+                          <td rowspan="8"><img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
                       </tr>
                       <tr>
                           <td>Tên khách hàng:</td>

@@ -23,7 +23,7 @@
         <div class="bg-white shadow-lg p-2">
           <img
           class=""
-          src="storage/khachhang/{{ $hinhAnh }}"
+          src="uploads/khachhang/{{ $hinhAnh }}"
           alt=""
           aria-hidden="true"
           />

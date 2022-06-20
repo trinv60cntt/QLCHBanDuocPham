@@ -65,7 +65,7 @@
                                         {{ $loop->index + 1 }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        <img src="storage/khachhang/{{ $khachhang->hinhAnh }}" alt="avatar"
+                                        <img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" alt="avatar"
                                             class="sanpham-img mx-auto">
                                     </td>
                                     <td class="px-4 py-3 text-sm">

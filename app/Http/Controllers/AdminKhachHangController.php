@@ -56,9 +56,15 @@ class AdminKhachHangController extends Controller
       else {
         $dataProductCreate['gioiTinh'] = 0;
       }
-      $dataUploadFeatureImage = $this->storageTraitUpload($request, 'hinhAnh', 'khachhang');
-      if (!empty($dataUploadFeatureImage)) {
-        $dataProductCreate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
+      $get_image = $request->file('hinhAnh');
+ 
+      if($get_image) {
+        $get_name_image = $get_image->getClientOriginalName();
+        $name_image = current(explode('.', $get_name_image));
+        $new_image = $name_image . rand(0, 99). '.' . $get_image->getClientOriginalExtension();
+  
+        $get_image->move('uploads/khachhang', $new_image);
+        $dataProductCreate['hinhAnh'] = $new_image;
       }
       $khachhang = $this->khachhang->create($dataProductCreate);
 
@@ -94,9 +100,15 @@ class AdminKhachHangController extends Controller
       else {
         $dataProductUpdate['gioiTinh'] = 0;
       }
-      $dataUploadFeatureImage = $this->storageTraitUpload($request, 'hinhAnh', 'khachhang');
-      if (!empty($dataUploadFeatureImage)) {
-        $dataProductCreate['hinhAnh'] = $dataUploadFeatureImage['file_name'];
+      $get_image = $request->file('hinhAnh');
+
+      if($get_image) {
+        $get_name_image = $get_image->getClientOriginalName();
+        $name_image = current(explode('.', $get_name_image));
+        $new_image = $name_image . rand(0, 99). '.' . $get_image->getClientOriginalExtension();
+
+        $get_image->move('uploads/khachhang', $new_image);
+        $dataProductUpdate['hinhAnh'] = $new_image;
       }
       $this->khachhang->find($khachhang_id)->update($dataProductUpdate);
       $khachhang = $this->khachhang->find($khachhang_id);

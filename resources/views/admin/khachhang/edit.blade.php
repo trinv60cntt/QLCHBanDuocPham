@@ -58,7 +58,7 @@
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ảnh khách hàng</label>
             <input name="hinhAnh" type="file" class="hinhAnh w-full p-0 border-0 text-sm text-gray-700 dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:outline-none focus:shadow-outline-purple form-input">
             <div class="mt-2">
-              <img src="storage/khachhang/{{ $khachhang->hinhAnh }}" alt="San pham" >
+              <img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" alt="San pham" >
               <div class="form-message text-red-600 mt-2"></div>
             </div>
           </div>  
