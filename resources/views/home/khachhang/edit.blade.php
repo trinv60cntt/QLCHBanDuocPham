@@ -141,7 +141,7 @@
             </ul>
         </div>
       </div>
-      <div class="col w-full lg:w-4p5">
+      <div class="col w-full lg:w-1/2 lg:mx-auto">
         <div class="details">
           <h2 class="font-bold text-3xl text-center mb-5">CẬP NHẬT THÔNG TIN CÁ NHÂN</h2>
           <hr>

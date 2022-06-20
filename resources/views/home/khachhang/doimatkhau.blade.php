@@ -145,7 +145,7 @@
             </ul>
         </div>
       </div>
-      <div class="col w-full lg:w-4p5 flex justify-center">
+      <div class="col w-full lg:w-4/5 flex justify-center">
         <div class="details">
           <h2 class="font-bold text-3xl text-center mb-5">ĐỔI MẬT KHẨU</h2>
           <div>

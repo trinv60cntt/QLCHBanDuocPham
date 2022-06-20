@@ -115,7 +115,7 @@
             </ul>
         </div>
       </div>
-      <div class="col w-full lg:w-4p5">
+      <div class="col w-full lg:w-4/5">
         <table class="details details-table mx-auto mt-2" cellpadding="0" cellspacing="0">
           <tbody><tr>
               <td>
