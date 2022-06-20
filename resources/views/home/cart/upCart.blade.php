@@ -90,7 +90,7 @@ $content = Cart::content();
       <div class="flex">
         <div class="w-20 h-20 mr-2">
           <img
-          src="{{ URL::to('storage/sanpham/'.$v_content->options->image) }}"
+          src="{{ URL::to('uploads/sanpham/s'.$v_content->options->image) }}"
           class="object-cover rounded-2xl"
           alt="image"
           />
@@ -265,7 +265,7 @@ $content = Cart::content();
       <td>
         <div class="flex justify-center">
           <img
-            src="{{ URL::to('storage/sanpham/'.$v_content->options->image) }}"
+            src="{{ URL::to('uploads/sanpham/'.$v_content->options->image) }}"
             class="object-cover w-28 h-28 rounded-2xl"
             alt="image"
           />

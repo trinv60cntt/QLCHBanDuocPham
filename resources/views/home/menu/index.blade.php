@@ -82,7 +82,7 @@
             @foreach ($category_by_id as $sanpham)
             <div class="border-product-custom p-2 mr-3 sm:mr-5 mb-5 shadow-lg lg:p-3">
               <div class="product-image">
-                <a href="{{ route('menus.details', ['sanPham_id' => $sanpham->sanPham_id]) }}"><img src="storage/sanpham/{{ $sanpham->hinhAnh }}" alt="ion muoi"></a>
+                <a href="{{ route('menus.details', ['sanPham_id' => $sanpham->sanPham_id]) }}"><img src="uploads/sanpham/{{ $sanpham->hinhAnh }}" alt="ion muoi"></a>
               </div>
               <div class="product-info text-left">
                   <h3 class="truncate2 font-bold text-lg mb-5">{{  $sanpham->tenSP  }}</h3>

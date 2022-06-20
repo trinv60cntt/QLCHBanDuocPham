@@ -194,7 +194,7 @@
 
                                   <tr class="text-gray-700 dark:text-gray-400">
                                       <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        <img height="100px" width="100px" src="storage/sanpham/{{ $v_order_d_by_id->hinhAnh }}" alt="San pham"
+                                        <img height="100px" width="100px" src="uploads/sanpham/{{ $v_order_d_by_id->hinhAnh }}" alt="San pham"
                                         class="sanpham-img mx-auto">
                                       </td>
                                       <td class="px-4 py-3 text-sm name-product">

@@ -130,7 +130,7 @@
               <div class="flex">
                 <div class="w-20 h-20 mr-2">
                   <img
-                  src="{{ URL::to('storage/sanpham/'.$v_content->options->image) }}"
+                  src="{{ URL::to('uploads/sanpham/'.$v_content->options->image) }}"
                   class="object-cover rounded-2xl"
                   alt="image"
                   />
@@ -305,7 +305,7 @@
               <td>
                 <div class="flex justify-center">
                   <img
-                    src="{{ URL::to('storage/sanpham/'.$v_content->options->image) }}"
+                    src="{{ URL::to('uploads/sanpham/'.$v_content->options->image) }}"
                     class="object-cover h-28 w-28 rounded-2xl"
                     alt="image"
                   />

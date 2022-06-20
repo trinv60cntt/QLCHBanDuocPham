@@ -126,7 +126,7 @@
       <div class="row flex flex-wrap">
         <div class="col w-full lg:w-1/2 pl-3 pr-5">
           <div class="img-left">
-            <img src="storage/sanpham/{{ $sanpham->hinhAnh }}" alt="xit mui">
+            <img src="uploads/sanpham/{{ $sanpham->hinhAnh }}" alt="xit mui">
           </div>
         </div>
         <div class="col w-full lg:w-1/2 details-right pl-5 pr-3">
