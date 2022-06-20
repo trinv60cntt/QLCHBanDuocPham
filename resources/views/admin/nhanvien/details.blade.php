@@ -19,7 +19,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td rowspan="8"><img src="storage/nhanvien/{{ $nhanvien->hinhAnh }}" width="300" height="300" class="mr-5"></td>
+                                    <td rowspan="8"><img src="uploads/nhanvien/{{ $nhanvien->hinhAnh }}" width="300" height="300" class="mr-5"></td>
                                 </tr>
                                 <tr>
                                     <td>Tên nhân viên:</td>

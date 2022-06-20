@@ -113,7 +113,7 @@ class AdminSanPhamController extends Controller
         // $extension = end(explode('.', $get_name_image));
         $new_image = $name_image . rand(0, 99). '.' . $get_image->getClientOriginalExtension();
   
-        $get_image->move('public/uploads/sanpham', $new_image);
+        $get_image->move('uploads/sanpham', $new_image);
         $dataProductCreate['hinhAnh'] = $new_image;
       }
       $sanpham = $this->sanpham->create($dataProductCreate);
