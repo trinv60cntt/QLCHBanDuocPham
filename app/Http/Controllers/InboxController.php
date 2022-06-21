@@ -64,7 +64,7 @@ class InboxController extends Controller
             $temp = $adminLogin;
             for ($i = 0; $i < count($temp); $i++) {
                 if($adminLogin[$i]['email'] == Auth::user()->email) {
-                    dd($adminLogin[$i]['email'] == Auth::user()->email);
+                    dd($adminLogin[$i]);
                     $adminLogin = $adminLogin[$i];
                 }
             }
