@@ -49,6 +49,7 @@ class Message extends Component
         for ($i = 0; $i < count($temp); $i++) {
             if($usersLogin[$i]['email'] == $khachhangs) {
                 $usersLogin = $usersLogin[$i];
+                break;
             }
         }
         if($khachhangs != null) {
@@ -75,6 +76,7 @@ class Message extends Component
         for ($i = 0; $i < count($temp); $i++) {
             if($usersLogin[$i]['email'] == $khachhangs) {
                 $usersLogin = $usersLogin[$i];
+                break;
             }
         }
         $new_message = new \App\Models\Message();

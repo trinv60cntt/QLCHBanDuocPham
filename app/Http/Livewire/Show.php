@@ -43,6 +43,7 @@ class Show extends Component
         for ($i = 0; $i < count($temp); $i++) {
             if($usersLogin[$i]['email'] == $khachhangs) {
                 $usersLogin = $usersLogin[$i];
+                break;
             }
         }
         if($khachhangs != null) {
@@ -62,6 +63,7 @@ class Show extends Component
             for ($i = 0; $i < count($temp); $i++) {
                 if($adminLogin[$i]['email'] == Auth::user()->email) {
                     $adminLogin = $adminLogin[$i];
+                    break;
                 }
             }
             $not_seen = \App\Models\Message::where('user_id', $this->sender->id)->where('receiver', $adminLogin->id);
@@ -84,6 +86,7 @@ class Show extends Component
             for ($i = 0; $i < count($temp); $i++) {
                 if($adminLogin[$i]['email'] == Auth::user()->email) {
                     $adminLogin = $adminLogin[$i];
+                    break;
                 }
             }
         }
@@ -93,6 +96,7 @@ class Show extends Component
             for ($i = 0; $i < count($temp); $i++) {
                 if($usersLogin[$i]['email'] == $khachhangs) {
                     $usersLogin = $usersLogin[$i];
+                    break;
                 }
             }
 
