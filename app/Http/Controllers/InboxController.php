@@ -26,6 +26,7 @@ class InboxController extends Controller
             for ($i = 0; $i < count($temp); $i++) {
                 if($usersLogin[$i]['email'] == $khachhangs) {
                     $usersLogin = $usersLogin[$i];
+                    break;
                 }
             }
 
@@ -89,6 +90,7 @@ class InboxController extends Controller
             for ($i = 0; $i < count($temp); $i++) {
                 if($usersLogin[$i]['email'] == $khachhangs) {
                     $usersLogin = $usersLogin[$i];
+                    break;
                 }
             }
             if ($usersLogin->is_admin == false) {
