@@ -27,6 +27,7 @@ class OnlineMiddleware
              for ($i = 0; $i < count($temp); $i++) {
                  if($adminLogin[$i]['email'] == Auth::user()->email) {
                      $adminLogin = $adminLogin[$i];
+                    break;
                  }
              }
         }
@@ -40,6 +41,7 @@ class OnlineMiddleware
             for ($i = 0; $i < count($temp); $i++) {
                 if($usersLogin[$i]['email'] == $khachhangs) {
                     $usersLogin = $usersLogin[$i];
+                    break;
                 }
             }
         }
