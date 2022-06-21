@@ -64,7 +64,7 @@ class InboxController extends Controller
             $temp = $adminLogin;
             for ($i = 0; $i < count($temp); $i++) {
                 if($adminLogin[$i]['email'] == Auth::user()->email) {
-                    $adminLogin_new = $adminLogin[$i];
+                    $adminLogin = $adminLogin[$i];
                     break;
                 }
             }
@@ -73,7 +73,7 @@ class InboxController extends Controller
         return view('homenew', [
             'users' => $users,
             'usersLogin' => $usersLogin,
-            'adminLogin' => $adminLogin_new,
+            'adminLogin' => $adminLogin,
             // 'khachhangs' => $khachhangs,
             'messages' => $messages ?? null
         ]);
@@ -117,6 +117,7 @@ class InboxController extends Controller
             for ($i = 0; $i < count($temp); $i++) {
                 if($adminLogin[$i]['email'] == Auth::user()->email) {
                     $adminLogin = $adminLogin[$i];
+                    break;
                 }
             }
         }
