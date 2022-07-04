@@ -44,4 +44,8 @@
 }
 #file-area > label > input {
   display: none !important;
-} 
+}
+
+.header-logo-custom {
+  max-width: 200px;
+}
