@@ -43,6 +43,10 @@
   margin-left: 12px;
 }
 
+.header-logo-custom {
+  max-width: 200px;
+}
+
 .fa-capsules {
   font-size: 15px;
   margin-left: 3px;

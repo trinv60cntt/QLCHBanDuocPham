@@ -112,6 +112,20 @@ class AdminHoaDonController extends Controller
     return view('admin.hoadon.details', compact('chitiethd', 'hoadon', 'order_d_by_id'));
   }
 
+  public function printDH($hoaDon_id) {
+    $chitiethd = $this->chitiethd->find($hoaDon_id);
+    $hoadon = $this->hoadon->find($hoaDon_id);  
+    $order_d_by_id = DB::table('chitiethd')
+    ->join('hoadon', 'chitiethd.hoaDon_id','=', 'hoadon.hoaDon_id')
+    ->join('san_phams', 'chitiethd.sanPham_id','=', 'san_phams.sanPham_id')
+    ->select('hoadon.*','chitiethd.*','san_phams.*')->where('chitiethd.hoaDon_id', $hoaDon_id)->get();
+
+    // echo '<pre>';
+    // print_r($order_d_by_id);
+    // echo '</pre>';
+    return view('admin.hoadon.printDH', compact('chitiethd', 'hoadon', 'order_d_by_id'));
+  }
+
   public function delete($hoaDon_id) {
     try {
       $this->hoadon->find($hoaDon_id)->delete();

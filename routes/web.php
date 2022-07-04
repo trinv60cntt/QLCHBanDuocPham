@@ -284,6 +284,12 @@ Route::prefix('admin')->group(function () {
       'middleware' => 'CheckLoggedOut'
     ]);
 
+    Route::get('/printDH/{hoaDon_id}', [
+      'as' => 'hoadons.printDH',
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@printDH'
+      // 'middleware' => 'can:hoadononl-details',
+      // 'middleware' => 'CheckLoggedOut'
+    ]);
   });
 
   Route::prefix('khachhangs')->group(function () {
@@ -641,6 +647,10 @@ Route::get('/update/{rowId}', 'App\Http\Controllers\CartController@update');
 Route::get('/login-checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
 Route::get('/logout-checkout', 'App\Http\Controllers\CheckoutController@logout_checkout');
 
+// forgot password
+Route::get('/forgot_password', 'App\Http\Controllers\CheckoutController@forgot');
+Route::post('/forgot_password', 'App\Http\Controllers\CheckoutController@password');
+
 //Login facebook
 Route::get('/login-facebook','App\Http\Controllers\CheckoutController@login_facebook');
 Route::get('/login-checkout/callback','App\Http\Controllers\CheckoutController@callback_facebook');
@@ -722,6 +732,3 @@ Route::get('/Add-Cart/{id}', 'App\Http\Controllers\AdminHoaDonOffLineController@
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
 Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
-
-// forgot password
-Route::get('/forgot-password', 'MailController@quen_mat_khau');
