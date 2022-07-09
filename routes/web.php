@@ -646,6 +646,10 @@ Route::get('/update/{rowId}', 'App\Http\Controllers\CartController@update');
 // Checkout
 Route::get('/login-checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
 Route::get('/logout-checkout', 'App\Http\Controllers\CheckoutController@logout_checkout');
+Route::get('/forgot', 'App\Http\Controllers\CheckoutController@forgot');
+Route::post('/forgot', 'App\Http\Controllers\CheckoutController@sendResetLink');
+Route::get('/reset/{token}', 'App\Http\Controllers\CheckoutController@showResetForm')->name('reset.password.showResetForm');
+Route::post('/reset', 'App\Http\Controllers\CheckoutController@resetPassword');
 
 // forgot password
 Route::get('/forgot_password', 'App\Http\Controllers\CheckoutController@forgot');

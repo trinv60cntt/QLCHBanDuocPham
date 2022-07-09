@@ -9,51 +9,44 @@
         <div class="container mx-auto">
             <div class="flex items-center justify-center m-auto p-6 sm:p-12 md:w-1/2 user-form px-5 py-11 lg:px-16 shadow-lg">
                 <div class="w-full">
-                    <form action="{{ URL::to('/login-customer') }}" method="post">
+                    <form action="{{ URL::to('/forgot') }}" method="post">
                         @csrf
                         <h1 class="mb-3 text-3xl text-center font-semibold text-gray-700 dark:text-gray-200">
-                          Đăng nhập
+                          Quên mật khẩu
                         </h1>
-                        <a href="{{ URL::to('/login-facebook') }}" class="flex justify-center items-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-blue-700 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+                        {{-- <a href="{{ URL::to('/login-facebook') }}" class="flex justify-center items-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-blue-700 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
                             <i class="fa-brands fa-facebook-square text-xl mr-2"></i> <span class="mb-1">Đăng nhập bằng Facebook</span>
                         </a>
     
                         <a href="{{ URL::to('/login-google') }}" class="flex justify-center items-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-600 focus:outline-none focus:shadow-outline-purple">
                             <i class="fa-brands fa-google text-xl mr-2"></i> <span class="mb-1">Đăng nhập bằng Google</span>
                         </a>
-                        <span class="mt-2 flex text-center items-center"><span class="SeparatorRow-horizontalLine"></span><span class="SeparatorRow-label LoginDefaultView-separatorRowLabel">Hoặc</span><span class="SeparatorRow-horizontalLine"></span></span>
-                        @include('errors.note')
+                        <span class="mt-2 flex text-center items-center"><span class="SeparatorRow-horizontalLine"></span><span class="SeparatorRow-label LoginDefaultView-separatorRowLabel">Hoặc</span><span class="SeparatorRow-horizontalLine"></span></span> --}}
+                        {{-- @include('errors.note') --}}
+                        @if(Session::get('success'))
+                            <p class="alert-success">{{ Session::get('success') }}</p>
+                        @endif
                         <label class="block text-sm mt-2">
                             <span class="text-gray-700 dark:text-gray-400">Email</span>
-                            <input type="text" name="email_account" value="{{ old('email_account') }}"
+                            <input type="text" name="email" value="{{ old('email') }}"
                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                 placeholder="Nhập email..." />
+                            <p class="mt-2 text-left text-red-500">@error('email') {{ $message }} @enderror</p>
                         </label>
-                        <label class="block mt-4 text-sm">
+                        {{-- @if(Session::get('fail'))
+                        <p class="alert-error">{{ Session::get('fail') }}</p>
+                        @endif --}}
+                        {{-- <label class="block mt-4 text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Mật khẩu</span>
                             <input name="password_account"
                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                 placeholder="Mật khẩu" type="password" />
-                        </label>
-                        <div class="form-check mt-4">
-                            {{-- <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault"> --}}
-                            {{-- <input name="remember_me"
-                                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer mr-2"
-                                type="checkbox" value="Remember Me" id="flexCheckDefault3">
-                            <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                                Ghi nhớ đăng nhập
-                            </label> --}}
-                            <p class="mt-4">
-                              <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                                  href="{{ URL::to('/forgot') }}">
-                                  Quên mật khẩu?
-                              </a>
-                            </p>
-                        </div>
+                        </label> --}}
+ 
                         <!-- You should use a button here, as the anchor is only used for the example  -->
-                        <input type="submit" name="submit" value="Đăng nhập"
+                        <input type="submit" name="submit" value="Đặt lại mật khẩu"
                             class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                        <hr class="my-8" />
+                        {{-- <hr class="my-8" /> --}}
                         {{-- <button
                       class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
                       <svg class="w-4 h-4 mr-2" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
@@ -71,12 +64,12 @@
                       Twitter
                   </button> --}}
     
-                    <span class="text-xl font-bold"> Chưa có tài khoản</span>
+                    {{-- <span class="text-xl font-bold"> Chưa có tài khoản</span>
     
                     <a class="text-lg mt-1 font-medium text-purple-600 dark:text-purple-400 hover:underline"
                       href="{{ URL::to('/register-checkout') }}">
                       Tạo tài khoản miễn phí
-                    </a>
+                    </a> --}}
                         {{-- <p class="mt-1">
                       <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                           href="./create-account.html">

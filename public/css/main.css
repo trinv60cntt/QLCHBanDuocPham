@@ -49,3 +49,9 @@
 .header-logo-custom {
   max-width: 200px;
 }
+
+.alert-success {
+  color: #1d643b;
+  background-color: #d7f3e3;
+  border-color: #c7eed8;
+}
