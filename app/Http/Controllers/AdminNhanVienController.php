@@ -93,8 +93,16 @@ class AdminNhanVienController extends Controller
       }
       $nhanvien = $this->nhanvien->create($dataProductCreate);
 
+      $nguoidung = array();
+      $nguoidung['name'] = $request->hotenNV;
+      $nguoidung['email'] = $request->email;
+      $nguoidung['is_admin'] = 1;
+      $nguoidung['is_online'] = 0;
+      $nguoidung['last_activity'] = now();
+      DB::table('nguoidung')->insertGetId($nguoidung);
+
       DB::commit();
-      return redirect()->route('nhanviens.index');
+      return redirect()->route('nhanviens.index')->with('success', 'Thêm mới nhân viên thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
@@ -140,7 +148,7 @@ class AdminNhanVienController extends Controller
       $nhanvien = $this->nhanvien->find($id);
 
       DB::commit();
-      return redirect()->route('nhanviens.index');
+      return redirect()->route('nhanviens.index')->with('success', 'Cập nhật thông tin nhân viên thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());

@@ -42,7 +42,7 @@ class AdminVaiTroController extends Controller
     ]);
 
     $role->quyens()->attach($request->quyen_id);
-    return redirect()->route('vaitros.index');
+    return redirect()->route('vaitros.index')->with('success', 'Thêm mới nhóm nhân viên thành công');
   }
 
   public function edit($vaiTro_id)
@@ -62,7 +62,7 @@ class AdminVaiTroController extends Controller
     ]);
 
     $role->quyens()->sync($request->quyen_id);
-    return redirect()->route('vaitros.index');
+    return redirect()->route('vaitros.index')->with('success', 'Cập nhật nhóm nhân viên thành công');
   }
 
   public function delete($vaiTro_id) {

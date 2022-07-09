@@ -10,6 +10,7 @@ use App\Models\KhachHang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Traits\StorageImageTrait;
+use Illuminate\Support\Facades\Hash;
 
 class KhachHangController extends Controller
 {
@@ -69,7 +70,7 @@ class KhachHangController extends Controller
       DB::commit();
       Session::put('hoKH', $request->hoKH);
       Session::put('tenKH', $request->tenKH);
-      return redirect()->route('khachhang.index');
+      return redirect()->route('khachhang.index')->with('success', 'Cập nhật thông tin cá nhân thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
@@ -143,11 +144,11 @@ class KhachHangController extends Controller
     $newPass = $request->newPass;
     $againPass = $request->againPass;
 
-    if (md5($oldPass) !== $khachhang_password) {
+    if (!(Hash::check($oldPass, $khachhang_password))) {
       return back()->withInput()->withErrors(['oldPass' => 'Mật khẩu cũ không đúng']);
     }
 
-    if (md5($newPass) == $khachhang_password) {
+    if (Hash::check($newPass, $khachhang_password)) {
       return back()->withInput()->withErrors(['newPass' => 'Mật khẩu mới phải khác mật khẩu cũ']);
     }
 
@@ -157,9 +158,9 @@ class KhachHangController extends Controller
 
     $khachhang = $this->khachhang->find($khachhang_id);
     $khachhang->update([
-      'password' => md5($request->newPass),
+      'password' => Hash::make($request->newPass),
     ]);
 
-    return redirect()->route('khachhang.index');
+    return redirect()->route('khachhang.index')->with('success', 'Đổi mật khẩu thành công');
   }
 }

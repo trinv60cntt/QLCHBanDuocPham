@@ -165,44 +165,15 @@
                 </div>
 
                 <button type="submit" id="MyButton-hoadonoff"
-                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    class="mb-5 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Thêm mới hóa đơn
                 </button>
+                <br />
+                <a href="{{ route('hoadonoffline.index') }}"
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                  Quay lại
+                </a>
             </form>
         </div>
     </main>
 @endsection
-
-{{-- @section('js')
-    <script src="admins/khachhang/add.js"></script>
-    <script>
-        Validator({
-          form: '#form-nhanvien',
-          formGroupSelector: '.form-group',
-          errorSelector: '.form-message',
-          rules: [
-            Validator.isRequired('.hotenNV', 'Tên nhân viên không được phép để trống'),
-            Validator.isRequired('.ngaySinh'),
-            Validator.isRequired('.diaChi'),
-            Validator.isRequired('.email'),
-            Validator.isEmail('.email'),
-            Validator.isRequired('.password'),
-            // Validator.minLength('.password', 6),
-            Validator.isRequired('.sdt'),
-            Validator.isRequired('.hinhAnh'),
-
-          ],
-    
-        });
-    
-        
-        $("#MyButton-nhanvien").click(function () {
-        setTimeout(() => {
-            $('html, body').animate({
-            scrollTop: $(".form-group.invalid:first").offset().top
-            }, 200);
-        }, 10);
-    
-        });
-    </script>
-@endsection --}}

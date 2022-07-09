@@ -108,7 +108,7 @@ class AdminHoaDonController extends Controller
       $hoadon = $this->hoadon->find($hoaDon_id);
 
       DB::commit();
-      return redirect()->route('hoadons.index');
+      return redirect()->route('hoadons.index')->with('success', 'Cập nhật hóa đơn thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());

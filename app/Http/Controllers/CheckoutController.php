@@ -14,6 +14,7 @@ use App\Models\KhachHang;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 session_start();
 
@@ -51,7 +52,7 @@ class CheckoutController extends Controller
       return back()->withInput()->with('fail', 'Invalid token');
     } else {
       KhachHang::where('email', $request->email)->update([
-        'password' => md5($request->password),
+        'password' => Hash::make($request->password),
       ]);
 
       DB::table('password_resets')->where([
@@ -99,12 +100,23 @@ class CheckoutController extends Controller
     $data['ngaySinh'] = $request->ngaySinh;
     $data['diaChi'] = $request->diaChi;
     $data['email'] = $request->email;
-    $data['password'] = md5($request->password);
+    $data['password'] = Hash::make($request->password);
     $data['sdt'] = $request->sdt;
     $data['hinhAnh'] = 'avatar.jpg';
 
     $customer_id = DB::table('khachhang')->insertGetId($data);
 
+    $hoTenKH = $request->hoKH . ' ' . $request->tenKH;
+
+    $nguoidung = array();
+    $nguoidung['name'] = $hoTenKH;
+    $nguoidung['email'] = $request->email;
+    $nguoidung['is_admin'] = 0;
+    $nguoidung['is_online'] = 0;
+    $nguoidung['last_activity'] = now();
+    DB::table('nguoidung')->insertGetId($nguoidung);
+
+    Session::put('email',$request->email);
     Session::put('khachhang_id', $customer_id);
     Session::put('tenKH', $request->tenKH);
     Session::put('hinhAnh', 'avatar.jpg');
@@ -151,10 +163,15 @@ class CheckoutController extends Controller
 
   public function login_customer(Request $request) {
     $email = $request->email_account;
-    $password = md5($request->password_account);
-    $result = DB::table('khachhang')->where('email', $email)->where('password', $password)->first();
-    
-    if($result) {
+    $password_account = $request->password_account;
+    $flag = false;
+    $result = DB::table('khachhang')->where('email', $email)->first();
+    if(Hash::check($password_account, $result->password))
+    {
+      $flag = true;
+    }
+
+    if($flag) {
       Session::put('khachhang_id', $result->khachhang_id);
       Session::put('hoKH', $result->hoKH);
       Session::put('tenKH', $result->tenKH);

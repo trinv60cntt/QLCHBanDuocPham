@@ -69,7 +69,7 @@ class AdminQuyenController extends Controller
       'parent_id' => $quyen->quyen_id,
     ]);
 
-    return redirect()->route('quyens.index');
+    return redirect()->route('quyens.index')->with('success', 'Thêm mới quyền thành công');
   }
 
   public function edit($quyen_id)
@@ -98,7 +98,7 @@ class AdminQuyenController extends Controller
     ]);
 
 
-    return redirect()->route('quyens.index');
+    return redirect()->route('quyens.index')->with('success', 'Cập nhật quyền thành công');;
   }
 
   public function delete($quyen_id) {

@@ -83,7 +83,7 @@ class AdminHoaDonOffLineController extends Controller
       DB::table('chitiethdoff')->insert($order_d_data);
     }
 
-    return redirect()->route('hoadonoffline.index');
+    return redirect()->route('hoadonoffline.index')->with('success', 'Thêm mới hóa đơn thành công');
   }
 
   public function getSanPham($sanPham_id_fk)

@@ -7,6 +7,11 @@
 @section('js')
     <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
     <script src="admins/danhmuc/index.js"></script>
+    <script>
+        $(document).ready(function() {
+          $('.alert').fadeOut(5000);
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -20,6 +25,7 @@
                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Thêm danh mục
             </a>
+            @include('success.notification')
             <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">

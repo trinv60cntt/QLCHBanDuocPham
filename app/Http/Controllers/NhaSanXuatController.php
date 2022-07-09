@@ -24,7 +24,7 @@ class NhaSanXuatController extends Controller
 
   public function index()
   {
-    $nhasanxuats = $this->nhasanxuat->paginate(5);
+    $nhasanxuats = $this->nhasanxuat->latest()->paginate(5);
     return view('admin.nhasanxuat.index', compact('nhasanxuats'));
   }
 
@@ -35,7 +35,7 @@ class NhaSanXuatController extends Controller
       'nuocSX' => $request->nuocSX,
     ]);
 
-    return redirect()->route('nhasanxuats.index');
+    return redirect()->route('nhasanxuats.index')->with('success', 'Thêm mới nhà sản xuất thành công');
   }
 
   public function edit($NSX_id, Request $request)
@@ -50,7 +50,7 @@ class NhaSanXuatController extends Controller
       'tenNSX' => $request->tenNSX,
       'nuocSX' => $request->nuocSX,
     ]);
-    return redirect()->route('nhasanxuats.index');
+    return redirect()->route('nhasanxuats.index')->with('success', 'Cập nhật nhà sản xuất thành công');;
   }
 
   public function delete($NSX_id) {

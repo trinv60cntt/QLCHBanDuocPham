@@ -4,12 +4,21 @@
     <title>Cập nhật sản phẩm</title>
 @endsection
 
+@section('js')
+<script>
+    $(document).ready(function() {
+      $('.alert').fadeOut(5000);
+    });
+</script>
+@endsection
+
 @section('content')
     <main class="h-full pb-16">
         <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto py-4">
             {{-- @php dd($nhanvien) @endphp --}}
                 <table class="details details-table mx-auto mt-2" cellpadding="0" cellspacing="0">
+                    @include('success.notification')
                     <tbody><tr>
                         <td>
                             <table class="m-14 mt-5" cellpadding="2" cellspacing="10">

@@ -4,13 +4,14 @@
     <title>Trang chủ</title>
 @endsection
 
-{{-- @section('css')
-    <link rel="stylesheet" href="admins/sanpham/index.css">
-@endsection --}}
-
 @section('js')
     <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
     <script src="admins/khachhang/index.js"></script>
+    <script>
+        $(document).ready(function() {
+          $('.alert').fadeOut(5000);
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -42,6 +43,7 @@
                 </tbody>
             </table>
             </form>
+            @include('success.notification')
             <div class="w-full mt-6 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full">

@@ -71,7 +71,7 @@
                     <input name="password" placeholder="Nhập Password"
                         class="@error('password') error @enderror password w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                         value="{{ old('password') }}"
-                        type="text">
+                        type="password">
                     <div class="form-message text-red-600 mt-2"></div>
                 </div>
 
@@ -93,9 +93,15 @@
                 </div>
 
                 <button type="submit" id="MyButton"
-                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    class="mb-5 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Thêm mới
                 </button>
+
+                <br />
+                <a href="{{ route('khachhangs.index') }}"
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                  Quay lại
+                </a>
             </form>
         </div>
     </main>

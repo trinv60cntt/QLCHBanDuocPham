@@ -12,6 +12,11 @@
       history.back();
     });
   </script>
+  <script>
+    $(document).ready(function() {
+      $('.alert').fadeOut(5000);
+    });
+</script>
 @endsection
 
 <section class="module mod-history py-10 mb-10">
@@ -117,6 +122,7 @@
       </div>
       <div class="col w-full lg:w-4/5">
         <table class="details details-table mx-auto mt-2" cellpadding="0" cellspacing="0">
+          @include('success.notification')
           <tbody><tr>
               <td>
                   <table class="m-5 md:m-14 mt-5" cellpadding="2" cellspacing="10">

@@ -66,7 +66,7 @@ class AdminCaNhanController extends Controller
       $nhanvien = $this->nhanvien->find($id);
 
       DB::commit();
-      return redirect()->route('canhans.index');
+      return redirect()->route('canhans.index')->with('success', 'Cập nhật thông tin cá nhân thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
@@ -102,6 +102,6 @@ class AdminCaNhanController extends Controller
       'password' => Hash::make($request->newPass),
     ]);
 
-    return redirect()->route('canhans.index');
+    return redirect()->route('canhans.index')->with('success', 'Đổi mật khẩu thành công');
   }
 }

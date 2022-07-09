@@ -22,7 +22,7 @@ class DanhMucController extends Controller
 
   public function index()
   {
-    $danhmucs = $this->danhmuc->paginate(5);
+    $danhmucs = $this->danhmuc->latest()->paginate(5);
     return view('admin.danhmuc.index', compact('danhmucs'));
   }
 
@@ -33,7 +33,7 @@ class DanhMucController extends Controller
         'danhMucCha_id' => $request->danhMucCha_id
     ]);
 
-    return redirect()->route('danhmucs.index');
+    return redirect()->route('danhmucs.index')->with('success', 'Thêm mới danh mục thành công');
   }
 
   public function getDanhMuc($danhMucChaId)
@@ -57,7 +57,7 @@ class DanhMucController extends Controller
         'tenDM' => $request->tenDM,
         'danhMucCha_id' => $request->danhMucCha_id,
     ]);
-    return redirect()->route('danhmucs.index');
+    return redirect()->route('danhmucs.index')->with('success', 'Cập nhật danh mục thành công');
   }
 
   public function delete($danhMuc_id) {

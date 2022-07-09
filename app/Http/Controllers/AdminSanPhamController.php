@@ -125,7 +125,7 @@ class AdminSanPhamController extends Controller
       $sanpham = $this->sanpham->create($dataProductCreate);
 
       DB::commit();
-      return redirect()->route('sanphams.index');
+      return redirect()->route('sanphams.index')->with('success', 'Thêm mới sản phẩm thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
@@ -173,7 +173,7 @@ class AdminSanPhamController extends Controller
       $sanpham = $this->sanpham->find($sanPham_id);
 
       DB::commit();
-      return redirect()->route('sanphams.index');
+      return redirect()->route('sanphams.index')->with('success', 'Cập nhật sản phẩm thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());

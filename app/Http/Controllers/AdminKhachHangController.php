@@ -27,7 +27,7 @@ class AdminKhachHangController extends Controller
       $khachhangs = $search->paginate(5);
     }
     else {
-      $khachhangs = DB::table('khachhang')->orderBy('khachhang.created_at', 'DESC')->where('khachhang.deleted_at', NULL)->paginate(5);
+      $khachhangs = DB::table('khachhang')->orderBy('khachhang.khachhang_id', 'DESC')->where('khachhang.deleted_at', NULL)->paginate(5);
     }
     return view('admin.khachhang.index', compact('khachhangs'));
   }
@@ -66,10 +66,21 @@ class AdminKhachHangController extends Controller
         $get_image->move('uploads/khachhang', $new_image);
         $dataProductCreate['hinhAnh'] = $new_image;
       }
+      
       $khachhang = $this->khachhang->create($dataProductCreate);
 
+      $hoTenKH = $request->hoKH . ' ' . $request->tenKH;
+
+      $nguoidung = array();
+      $nguoidung['name'] = $hoTenKH;
+      $nguoidung['email'] = $request->email;
+      $nguoidung['is_admin'] = 0;
+      $nguoidung['is_online'] = 0;
+      $nguoidung['last_activity'] = now();
+      DB::table('nguoidung')->insertGetId($nguoidung);
+
       DB::commit();
-      return redirect()->route('khachhangs.index');
+      return redirect()->route('khachhangs.index')->with('success', 'Thêm mới khách hàng thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
@@ -114,7 +125,7 @@ class AdminKhachHangController extends Controller
       $khachhang = $this->khachhang->find($khachhang_id);
 
       DB::commit();
-      return redirect()->route('khachhangs.index');
+      return redirect()->route('khachhangs.index')->with('success', 'Cập nhật thông tin khách hàng thành công');
     } catch (\Exception $exception) {
       DB::rollBack();
       Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
