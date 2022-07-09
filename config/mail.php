@@ -101,7 +101,7 @@ return [
     ],
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'trinv1710@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'tri.nv.60cntt@ntu.edu.vn'),
         'name' => env('MAIL_FROM_NAME', 'LARAVEL'),
     ],
 
