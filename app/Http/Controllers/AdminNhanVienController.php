@@ -29,7 +29,13 @@ class AdminNhanVienController extends Controller
   {
     $htmlOption = $this->getVaiTro($vaiTro_id_fk = '');
     if(!empty($request->query('tenNV'))) {
-      $search = DB::table('users')->join('vai_tros', 'vai_tros.vaiTro_id','=', 'users.vaiTro_id')->where('hotenNV','like','%'. $request->tenNV .'%');
+      $search = DB::table('users')->leftJoin('vai_tros', 'vai_tros.vaiTro_id','=', 'users.vaiTro_id')->where('hotenNV','like','%'. $request->tenNV .'%')->where('users.deleted_at', NULL);;
+    }
+    if(!empty($request->query('vaiTro_id'))) {
+      $search = DB::table('users')->leftJoin('vai_tros', 'vai_tros.vaiTro_id','=', 'users.vaiTro_id')->where('users.vaiTro_id','=', $request->vaiTro_id)->where('users.deleted_at', NULL);
+    }
+    if(!empty($request->query('tenNV')) && !empty($request->query('vaiTro_id'))) {
+      $search = DB::table('users')->leftJoin('vai_tros', 'vai_tros.vaiTro_id','=', 'users.vaiTro_id')->where('hotenNV','like','%'. $request->tenNV .'%')->where('users.vaiTro_id','=', $request->vaiTro_id)->where('users.deleted_at', NULL);
     }
     if(!empty($search)) {
       $nhanviens = $search->paginate(5);

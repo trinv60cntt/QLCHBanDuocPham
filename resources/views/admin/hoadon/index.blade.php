@@ -21,11 +21,16 @@
                     <tbody>
 
                     <tr>
+                        <td class="text-gray-500"><b>Ngày lập: </b></td>
+                        <td><input type="date" name="ngayLap" class="w-4/5 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
+                    </tr>
+
+                    <tr>
                         <td class="text-gray-500"><b>Tình trạng: </b></td>
-                        <td>
+                        <td class="pt-3">
                             <select name="tinhTrang" class="form-select border-1 border-solid border-black w-4/5">
                                 <option value=''>--- Chọn tất cả ---</option>
-                                <option value='0'>Đơn hủy</option>
+                                <option value='zero'>Đơn hủy</option>
                                 <option value='1'>Đơn chờ kiểm</option>
                                 <option value='2'>Đã giao cho shipper</option>
                                 <option value='3'>Đã giao hàng</option>
@@ -62,7 +67,7 @@
                                 <th class="px-4 py-3">STT</th>
                                 <th class="px-4 py-3">Họ tên</th>
                                 <th class="px-4 py-3">Tổng tiền</th>
-                                <th class="px-4 py-3">Ngày mua</th>
+                                <th class="px-4 py-3">Ngày lập</th>
                                 <th class="px-4 py-3">Tình trạng</th>
                                 <th class="px-4 py-3">Shipper</th>
                                 <th class="px-4 py-3 text-left">Chức năng</th>
@@ -137,7 +142,7 @@
                     <!-- Pagination -->
                     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                         {{-- {{ $hoadons->links() }} --}}
-                        {{ $hoadons->appends(['search' => Request::get('page')])->links() }}
+                        {{ $hoadons->appends(['search' => Request::get('page')])->withQueryString()->links() }}
                     </span>
                 </div>
             </div>

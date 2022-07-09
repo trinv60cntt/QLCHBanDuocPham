@@ -28,19 +28,36 @@ class AdminHoaDonController extends Controller
   public function index(Request $request)
   {
     $htmlOptionNhanVien = $this->getShipper($nhanvien_id_fk = '');
-
+    if(!empty($request->query('ngayLap'))) {
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('ngayLap','=', $request->ngayLap)->where('hoadon.deleted_at', NULL);
+    }
     if(!empty($request->query('tinhTrang'))) {
-      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('tinhTrang','=', $request->tinhTrang);
+      if($request->tinhTrang === 'zero') {
+        $request->tinhTrang = 0;
+      }
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('tinhTrang','=', $request->tinhTrang)->where('hoadon.deleted_at', NULL);
     }
     if(!empty($request->query('nhanvien_id'))) {
-      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('nhanvien_id','=', $request->nhanvien_id);
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('nhanvien_id','=', $request->nhanvien_id)->where('hoadon.deleted_at', NULL);
     }
+    // 1 - 2
+    if(!empty($request->query('ngayLap')) && !empty($request->query('tinhTrang'))) {
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('tinhTrang','=', $request->tinhTrang)->where('ngayLap','=', $request->ngayLap)->where('hoadon.deleted_at', NULL);
+    }
+    // 1 - 3
+    if(!empty($request->query('ngayLap')) && !empty($request->query('nhanvien_id'))) {
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('ngayLap','=', $request->ngayLap)->where('nhanvien_id','=', $request->nhanvien_id)->where('hoadon.deleted_at', NULL);
+    }
+    // 2 - 3
     if(!empty($request->query('tinhTrang')) && !empty($request->query('nhanvien_id'))) {
-      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('tinhTrang','=', $request->tinhTrang)->where('nhanvien_id','=', $request->nhanvien_id);
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('tinhTrang','=', $request->tinhTrang)->where('nhanvien_id','=', $request->nhanvien_id)->where('hoadon.deleted_at', NULL);
+    }
+    // 1 - 2 - 3
+    if(!empty($request->query('ngayLap')) && !empty($request->query('tinhTrang')) && !empty($request->query('nhanvien_id'))) {
+      $search = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->where('tinhTrang','=', $request->tinhTrang)->where('ngayLap','=', $request->ngayLap)->where('nhanvien_id','=', $request->nhanvien_id)->where('hoadon.deleted_at', NULL);
     }
     if(!empty($search)) {
       $hoadons = $search->paginate(5);
-      $hoadons->setPath('/admin/hoadons?tinhTrang='.$request->tinhTrang.'&nhanvien_id='.$request->nhanvien_id.'&searchBtn=Tìm+kiếm');
     }
     else {
       $hoadons = DB::table('hoadon')->leftJoin('users', 'users.id','=', 'hoadon.nhanvien_id')->orderBy('hoadon.hoaDon_id', 'DESC')->where('hoadon.deleted_at', NULL)->paginate(5);

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Components\SanPhamRecursive;
+use App\Components\NhanVienRecursive;
 use Carbon\Carbon;
 
 
@@ -31,10 +32,25 @@ class AdminHoaDonOffLineController extends Controller
     $this->nhanvien = $nhanvien;
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $hoadonoffs = $this->hoadonoff->latest()->paginate(5);
-    return view('admin.hoadonoff.index', compact('hoadonoffs'));
+    $htmlOptionNhanVien = $this->getThuNgan($nhanvien_id_fk = '');
+    if(!empty($request->query('ngayLap'))) {
+      $search = DB::table('hoadonoff')->leftJoin('users', 'users.id','=', 'hoadonoff.nhanvien_id')->where('ngayLap','=', $request->ngayLap)->where('hoadonoff.deleted_at', NULL);
+    }
+    if(!empty($request->query('nhanvien_id'))) {
+      $search = DB::table('hoadonoff')->leftJoin('users', 'users.id','=', 'hoadonoff.nhanvien_id')->where('nhanvien_id','=', $request->nhanvien_id)->where('hoadonoff.deleted_at', NULL);
+    }
+    if(!empty($request->query('ngayLap')) && !empty($request->query('nhanvien_id'))) {
+      $search = DB::table('hoadonoff')->leftJoin('users', 'users.id','=', 'hoadonoff.nhanvien_id')->where('ngayLap','=', $request->ngayLap)->where('nhanvien_id','=', $request->nhanvien_id)->where('hoadonoff.deleted_at', NULL);
+    }
+    if(!empty($search)) {
+      $hoadonoffs = $search->paginate(5);
+    }
+    else {
+      $hoadonoffs = DB::table('hoadonoff')->leftJoin('users', 'users.id','=', 'hoadonoff.nhanvien_id')->orderBy('hoadonoff.hoaDonOff_id', 'DESC')->where('hoadonoff.deleted_at', NULL)->paginate(5);
+    }
+    return view('admin.hoadonoff.index', compact('hoadonoffs', 'htmlOptionNhanVien'));
   }
 
   public function create()
@@ -76,6 +92,14 @@ class AdminHoaDonOffLineController extends Controller
     $recursiveSanPham = new SanPhamRecursive($data);
     $htmlOptionSanPham = $recursiveSanPham->SanPhamRecursive($sanPham_id_fk);
     return $htmlOptionSanPham;
+  }
+
+  public function getThuNgan($nhanvien_id_fk)
+  {
+    $data = $this->nhanvien->where('vaiTro_id', 6)->get();
+    $recursiveNhanVien = new NhanVienRecursive($data);
+    $htmlOptionNhanVien = $recursiveNhanVien->NhanvienRecursive($nhanvien_id_fk);
+    return $htmlOptionNhanVien;
   }
 
   public function loadProduct(Request $request) {

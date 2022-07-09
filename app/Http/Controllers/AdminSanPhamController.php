@@ -35,7 +35,13 @@ class AdminSanPhamController extends Controller
   {
     $htmlOption = $this->getDanhMuc($danhMucChaId = '');
     if(!empty($request->query('tenSP'))) {
-      $search = DB::table('san_phams')->join('danh_mucs', 'danh_mucs.danhMuc_id','=', 'san_phams.danhMuc_id')->where('tenSP','like','%'. $request->tenSP .'%');
+      $search = DB::table('san_phams')->leftJoin('danh_mucs', 'danh_mucs.danhMuc_id','=', 'san_phams.danhMuc_id')->where('tenSP','like','%'. $request->tenSP .'%')->where('san_phams.deleted_at', NULL);
+    }
+    if(!empty($request->query('danhMuc_id'))) {
+      $search = DB::table('san_phams')->leftJoin('danh_mucs', 'danh_mucs.danhMuc_id','=', 'san_phams.danhMuc_id')->where('san_phams.danhMuc_id','=', $request->danhMuc_id)->where('san_phams.deleted_at', NULL);
+    }
+    if(!empty($request->query('tenSP')) && !empty($request->query('danhMuc_id'))) {
+      $search = DB::table('san_phams')->leftJoin('danh_mucs', 'danh_mucs.danhMuc_id','=', 'san_phams.danhMuc_id')->where('tenSP','like','%'. $request->tenSP .'%')->where('san_phams.danhMuc_id','=', $request->danhMuc_id)->where('san_phams.deleted_at', NULL);
     }
     if(!empty($search)) {
       $sanphams = $search->paginate(5);

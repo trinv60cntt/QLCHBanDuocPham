@@ -20,6 +20,34 @@
             class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
             Thêm mới
             </a>
+            <form action="{{ route('hoadonoffline.index') }}" method="get">
+                <table style="margin: auto; width:350px;">
+                    <tbody>
+
+                    <tr>
+                        <td class="text-gray-500"><b>Ngày lập: </b></td>
+                        <td><input type="date" name="ngayLap" class="w-4/5 px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" value=""></td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-gray-500"><b>Thu ngân: </b></td>
+                        <td class="pt-3">
+                            <select name="nhanvien_id" class="form-select border-1 border-solid border-black w-4/5">
+                                <option value=''>--- Chọn tất cả ---</option>
+                                {!! $htmlOptionNhanVien !!}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" align="center" style="padding-left: 30px;padding-top: 10px;">
+                            <input type="submit" value="Tìm kiếm" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" name="searchBtn">
+                            <a href="{{ route('hoadonoffline.index') }}" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Làm mới</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
             <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full">
@@ -50,7 +78,7 @@
                                         {{ date('d/m/Y', strtotime($hoadonoff->ngayLap)) }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ optional($hoadonoff->nhanvien)->hotenNV }}
+                                        {{ $hoadonoff->hotenNV }}
                                     </td>
 
                                     <td class="px-4 py-3 whitespace-nowrap">
@@ -76,8 +104,7 @@
               <span class="col-span-2"></span> --}}
                     <!-- Pagination -->
                     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                        {{ $hoadonoffs->links() }}
-
+                        {{ $hoadonoffs->appends(['search' => Request::get('page')])->withQueryString()->links() }}
                     </span>
                 </div>
             </div>

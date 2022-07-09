@@ -29,6 +29,16 @@
                     </tr>
 
                     <tr>
+                        <td class="text-gray-500"><b>Nhóm nhân viên: </b></td>
+                        <td class="pt-3">
+                            <select name="vaiTro_id" class="form-select border-1 border-solid border-black w-full">
+                                <option value=''>--- Chọn tất cả ---</option>
+                                {!! $htmlOption !!}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
                         <td colspan="2" align="center" style="padding-left: 91px;padding-top: 10px;">
                             <input type="submit" value="Tìm kiếm" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" name="searchBtn">
                             <a href="{{ route('nhanviens.index') }}" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Làm mới</a>
@@ -94,8 +104,7 @@
                     class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
 
                     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                        {{ $nhanviens->links() }}
-
+                        {{ $nhanviens->appends(['search' => Request::get('page')])->withQueryString()->links() }}
                     </span>
                 </div>
             </div>

@@ -105,8 +105,7 @@
                     <span class="col-span-2"></span> --}}
                     <!-- Pagination -->
                     <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                        {{ $khachhangs->links() }}
-
+                        {{ $khachhangs->appends(['search' => Request::get('page')])->withQueryString()->links() }}
                     </span>
                 </div>
             </div>
