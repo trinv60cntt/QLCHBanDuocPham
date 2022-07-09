@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\VaiTro;
+use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,10 +20,11 @@ class AdminNhanVienController extends Controller
   use StorageImageTrait;
 
   private $nhanvien;
-  public function __construct(User $nhanvien, VaiTro $vaitro)
+  public function __construct(User $nhanvien, VaiTro $vaitro, NguoiDung $nguoidung)
   {
     $this->nhanvien = $nhanvien;
     $this->vaitro = $vaitro;
+    $this->nguoidung = $nguoidung;
   }
 
   public function index(Request $request)
@@ -157,7 +159,16 @@ class AdminNhanVienController extends Controller
 
   public function delete($id) {
     try {
-      $this->nhanvien->find($id)->delete();
+      $nguoidung = $this->nguoidung->get();
+      $nhanvien = $this->nhanvien->find($id);
+
+      foreach($nguoidung as $nd) {
+        if ($nhanvien->email == $nd->email) {
+          $this->nguoidung->find($nd->id)->delete();
+        }
+      }
+      $nhanvien->delete();
+
       return response()->json([
         'code' => 200,
         'message' => 'success'

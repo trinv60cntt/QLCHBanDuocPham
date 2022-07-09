@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KhachHang;
+use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Traits\StorageImageTrait;
@@ -13,9 +14,11 @@ class AdminKhachHangController extends Controller
   use StorageImageTrait;
 
   public function __construct(
-    KhachHang $khachhang
+    KhachHang $khachhang,
+    NguoiDung $nguoidung
   ) {
     $this->khachhang = $khachhang;
+    $this->nguoidung = $nguoidung;
   }
 
   public function index(Request $request)
@@ -134,7 +137,15 @@ class AdminKhachHangController extends Controller
 
   public function delete($khachhang_id) {
     try {
-      $this->khachhang->find($khachhang_id)->delete();
+      $nguoidung = $this->nguoidung->get();
+      $khachhang = $this->khachhang->find($khachhang_id);
+
+      foreach($nguoidung as $nd) {
+        if ($khachhang->email == $nd->email) {
+          $this->nguoidung->find($nd->id)->delete();
+        }
+      }
+      $khachhang->delete();
       return response()->json([
         'code' => 200,
         'message' => 'success'
