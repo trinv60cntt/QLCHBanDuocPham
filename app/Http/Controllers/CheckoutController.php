@@ -166,10 +166,12 @@ class CheckoutController extends Controller
     $password_account = $request->password_account;
     $flag = false;
     $result = DB::table('khachhang')->where('email', $email)->first();
-    if(Hash::check($password_account, $result->password))
-    {
-      $flag = true;
+    if($password_account) {
+      if(Hash::check($password_account, $result->password)) {
+        $flag = true;
+      }
     }
+
 
     if($flag) {
       Session::put('khachhang_id', $result->khachhang_id);
