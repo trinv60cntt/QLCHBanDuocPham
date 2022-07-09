@@ -21,6 +21,11 @@ Route::group(['prefix' => 'login', 'middleware' => 'CheckLoggedIn'], function() 
 });
 Route::get('logout', 'App\Http\Controllers\AdminHomeController@getLogout');
 
+// forgot password admin
+Route::get('admin/forgot', 'App\Http\Controllers\AdminHomeController@forgot');
+Route::post('admin/forgot', 'App\Http\Controllers\AdminHomeController@sendResetLink');
+Route::get('admin/reset/{token}', 'App\Http\Controllers\AdminHomeController@showResetForm')->name('reset.password.showResetFormAdmin');
+Route::post('admin/reset', 'App\Http\Controllers\AdminHomeController@resetPassword');
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
@@ -718,21 +723,5 @@ Route::prefix('khachhang')->group(function () {
 
 Route::get('/Add-Cart/{id}', 'App\Http\Controllers\AdminHoaDonOffLineController@AddCart');
 
-// Route::get('/', function () {
-//   return view('welcome');
-// });
-
-// Auth::routes();
-
-
-// Auth::routes();
-
-// Route::group(['middleware' => 'auth'], function () {
-//   Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//   Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
-//   Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
-// });
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
 Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
