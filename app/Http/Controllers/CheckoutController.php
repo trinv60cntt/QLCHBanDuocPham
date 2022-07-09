@@ -85,7 +85,7 @@ class CheckoutController extends Controller
     Mail::send('email-forgot', ['action_link'=>$action_link,'body'=>$body], function($message) use ($request){
       $message->from('noreply@example.com', 'Your App Name');
       $message->to($request->email, 'Your Name')
-                ->subject('Reset Password');
+                ->subject('Reset Password'); 
     });
 
     return back()->with('success', 'We have e-mailed your password reset link');
