@@ -26,6 +26,17 @@
                 </div>
 
                 <div class="mb-6 md:w-2/5 form-group">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Số lượng</label>
+                    <input name="soLuong" placeholder="Nhập giá sản phẩm"
+                        class="@error('soLuong') error @enderror soLuong w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                        value="{{ old('soLuong') }}"
+                        min="0"
+                        onkeypress='validate(event)'
+                        type="number">
+                    <div class="form-message text-red-600 mt-2"></div>
+                </div>
+
+                <div class="mb-6 md:w-2/5 form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá</label>
                     <input name="donGia" placeholder="Nhập giá sản phẩm"
                         class="@error('donGia') error @enderror donGia w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
@@ -105,11 +116,6 @@
                     @enderror
                 </div>
 
-                <div class="mb-6 marker:w-2/5 flex items-center">
-                    <label for="email" class="block text-sm font-medium text-gray-900 dark:text-gray-300 mr-0">Bán chạy</label>
-                    <input style="margin-left: 10px;" type="checkbox" name="banChay" value="1">
-                </div>
-
                 <div class="mb-6 md:w-2/5 form-group">
                     <div class="form-message text-red-600 mt-2"></div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn nhà sản xuất</label>
@@ -150,6 +156,7 @@
           errorSelector: '.form-message',
           rules: [
             Validator.isRequired('.tenSP', 'Tên sản phẩm không được phép để trống'),
+            Validator.isRequired('.soLuong', 'Số lượng không được phép để trống'),
             Validator.isRequired('.donGia', 'Đơn giá không được phép để trống'),
             Validator.isRequired('.donViTinh', 'Đơn vị tính không được phép để trống'),
             Validator.isRequired('.hinhAnh', 'Vui lòng chọn ảnh sản phẩm'),

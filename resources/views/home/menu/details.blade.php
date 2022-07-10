@@ -10,10 +10,38 @@
     <script src="clients/detailsSanPham/details.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+        if ($('.qty-hidden-cart').length) {
+          $('.qty-hidden').val($('.qty-hidden-cart').val())
+        }
+
+        if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
+            document.getElementById('themSL').style.pointerEvents = 'none';
+            document.getElementById('themSL').style.color = '#ccc';
+        } else {
+          document.getElementById('themSL').style.pointerEvents = 'auto';
+          document.getElementById('themSL').style.color = '#fff';
+        }
+
+        $('#themSL').on('click', function (e) {
+          $('.input-quantity').attr('value', $('.input-quantity').val());
+          if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
+            document.getElementById('themSL').style.pointerEvents = 'none';
+            document.getElementById('themSL').style.color = '#ccc';
+          }
+        })
+
+        $('#botSL').on('click', function (e) {
+          $('.input-quantity').attr('value', $('.input-quantity').val());
+          if ($('.input-quantity').val() < $('.qty-hidden').val()) {
+            document.getElementById('themSL').style.pointerEvents = 'auto';
+            document.getElementById('themSL').style.color = '#fff';
+          }
+        })
+
         function convertDateTime() {
           $('.time-comment').each(function() {
             $(this).text(moment($(this).text(), "YYYYMMDDHmm").fromNow());
-          }); 
+          });
         }
 
         load_comment();
@@ -57,7 +85,6 @@
       });
     </script>
     <script type="text/javascript">
-      // $(document).ready(function() {
         function remove_background(product_id) {
           for(var count = 1; count <= 5; count++) {
             $('#' + product_id + '-' + count).css('color', '#ccc');
@@ -67,8 +94,6 @@
         $(document).on('mouseenter', '.rating', function() {
           var index =  $(this).data("index");
           var product_id = $(this).data("product_id");
-          // alert(index);
-          // alert(product_id);
           remove_background(product_id);
 
           for (var count = 1; count <= index; count++) {
@@ -107,7 +132,6 @@
             }
           });
         });
-      // });
     </script>
     <script>
       $(".scroll-to-top").click(function () {
@@ -165,6 +189,21 @@
           <div>
             <table>
               <tbody>
+                @php
+                $content = Cart::content();
+                $flag = false;
+                foreach($content as $v_content) {
+                  if($sanpham->sanPham_id == $v_content->id && $v_content->qty == $v_content->weight) {
+                    $slTon = $v_content->weight - $v_content->qty;
+                    $flag = true;
+                  }
+                }
+              @endphp
+                <tr class="block mb-2">
+                  <td class="font-medium inline">Tình trạng: </td>
+                  <td class="inline {{ $sanpham->soLuong && !$flag > 0 ? 'text-green-500' : 'text-red-500' }}">{{ $sanpham->soLuong > 0 && !$flag ? 'Còn hàng' : 'Hết hàng' }}</td>
+                </tr>
+
                 <tr class="block mb-2">
                   <td class="font-medium inline">Danh mục: </td>
                   <td class="inline"><a href="#" class="text-blue-500">{{ optional($sanpham->danhmuc)->tenDM }}</a></td>
@@ -198,28 +237,38 @@
             </table>
           </div>
 
+
+          @if ($sanpham->soLuong > 0 && !$flag)
           <form action="{{ URL::to('/save-cart') }}" method="post">
             {{ csrf_field() }}
+            @foreach ($content as $v_content)
+              @if ($sanpham->sanPham_id == $v_content->id)
+                <input type="hidden" name="qtyHidden" value={{ $v_content->weight - $v_content->qty }} class="qty-hidden-cart">
+              @endif
+            @endforeach
+          <input type="hidden" name="qtyHidden" value={{ $sanpham->soLuong }} class="qty-hidden">
           <div class="detail-quantity flex mt-5">
             <p class="font-medium">Chọn số lượng</p>
             <div class="flex ml-4">
-              <a id="botSL" class="input-group-addon input-minus">
+              <a id="botSL" class="input-group-addon input-minus cursor-pointer">
                 <span class="fas fa-minus" style="margin-top: 7px" aria-hidden="true"></span>
               </a>
-              <input type="text" 
-              class="input-quantity text-center text-base font-bold" 
+              <input type="text"
+              class="input-quantity text-center text-base font-bold upCart"
               name="qty" id="quantity" value="1">
               <input type="hidden"
               name="productid_hidden" id="quantity" value="{{ $sanpham->sanPham_id }}">
             </div>
-            <a id="themSL" class="input-group-addon input-plus">
+            <a id="themSL" class="input-group-addon input-plus cursor-pointer">
               <span class="fas fa-plus" style="margin-top: 7px" aria-hidden="true"></span>
             </a>
           </div>
-
+          @endif
+          @if ($sanpham->soLuong > 0 && !$flag)
           <div class="add-to-cart mt-5">
             <button type="submit" class="btn text-xl">Thêm vào giỏ hàng</button>
           </div>
+          @endif
         </form>
         </div>
       </div>

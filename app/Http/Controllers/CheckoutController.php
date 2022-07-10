@@ -11,6 +11,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Carbon\Carbon;
 use App\Models\Social;
 use App\Models\KhachHang;
+use App\Models\SanPham;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -20,6 +21,12 @@ session_start();
 
 class CheckoutController extends Controller
 {
+  public function __construct(
+    SanPham $sanpham
+  ) {
+    $this->sanpham = $sanpham;
+  }
+
   public function login_checkout() {
 
     return view('home.checkout.login_checkout');
@@ -148,7 +155,11 @@ class CheckoutController extends Controller
       $order_d_data['hoaDon_id'] = $order_id;
       $order_d_data['sanPham_id'] = $v_content->id;
       $order_d_data['soLuong'] = $v_content->qty;
-  
+
+      $sanpham = $this->sanpham->find($v_content->id);
+      $dataProductUpdate['soLuong'] = $sanpham->soLuong - $v_content->qty;
+      $sanpham->update($dataProductUpdate);
+
       DB::table('chitiethd')->insert($order_d_data);
     }
 

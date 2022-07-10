@@ -67,6 +67,7 @@
                                 <th class="px-4 py-3">STT</th>
                                 <th class="px-4 py-3">Hình ảnh</th>
                                 <th class="px-4 py-3">Tên sản phẩm</th>
+                                <th class="px-4 py-3">Số lượng tồn</th>
                                 <th class="px-4 py-3">Giá</th>
                                 <th class="px-4 py-3">Ngày thêm</th>
                                 <th class="px-4 py-3">Bán chạy</th>
@@ -86,6 +87,9 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm">
                                         {{ $sanpham->tenSP }}
+                                    </td>
+                                    <td class="px-4 py-3 text-sm whitespace-nowrap">
+                                        {{ number_format($sanpham->soLuong) }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ number_format($sanpham->donGia) }}

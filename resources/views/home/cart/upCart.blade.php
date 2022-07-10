@@ -1,6 +1,36 @@
 <script src="clients/detailsSanPham/cart.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
+    $('.tb-row-item').each((_i, el) => {
+      const numberProduct = $(el).find('.number-product').val();
+      if(numberProduct >= $(el).find('.qty-hidden').val())
+      {
+        $(el).find('.button-add').css('pointer-events','none');
+        $(el).find('.button-add svg').css('color', '#ccc');
+      }
+    })
+
+    $('.button-add').on('click', function (e) {
+      $('.tb-row-item').each((_i, el) => {
+      const numberProduct = $(el).find('.number-product').val();
+        if(numberProduct >= $(el).find('.qty-hidden').val())
+        {
+          $(el).find('.button-add').css('pointer-events','none');
+          $(el).find('.button-add svg').css('color', '#ccc');
+        }
+      })
+    })
+
+
+    $('.upCart').on('input', (e) => {
+      const $currentInput = $(e.currentTarget);
+      var $qtyTon = $(e.currentTarget).parents('.tb-row-item').find('.qty-hidden');
+      console.log($qtyTon);
+      if (+$currentInput.val() > $qtyTon.val()) {
+        $currentInput.val($qtyTon.val())
+      }
+    });
+
     $('.upCart').on('change keyup', function(e){
       var target = e.currentTarget;
       var newqty = $(target).val();
@@ -90,7 +120,7 @@ $content = Cart::content();
       <div class="flex">
         <div class="w-20 h-20 mr-2">
           <img
-          src="{{ URL::to('uploads/sanpham/s'.$v_content->options->image) }}"
+          src="{{ URL::to('uploads/sanpham/'.$v_content->options->image) }}"
           class="object-cover rounded-2xl"
           alt="image"
           />
@@ -248,7 +278,7 @@ $content = Cart::content();
 @endforeach
 </div>
 
-<table class="hidden lg:block table-cart w-full shadow-lg mt-3">
+<table class="hidden lg:inline-table table-cart w-full shadow-lg mt-3">
   <thead>
     <tr class="bg-headline text-white">
       <th class="px-6 py-3 font-bold whitespace-nowrap">Hình ảnh</th>
@@ -261,12 +291,12 @@ $content = Cart::content();
   </thead>
   <tbody>
     @foreach($content as $v_content)
-    <tr class="js-product-count">
+    <tr class="js-product-count tb-row-item">
       <td>
         <div class="flex justify-center">
           <img
             src="{{ URL::to('uploads/sanpham/'.$v_content->options->image) }}"
-            class="object-cover w-28 h-28 rounded-2xl"
+            class="object-cover h-28 w-28 rounded-2xl"
             alt="image"
           />
         </div>
@@ -280,6 +310,7 @@ $content = Cart::content();
         <div>
           <form action="{{ URL::to('/update-cart-quantity') }}" method="post">
             {{ csrf_field() }}
+          <input type="hidden" name="qtyHidden" value={{ $v_content->weight }} class="qty-hidden">
           <a class="button-count button-minus">
             <svg
               xmlns="http://www.w3.org/2000/svg"

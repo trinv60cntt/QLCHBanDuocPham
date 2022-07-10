@@ -91,6 +91,7 @@ class AdminSanPhamController extends Controller
       DB::beginTransaction();
       $dataProductCreate = [
         'tenSP' => $request->tenSP,
+        'soLuong' => $request->soLuong,
         'donGia' => $request->donGia,
         'donViTinh' => $request->donViTinh,
         'congDung' => $request->congDung,
@@ -144,6 +145,7 @@ class AdminSanPhamController extends Controller
       DB::beginTransaction();
       $dataProductUpdate = [
         'tenSP' => $request->tenSP,
+        'soLuong' => $request->soLuong,
         'donGia' => $request->donGia,
         'donViTinh' => $request->donViTinh,
         'congDung' => $request->congDung,

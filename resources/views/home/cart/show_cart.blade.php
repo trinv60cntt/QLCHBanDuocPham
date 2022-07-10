@@ -7,7 +7,36 @@
 @section('js')
     <script src="clients/detailsSanPham/cart.js"></script>
     <script type="text/javascript">
-      $(document).ready(function () {       
+      $(document).ready(function () {
+        $('.tb-row-item').each((_i, el) => {
+          const numberProduct = $(el).find('.number-product').val();
+          if(numberProduct >= $(el).find('.qty-hidden').val())
+          {
+            $(el).find('.button-add').css('pointer-events','none');
+            $(el).find('.button-add svg').css('color', '#ccc');
+          }
+        })
+
+        $('.button-add').on('click', function (e) {
+          $('.tb-row-item').each((_i, el) => {
+          const numberProduct = $(el).find('.number-product').val();
+            if(numberProduct >= $(el).find('.qty-hidden').val())
+            {
+              $(el).find('.button-add').css('pointer-events','none');
+              $(el).find('.button-add svg').css('color', '#ccc');
+            }
+          })
+        })
+
+        $('.upCart').on('input', (e) => {
+          const $currentInput = $(e.currentTarget);
+          var $qtyTon = $(e.currentTarget).parents('.tb-row-item').find('.qty-hidden');
+          console.log($qtyTon);
+          if (+$currentInput.val() > $qtyTon.val()) {
+            $currentInput.val($qtyTon.val())
+          }
+        });
+
         $('.upCart').on('change keyup', function(e){
           var target = e.currentTarget;
           var newqty = $(target).val();
@@ -301,7 +330,7 @@
           </thead>
           <tbody>
             @foreach($content as $v_content)
-            <tr class="js-product-count">
+            <tr class="js-product-count tb-row-item">
               <td>
                 <div class="flex justify-center">
                   <img
@@ -320,6 +349,7 @@
                 <div>
                   <form action="{{ URL::to('/update-cart-quantity') }}" method="post">
                     {{ csrf_field() }}
+                  <input type="hidden" name="qtyHidden" value={{ $v_content->weight }} class="qty-hidden">
                   <a class="button-count button-minus">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
