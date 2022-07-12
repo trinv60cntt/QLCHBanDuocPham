@@ -7,6 +7,7 @@ use App\Models\HoaDon;
 use App\Models\HoaDonOff;
 use App\Models\SanPham;
 use App\Models\ChiTietHD;
+use App\Models\ChiTietHDOff;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,10 +24,12 @@ class AdminHoaDonOffLineController extends Controller
     HoaDonOff $hoadonoff,
     SanPham $sanpham,
     ChiTietHD $chitiethd,
+    ChiTietHDOff $chitiethdoff,
     User $nhanvien
   ) {
     $this->hoadon = $hoadon;
     $this->hoadonoff = $hoadonoff;
+    $this->chitiethdoff = $chitiethdoff;
     $this->chitiethd = $chitiethd;
     $this->sanpham = $sanpham;
     $this->nhanvien = $nhanvien;
@@ -88,7 +91,7 @@ class AdminHoaDonOffLineController extends Controller
 
   public function getSanPham($sanPham_id_fk)
   {
-    $data = $this->sanpham->all();
+    $data = $this->sanpham->where('soLuongTon', '>', 0)->get();
     $recursiveSanPham = new SanPhamRecursive($data);
     $htmlOptionSanPham = $recursiveSanPham->SanPhamRecursive($sanPham_id_fk);
     return $htmlOptionSanPham;
@@ -109,8 +112,10 @@ class AdminHoaDonOffLineController extends Controller
     $output = '';
     foreach ($sanpham as $key => $sp) {
       $output .= '
-      <tr class="js-product-count">
+      <tr class="js-product-count tb-row-item">
         <input type="hidden" name="sanPhamId[]" value="'.$sp->sanPham_id.'" class="product-id" />
+        <input type="hidden" name="qtyHidden" value="'.$sp->soLuongTon.'" class="qty-hidden">
+        <input type="hidden" name="donGiaHidden" value="'.$sp->donGia.'" class="don-gia-hidden">
         <td>
           <div class="flex justify-center">
             <img height="100px" width="100px" src="uploads/sanpham/'.$sp->hinhAnh.'" alt="San pham" class="sanpham-img mx-auto">
@@ -122,118 +127,15 @@ class AdminHoaDonOffLineController extends Controller
           </div>
         </td>
         <td class="p-4 px-6 text-center whitespace-nowrap">
-          <div>
-            <a class="button-count button-minus">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="inline-flex w-6 h-6 text-red-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </a>
-            <input
-              type="text"
-              name="itemQuantity[]"
-              value="'.$productQuantity.'"
-              class="upCart number-product w-12 text-center bg-gray-100 outline-none"
-            />
-            <a class="button-count button-add">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="inline-flex w-6 h-6 text-green-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </a>
-            <div class="loading-ajax loading hidden fixed inset-0 z-9999">
-              <div class="absolute inset-0 bg-gray-500 opacity-50 z-a-1"></div>
-              <div div class="flex justify-center items-center w-full h-full">
-                  <svg class="lds-spinner" width="54px"  height="54px"
-                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100"
-                  preserveAspectRatio="xMidYMid" style="background: none;">
-                  <g transform="rotate(0 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.9166666666666666s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(30 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.8333333333333334s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(60 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.75s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(90 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.6666666666666666s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(120 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.5833333333333334s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(150 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.5s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(180 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.4166666666666667s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(210 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.3333333333333333s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(240 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.25s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(270 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.16666666666666666s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(300 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="-0.08333333333333333s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g><g transform="rotate(330 50 50)">
-                      <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#f5490f">
-                      <animate attributeName="opacity" values="1;0" times="0;1" dur="1s"
-                      begin="0s" repeatCount="indefinite"></animate>
-                      </rect>
-                  </g>
-                  </svg>
-              </div>
-            </div>
-          </div>
+          <input
+          type="number"
+          min="1"
+          name="itemQuantity[]"
+          value="'.$productQuantity.'"
+          class="upCart number-product w-12 text-center bg-gray-100 outline-none"
+          />
         </td>
-        <td class="p-4 px-6 text-center whitespace-nowrap">'.$productQuantity.' x ' . number_format($sp->donGia, 0, ',', '.') . '</td>
+        <td class="p-4 px-6 text-center whitespace-nowrap"><span class="product-qty">'.$productQuantity.'</span> x ' . number_format($sp->donGia, 0, ',', '.') . '</td>
         <td class="product-price p-4 px-6 text-center whitespace-nowrap">
         '.
         number_format($productQuantity * $sp->donGia, 0, ',', '.')
@@ -264,63 +166,42 @@ class AdminHoaDonOffLineController extends Controller
     echo $output;
   }
 
-  public function edit($hoaDonOff_id) {
-    // $hoadon = $this->hoadon->find($hoaDon_id);
-    // $htmlOptionNhanVien = $this->getShipper($hoadon->nhanvien_id);
-    // return view('admin.hoadon.edit', compact('hoadon', 'htmlOptionNhanVien'));
+  public function details($hoaDonOff_id) {
+    $chitiethdoff = $this->chitiethdoff->find($hoaDonOff_id);
+    $hoadonoff = $this->hoadonoff->find($hoaDonOff_id);
+    $order_d_by_id = DB::table('chitiethdoff')
+    ->join('hoadonoff', 'chitiethdoff.hoaDonOff_id','=', 'hoadonoff.hoaDonOff_id')
+    ->join('san_phams', 'chitiethdoff.sanPham_id','=', 'san_phams.sanPham_id')
+    ->select('hoadonoff.*','chitiethdoff.*','san_phams.*')->where('chitiethdoff.hoaDonOff_id', $hoaDonOff_id)->get();
+    // dd($order_d_by_id);
+    return view('admin.hoadonoff.details', compact('chitiethdoff', 'hoadonoff', 'order_d_by_id'));
   }
 
-  public function update(Request $request, $hoaDonOff_id) {
-    // try {
-    //   DB::beginTransaction();
-    //   $dataProductUpdate = [
-    //     'nhanvien_id' => $request->nhanvien_id,
-    //   ];
-    //   switch ($request->tinhTrang)
-    //   {
-    //     case 0:
-    //       $dataProductUpdate['tinhTrang'] = 0;
-    //       break;
-    //     case 1:
-    //       $dataProductUpdate['tinhTrang'] = 1;
-    //       break;
-    //     case 2:
-    //       $dataProductUpdate['tinhTrang'] = 2;
-    //       break;
-    //     case 3:
-    //       $dataProductUpdate['tinhTrang'] = 3;
-    //     break;
-    //     default:
-    //       $dataProductUpdate['tinhTrang'] = 4;
-    //     break;
-    //   }
-
-    //   $this->hoadon->find($hoaDon_id)->update($dataProductUpdate);
-    //   $hoadon = $this->hoadon->find($hoaDon_id);
-
-    //   DB::commit();
-    //   return redirect()->route('hoadons.index');
-    // } catch (\Exception $exception) {
-    //   DB::rollBack();
-    //   Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
-    // }
+  public function printDH($hoaDonOff_id) {
+    $chitiethdoff = $this->chitiethdoff->find($hoaDonOff_id);
+    $hoadonoff = $this->hoadonoff->find($hoaDonOff_id);
+    $order_d_by_id = DB::table('chitiethdoff')
+    ->join('hoadonoff', 'chitiethdoff.hoaDonOff_id','=', 'hoadonoff.hoaDonOff_id')
+    ->join('san_phams', 'chitiethdoff.sanPham_id','=', 'san_phams.sanPham_id')
+    ->select('hoadonoff.*','chitiethdoff.*','san_phams.*')->where('chitiethdoff.hoaDonOff_id', $hoaDonOff_id)->get();
+    // dd($order_d_by_id);
+    return view('admin.hoadonoff.printDH', compact('chitiethdoff', 'hoadonoff', 'order_d_by_id'));
   }
 
   public function delete($hoaDonOff_id) {
-    // try {
-    //   $this->hoadon->find($hoaDon_id)->delete();
-    //   return response()->json([
-    //     'code' => 200,
-    //     'message' => 'success'
-    //   ], 200);
+    try {
+      $this->hoadonoff->find($hoaDonOff_id)->delete();
+      return response()->json([
+        'code' => 200,
+        'message' => 'success'
+      ], 200);
 
-    // } catch (\Exception $exception) {
-    //   Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
-    //   return response()->json([
-    //     'code' => 500,
-    //     'message' => 'fail'
-    //   ], 500);
-    // }
-
+    } catch (\Exception $exception) {
+      Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+      return response()->json([
+        'code' => 500,
+        'message' => 'fail'
+      ], 500);
+    }
   }
 }

@@ -27,9 +27,9 @@
 
                 <div class="mb-6 md:w-2/5 form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Số lượng</label>
-                    <input name="soLuong" placeholder="Nhập giá sản phẩm"
-                        class="@error('soLuong') error @enderror soLuong w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                        value="{{ old('soLuong') }}"
+                    <input name="soLuongTon" placeholder="Nhập giá sản phẩm"
+                        class="@error('soLuongTon') error @enderror soLuongTon w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                        value="{{ old('soLuongTon') }}"
                         min="0"
                         onkeypress='validate(event)'
                         type="number">
@@ -156,7 +156,7 @@
           errorSelector: '.form-message',
           rules: [
             Validator.isRequired('.tenSP', 'Tên sản phẩm không được phép để trống'),
-            Validator.isRequired('.soLuong', 'Số lượng không được phép để trống'),
+            Validator.isRequired('.soLuongTon', 'Số lượng không được phép để trống'),
             Validator.isRequired('.donGia', 'Đơn giá không được phép để trống'),
             Validator.isRequired('.donViTinh', 'Đơn vị tính không được phép để trống'),
             Validator.isRequired('.hinhAnh', 'Vui lòng chọn ảnh sản phẩm'),

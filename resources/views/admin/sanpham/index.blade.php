@@ -89,7 +89,7 @@
                                         {{ $sanpham->tenSP }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ number_format($sanpham->soLuong) }}
+                                        {{ number_format($sanpham->soLuongTon) }}
                                     </td>
                                     <td class="px-4 py-3 text-sm whitespace-nowrap">
                                         {{ number_format($sanpham->donGia) }}

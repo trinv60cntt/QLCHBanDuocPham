@@ -16,7 +16,7 @@ class SanPhams extends Migration
         Schema::create('san_phams', function (Blueprint $table) {
             $table->bigIncrements('sanPham_id');
             $table->string('tenSP');
-            $table->integer('soLuong');
+            $table->integer('soLuongTon');
             $table->string('donGia');
             $table->string('donViTinh');
             $table->string('hinhAnh');

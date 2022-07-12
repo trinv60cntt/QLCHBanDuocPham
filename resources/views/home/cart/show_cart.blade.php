@@ -31,7 +31,6 @@
         $('.upCart').on('input', (e) => {
           const $currentInput = $(e.currentTarget);
           var $qtyTon = $(e.currentTarget).parents('.tb-row-item').find('.qty-hidden');
-          console.log($qtyTon);
           if (+$currentInput.val() > $qtyTon.val()) {
             $currentInput.val($qtyTon.val())
           }

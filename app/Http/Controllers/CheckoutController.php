@@ -157,7 +157,7 @@ class CheckoutController extends Controller
       $order_d_data['soLuong'] = $v_content->qty;
 
       $sanpham = $this->sanpham->find($v_content->id);
-      $dataProductUpdate['soLuong'] = $sanpham->soLuong - $v_content->qty;
+      $dataProductUpdate['soLuongTon'] = $sanpham->soLuongTon - $v_content->qty;
       $sanpham->update($dataProductUpdate);
 
       DB::table('chitiethd')->insert($order_d_data);

@@ -201,7 +201,7 @@
               @endphp
                 <tr class="block mb-2">
                   <td class="font-medium inline">Tình trạng: </td>
-                  <td class="inline {{ $sanpham->soLuong && !$flag > 0 ? 'text-green-500' : 'text-red-500' }}">{{ $sanpham->soLuong > 0 && !$flag ? 'Còn hàng' : 'Hết hàng' }}</td>
+                  <td class="inline {{ $sanpham->soLuongTon && !$flag > 0 ? 'text-green-500' : 'text-red-500' }}">{{ $sanpham->soLuongTon > 0 && !$flag ? 'Còn hàng' : 'Hết hàng' }}</td>
                 </tr>
 
                 <tr class="block mb-2">
@@ -238,7 +238,7 @@
           </div>
 
 
-          @if ($sanpham->soLuong > 0 && !$flag)
+          @if ($sanpham->soLuongTon > 0 && !$flag)
           <form action="{{ URL::to('/save-cart') }}" method="post">
             {{ csrf_field() }}
             @foreach ($content as $v_content)
@@ -246,7 +246,7 @@
                 <input type="hidden" name="qtyHidden" value={{ $v_content->weight - $v_content->qty }} class="qty-hidden-cart">
               @endif
             @endforeach
-          <input type="hidden" name="qtyHidden" value={{ $sanpham->soLuong }} class="qty-hidden">
+          <input type="hidden" name="qtyHidden" value={{ $sanpham->soLuongTon }} class="qty-hidden">
           <div class="detail-quantity flex mt-5">
             <p class="font-medium">Chọn số lượng</p>
             <div class="flex ml-4">
@@ -264,7 +264,7 @@
             </a>
           </div>
           @endif
-          @if ($sanpham->soLuong > 0 && !$flag)
+          @if ($sanpham->soLuongTon > 0 && !$flag)
           <div class="add-to-cart mt-5">
             <button type="submit" class="btn text-xl">Thêm vào giỏ hàng</button>
           </div>

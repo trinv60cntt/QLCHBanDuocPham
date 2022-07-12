@@ -605,6 +605,13 @@ Route::prefix('admin')->group(function () {
       'middleware' => 'CheckLoggedOut'
     ]);
 
+    Route::get('/printDH/{hoaDonOff_id}', [
+      'as' => 'hoadonoffline.printDH',
+      'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@printDH'
+      // 'middleware' => 'can:hoadononl-details',
+      // 'middleware' => 'CheckLoggedOut'
+    ]);
+
   });
 
   Route::prefix('canhans')->group(function () {

@@ -8,40 +8,32 @@
     <main class="h-full pb-16">
         <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto py-4">
-            <div class="details" id="parentDiv">
-              <img src="clientsAssets/img/logo.png" alt="Pharmacy Number 2" class="header-logo-custom mx-auto my-3">
+            <div class="details">
+                <h2 class="title-details text-center py-4">CHI TIẾT ĐƠN ĐẶT HÀNG</h2>
                 <hr>
                 <div class="info-details py-4">
                     <div class="row flex flex-wrap">
                         <div class="col w-50p flex">
-                            <input type="hidden" name="hoaDon_id" value={{ $chitiethd->hoaDon_id }} class="hoaDon-id-hidden">
-                            <p><span class="font-bold">Số HĐ:</span> {{ $chitiethd->hoaDon_id }}</p>
+                            <p><span class="font-bold">Số HĐ:</span> {{ $chitiethdoff->hoaDonOff_id }}</p>
                         </div>
 
                         <div class="col w-50p flex">
-                            <p><span class="font-bold">Ngày mua:</span>
-                                {{ date('d/m/Y', strtotime($hoadon->created_at)) }}</p>
+                            <p><span class="font-bold">Ngày lập:</span>
+                                {{ date('d/m/Y', strtotime($hoadonoff->created_at)) }}</p>
                         </div>
 
                         <div class="col w-50p flex mt-1">
-                            <p><span class="font-bold">Họ tên:</span> {{ $hoadon->hoTenKH }}</p>
-                        </div>
-
-                        <div class="col w-50p flex mt-1">
-                            <p><span class="font-bold">Số điện thoại:</span> {{ $hoadon->sdt }}</p>
-                        </div>
-
-                        <div class="col w-50p flex mt-1">
-                            <p><span class="font-bold">Địa chỉ:</span> {{ $hoadon->diaChi }}</p>
-                        </div>
-
-                        <div class="col w-50p flex mt-1">
-                            <p><span class="font-bold">Nhân viên giao hàng:</span>
-                            @if($hoadon->nhanvien_id === NULL)
+                            <p><span class="font-bold">Thu ngân:</span>
+                            @if($hoadonoff->nhanvien_id === NULL)
                                 Chưa có
                             @endif
-                                {{ optional($hoadon->nhanvien)->hotenNV }}</p>
+                                {{ optional($hoadonoff->nhanvien)->hotenNV }}</p>
                         </div>
+
+                        <div class="col w-50p flex mt-1">
+                            <p><span class="font-bold">Ghi chú:</span> </p>
+                        </div>
+
                     </div>
 
                 </div>
@@ -98,46 +90,17 @@
                 </div>
 
                 <div class="details-total">
-                  <p><span class="font-bold">Phí giao hàng: </span> 15.000đ</p>
                   <p><span class="font-bold">Tổng tiền: </span> {{ number_format($v_order_d_by_id->tongTien, 0, ',', '.') }}đ</p>
                 </div>
-                <p class="font-bold text-center">Thank you & see you again!!!</p>
+
             </div>
 
-            <div class="mt-6 text-center">
-              <button id="printPDF"
-              class="px-4 py-2 mr-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-              In hóa đơn
-              </button>
-                <a href="{{ route('hoadons.index') }}"
+            <div class="mt-6">
+                <a href="{{ route('hoadonoffline.index') }}"
                     class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Trở về
                 </a>
             </div>
         </div>
     </main>
-@endsection
-
-@section('js')
-    <script src="admins/hoadon/html2pdf.bundle.min.js"></script>
-    <script>
-      $("#printPDF").click(function() {
-        console.log('abc');
-          var element = document.getElementById('parentDiv');
-          console.log(element);
-          html2pdf().from(element).set({
-              margin: [30, 10, 5, 10],
-              pagebreak: {
-                  avoid: 'tr'
-              },
-              filename: $('.hoaDon-id-hidden').val() + '.pdf',
-              jsPDF: {
-                  orientation: 'landscape',
-                  unit: 'pt',
-                  format: 'letter',
-                  compressPDF: true
-              }
-          }).save()
-      });
-  </script>
 @endsection

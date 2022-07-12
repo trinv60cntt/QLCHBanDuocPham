@@ -6,11 +6,11 @@
 
 @section('js')
     <script src="vendors/sweetAlert2/sweetalert2@11.js"></script>
-    <script src="admins/hoadon/index.js"></script>
+    <script src="admins/nhasanxuat/index.js"></script>
     <script>
-        $(document).ready(function() {
-          $('.alert').fadeOut(5000);
-        });
+      $(document).ready(function() {
+        $('.alert').fadeOut(5000);
+      });
     </script>
 @endsection
 
@@ -89,10 +89,9 @@
 
                                     <td class="px-4 py-3 whitespace-nowrap">
                                         <div class="flex items-center text-sm">
-                                            <a href="{{ route('hoadonoffline.edit', ['hoaDonOff_id' => $hoadonoff->hoaDonOff_id]) }}"><i class='fa fa-edit text-purple-600'></i></a>&nbsp;|&nbsp;
                                             <a href="{{ route('hoadonoffline.details', ['hoaDonOff_id' => $hoadonoff->hoaDonOff_id]) }}"><i class='fa fa-info-circle text-purple-600'></i></a>&nbsp;|&nbsp;
                                             <a href="#" data-url="{{ route('hoadonoffline.delete', ['hoaDonOff_id' => $hoadonoff->hoaDonOff_id]) }}" class="js-action-delete"><i class='fa fa-trash text-purple-600'></i></a>&nbsp;|&nbsp;
-                                            <a href="#"><i class='fa fa-print text-purple-600'></i></a>
+                                            <a href="{{ route('hoadonoffline.printDH', ['hoaDonOff_id' => $hoadonoff->hoaDonOff_id]) }}"><i class='fa fa-print text-purple-600'></i></a>
                                         </div>
                                     </td>
                                 </tr>

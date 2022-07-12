@@ -14,37 +14,52 @@
   <script src="admins/hoadonoff/index.js"></script>
   <script src="admins/khachhang/add.js"></script>
   <script>
-      Validator({
-        form: '#form-hoadonoff',
+        Validator({
+        form: '.form-validate',
         formGroupSelector: '.form-group',
         errorSelector: '.form-message',
         rules: [
-          Validator.isRequired('.soLuong', 'Số lượng sản plẩm không được phép để trống'),
-          // Validator.isRequired('.ngaySinh'),
-          // Validator.isRequired('.diaChi'),
-          // Validator.isRequired('.email'),
-          // Validator.isEmail('.email'),
-          // Validator.isRequired('.password'),
-          // // Validator.minLength('.password', 6),
-          // Validator.isRequired('.sdt'),
-          // Validator.isRequired('.hinhAnh'),
-
+          Validator.isRequired('.soLuong', 'Số lượng sản phẩm không được phép để trống'),
         ],
-  
+
       });
-  
-      
-      $("#MyButton-add-product").click(function () {
+
+
+      $(".btn-submit").click(function () {
       setTimeout(() => {
           $('html, body').animate({
           scrollTop: $(".form-group.invalid:first").offset().top
           }, 200);
       }, 10);
-  
+
       });
   </script>
   <script type="text/javascript">
     $(document).ready(function(){
+      if(!$('.tb-row-item').length) {
+        $('#MyButton-hoadonoff').css('pointer-events','none');
+        $('#MyButton-hoadonoff').css('background', '#ccc');
+      }
+      $('#product_show').on('DOMSubtreeModified', (e) => {
+        if(!$('.tb-row-item').length) {
+          $('#MyButton-hoadonoff').css('pointer-events','none');
+          $('#MyButton-hoadonoff').css('background', '#ccc');
+        } 
+        // else {
+        //   $('.upCart').on('input', (e) => {
+        //     const $currentInput = $(e.currentTarget);
+        //     var $qtyTon = $(e.currentTarget).parents('.tb-row-item').find('.qty-hidden');
+        //     var $priceHidden = $(e.currentTarget).parents('.tb-row-item').find('.don-gia-hidden');
+        //     var $productPriceCurrent = $(e.currentTarget).parents('.tb-row-item').find('.product-price');
+        //     if (+$currentInput.val() > $qtyTon.val()) {
+        //       $currentInput.val($qtyTon.val())
+        //     }
+
+        //     $productPriceCurrent.text(($currentInput.val() * $priceHidden.val()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,''))
+        //   });
+        // }
+      })
+
       var sanPham_id = $('.select-product').val();
       var totalPrice = 0;
       $('.sanPham_id').val(sanPham_id);
@@ -88,16 +103,40 @@
         var sanPham_id = $('.sanPham_id').val();
         var _token = $('input[name="_token"]').val();
         var productQuantity = parseInt($('.product-quantity').val());
-        $.ajax({
-          url: "{{ url('/admin/hoadonoffline/load-product') }}",
-          method: "POST",
-          data: {sanPham_id:sanPham_id, _token:_token, productQuantity: productQuantity},
-          async: false,
-          success:function (data) {
-            $('#product_hidden').html(data);
-            $('#product_show').append($('#product_hidden').html());
+        let flag = false;
+        $('.tb-row-item').each((_i, el) => {
+          if(sanPham_id == $(el).find('.product-id').val()) {
+            $('.product-exist').removeClass('hidden');
+            flag = true;
           }
-        });
+        })
+        if(!flag) {
+          if (!$('.product-exist').hasClass('hidden')) {
+            $('.product-exist').addClass('hidden');
+          }
+
+          $('#product_show').on('DOMSubtreeModified', (e) => {
+            if(!$('.tb-row-item').length) {
+              $('#MyButton-hoadonoff').css('pointer-events','none');
+              $('#MyButton-hoadonoff').css('background', '#ccc');
+            } else {
+              $('#MyButton-hoadonoff').css('pointer-events','auto');
+              $('#MyButton-hoadonoff').css('background', '');
+            }
+          })
+
+          $.ajax({
+            url: "{{ url('/admin/hoadonoffline/load-product') }}",
+            method: "POST",
+            data: {sanPham_id:sanPham_id, _token:_token, productQuantity: productQuantity},
+            async: false,
+            success:function (data) {
+              $('#product_hidden').html(data);
+              $('#product_show').append($('#product_hidden').html());
+            }
+          });
+        }
+
       }
     });
   </script>
@@ -107,21 +146,23 @@
 @section('content')
     <main class="h-full pb-16">
         <div class="container px-6 mx-auto py-4">
-          <form id="form-hoadonoff">
+          <form method="post" class="form-validate">
             @csrf
             <div class="mb-6 w-40p">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn sản phẩm</label>
                 <select name="sanPham_id"
                     class="select-product w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
+                    <option value="0">--- Chọn sản phẩm ---</option>
                     {!! $htmlOptionSanPham !!}
                 </select>
+              <div class="hidden product-exist form-message text-red-600 mt-2">Sản phẩm này đã tồn tại trong hóa đơn vui lòng cập nhật số lượng</div>
             </div>
 
             <div class="mb-6 w-40p form-group">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn số lượng</label>
-              <input name="productQuantity" placeholder="Nhập số lượng sản phẩm"
-                class="@error('password') error @enderror soLuong product-quantity w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                value="{{ old('password') }}"
+              <input name="soLuong" placeholder="Nhập số lượng sản phẩm"
+                class="@error('soLuong') error @enderror soLuong product-quantity w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                value="{{ old('soLuong') }}"
                 type="number">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
@@ -129,7 +170,7 @@
             <input type="hidden" name="sanPham_id" class="sanPham_id" value="">
             <input type="hidden" name="donGia" class="donGia" value="">
             <button type="submit" id="MyButton-add-product"
-            class="add-product px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            class="btn-submit add-product px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
             Thêm sản phẩm
             </button>
           </form>
