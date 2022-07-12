@@ -221,6 +221,11 @@ Route::prefix('admin')->group(function () {
       'as' => 'sanphams.search',
       'uses' => 'App\Http\Controllers\AdminSanPhamController@search'
     ]);
+
+    Route::get('/details/{sanPham_id}', [
+      'as' => 'sanphams.details',
+      'uses' => 'App\Http\Controllers\AdminSanPhamController@details',
+    ]);
   });
 
   Route::prefix('users')->group(function () {

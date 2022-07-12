@@ -199,4 +199,11 @@ class AdminSanPhamController extends Controller
     }
   }
 
+  public function details($sanPham_id) {
+    $sanpham = $this->sanpham->find($sanPham_id);
+    $htmlOption = $this->getDanhMuc($sanpham->danhMuc_id);
+    $htmlOptionNSX = $this->getNSX($sanpham->NSX_id);
+    return view('admin.sanpham.details', compact('sanpham', 'htmlOption', 'htmlOptionNSX'));
+  }
+
 }
