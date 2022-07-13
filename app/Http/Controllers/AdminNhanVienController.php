@@ -65,6 +65,11 @@ class AdminNhanVienController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'email' => 'unique:nguoidung'
+    ], [
+      'email.unique' => 'Email đã tồn tại',
+    ]);
     try {
       DB::beginTransaction();
       $dataProductCreate = [
@@ -72,7 +77,7 @@ class AdminNhanVienController extends Controller
         'ngaySinh' => $request->ngaySinh,
         'diaChi' => $request->diaChi,
         'email' => $request->email,
-        'password' => Hash::make($request->password),
+        'password' => Hash::make($request->matKhau),
         'sdt' => $request->sdt,
         'vaiTro_id' => $request->vaiTro_id,
       ];

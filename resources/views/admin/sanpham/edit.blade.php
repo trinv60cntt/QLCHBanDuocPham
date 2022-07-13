@@ -12,27 +12,36 @@
             @csrf
             <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên sản phẩm</label>
-              <input name="tenSP" value="{{ $sanpham->tenSP }}" placeholder="Nhập tên sản phẩm" class="tenSP w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="tenSP" value="{{ old('tenSP') !== null ? old('tenSP') : $sanpham->tenSP }}" placeholder="Nhập tên sản phẩm" class="tenSP w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
               <div class="form-message text-red-600 mt-2"></div>
+              @if(Session::has('error'))
+                <p class="text-red-600 mt-2">{{ Session::get('error') }}</p>
+              @endif
             </div>
 
             <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Số lượng</label>
               <input name="soLuongTon" onkeypress='validate(event)' min="0"
-              value="{{ $sanpham->soLuongTon }}" placeholder="Nhập số lượng tồn sản phẩm" 
+              value="{{ old('soLuongTon') !== null ? old('soLuongTon') : $sanpham->soLuongTon }}" placeholder="Nhập số lượng tồn sản phẩm" 
               class="soLuongTon w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="number">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 
             <div class="mb-6 md:w-2/5 form-group">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá</label>
-              <input name="donGia" onkeypress='validate(event)' min="0" value="{{ $sanpham->donGia }}" placeholder="Nhập giá sản phẩm" class="donGia w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="number">
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá nhập</label>
+              <input name="giaNhap" onkeypress='validate(event)' min="0" value="{{ old('giaNhap') !== null ? old('giaNhap') : $sanpham->giaNhap }}" placeholder="Nhập giá nhập sản phẩm" class="giaNhap w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="number">
+              <div class="form-message text-red-600 mt-2"></div>
+            </div>
+
+            <div class="mb-6 md:w-2/5 form-group">
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá bán</label>
+              <input name="donGia" onkeypress='validate(event)' min="0" value="{{ old('donGia') !== null ? old('donGia') : $sanpham->donGia }}" placeholder="Nhập giá bán sản phẩm" class="donGia w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="number">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 
             <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Đơn vị tính</label>
-              <input list="dvt" value="{{ $sanpham->donViTinh }}" name="donViTinh" placeholder="Đơn vị tính" class="donViTinh w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input list="dvt" value="{{ old('donViTinh') !== null ? old('donViTinh') : $sanpham->donViTinh }}" name="donViTinh" placeholder="Đơn vị tính" class="donViTinh w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
               <datalist id="dvt">
                 <option>Hộp</option>
                 <option>Gói</option>
@@ -64,20 +73,20 @@
 
             <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Ngày sản xuất</label>
-              <input name="ngaySanXuat" value="{{ $sanpham->ngaySanXuat }}" type="date" class="ngaySanXuat w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" >
+              <input name="ngaySanXuat" value="{{ old('ngaySanXuat') !== null ? old('ngaySanXuat') : $sanpham->ngaySanXuat }}" type="date" class="ngaySanXuat w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" >
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 
             <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hạn sử dụng</label>
-              <input name="hanSuDung" value="{{ $sanpham->hanSuDung }}" type="date" class="hanSuDung w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" >
+              <input name="hanSuDung" value="{{ old('hanSuDung') !== null ? old('hanSuDung') : $sanpham->hanSuDung }}" type="date" class="hanSuDung w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" >
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 
-            <div class="mb-6 marker:md:w-2/5 flex items-center">
+            {{-- <div class="mb-6 marker:md:w-2/5 flex items-center">
               <label for="email" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Bán chạy</label>
               <input style="margin-left: 10px;" type="checkbox" name="banChay" value="{{ $sanpham->banChay }}" {{ $sanpham->banChay == '1' ? 'checked' : '' }} >
-            </div>
+            </div> --}}
 
             <div class="mb-6 md:w-2/5 form-group">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn nhà sản xuất</label>
@@ -116,6 +125,7 @@
           rules: [
             Validator.isRequired('.tenSP', 'Tên sản phẩm không được phép để trống'),
             Validator.isRequired('.soLuongTon', 'Số lượng không được phép để trống'),
+            Validator.isRequired('.giaNhap', 'Giá nhập không được phép để trống'),
             Validator.isRequired('.donGia', 'Đơn giá không được phép để trống'),
             Validator.isRequired('.donViTinh', 'Đơn vị tính không được phép để trống'),
             Validator.isRequired('.congDung', 'Công dụng sản phẩm không được phép để trống'),

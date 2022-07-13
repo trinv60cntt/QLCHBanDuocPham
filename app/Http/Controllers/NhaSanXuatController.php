@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\NhaSanXuat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
 class NhaSanXuatController extends Controller
@@ -30,6 +29,12 @@ class NhaSanXuatController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'tenNSX' => 'unique:nha_san_xuats'
+    ], [
+      'tenNSX.unique' => 'Nhà sản xuất đã tồn tại',
+    ]);
+
     $this->nhasanxuat->create([
       'tenNSX' => $request->tenNSX,
       'nuocSX' => $request->nuocSX,
@@ -46,11 +51,17 @@ class NhaSanXuatController extends Controller
 
   public function update($NSX_id, Request $request)
   {
+    $nhasanxuat = $this->nhasanxuat->get();
+    foreach($nhasanxuat as $item) {
+      if($NSX_id != $item->NSX_id && $item->tenNSX == $request->tenNSX) {
+        return back()->withInput()->with('error', 'Nhà sản xuất đã tồn tại');
+      }
+    }
     $this->nhasanxuat->find($NSX_id)->update([
       'tenNSX' => $request->tenNSX,
       'nuocSX' => $request->nuocSX,
     ]);
-    return redirect()->route('nhasanxuats.index')->with('success', 'Cập nhật nhà sản xuất thành công');;
+    return redirect()->route('nhasanxuats.index')->with('success', 'Cập nhật nhà sản xuất thành công');
   }
 
   public function delete($NSX_id) {

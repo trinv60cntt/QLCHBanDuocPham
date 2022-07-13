@@ -20,7 +20,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td rowspan="9"><img src="uploads/sanpham/{{ $sanpham->hinhAnh }}" width="300" height="300" class="w-full mr-5"></td>
+                                    <td rowspan="10"><img src="uploads/sanpham/{{ $sanpham->hinhAnh }}" width="300" height="300" class="w-full mr-5"></td>
                                 </tr>
                                 <tr>
                                     <td class="whitespace-nowrap">Tên sản phẩm:</td>
@@ -29,6 +29,10 @@
                                 <tr>
                                     <td>Số lượng tồn:</td>
                                     <td>{{ $sanpham->soLuongTon }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Giá nhập:</td>
+                                    <td>{{ number_format($sanpham->giaNhap) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Đơn giá:</td>

@@ -55,13 +55,16 @@
                         value="{{ old('email') }}"
                         type="text">
                     <div class="form-message text-red-600 mt-2"></div>
+                    @error('email')
+                        <div class="text-red-600 mt-2">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-6 w-40p form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mật khẩu</label>
-                    <input name="password" placeholder="Nhập Password"
-                        class="@error('password') error @enderror password w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                        value="{{ old('password') }}"
+                    <input name="matKhau" placeholder="Nhập Mật khẩu"
+                        class="@error('matKhau') error @enderror matKhau w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                        value="{{ old('matKhau') }}"
                         type="password">
                     <div class="form-message text-red-600 mt-2"></div>
                 </div>
@@ -120,15 +123,15 @@
             Validator.isRequired('.email'),
             Validator.isEmail('.email'),
              // Password
-             Validator.isRequired('.password'),
-            Validator.minLength('.password', 6),
-            Validator.includeOneNumber('.password'),
-            Validator.includeOneCharacter('.password'),
-            Validator.includeOneUppercase('.password'),
+            Validator.isRequired('.matKhau'),
+            Validator.minLength('.matKhau', 8),
+            Validator.includeOneNumber('.matKhau'),
+            Validator.includeOneCharacter('.matKhau'),
+            Validator.includeOneUppercase('.matKhau'),
 
             Validator.isRequired('.sdt'),
+            Validator.equalLength('.sdt'),
             Validator.isRequired('.hinhAnh'),
-
           ],
 
         });

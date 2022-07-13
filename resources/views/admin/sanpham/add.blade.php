@@ -37,7 +37,21 @@
                 </div>
 
                 <div class="mb-6 md:w-2/5 form-group">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá</label>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá Nhập</label>
+                    <input name="giaNhap" placeholder="Nhập giá nhập sản phẩm"
+                        class="@error('giaNhap') error @enderror giaNhap w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                        value="{{ old('giaNhap') }}"
+                        min="0"
+                        onkeypress='validate(event)'
+                        type="number">
+                    <div class="form-message text-red-600 mt-2"></div>
+                    @error('giaNhap')
+                        <div class="text-red-600 mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-6 md:w-2/5 form-group">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Giá bán</label>
                     <input name="donGia" placeholder="Nhập giá sản phẩm"
                         class="@error('donGia') error @enderror donGia w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                         value="{{ old('donGia') }}"
@@ -157,7 +171,8 @@
           rules: [
             Validator.isRequired('.tenSP', 'Tên sản phẩm không được phép để trống'),
             Validator.isRequired('.soLuongTon', 'Số lượng không được phép để trống'),
-            Validator.isRequired('.donGia', 'Đơn giá không được phép để trống'),
+            Validator.isRequired('.giaNhap', 'Giá nhập không được phép để trống'),
+            Validator.isRequired('.donGia', 'Giá bán không được phép để trống'),
             Validator.isRequired('.donViTinh', 'Đơn vị tính không được phép để trống'),
             Validator.isRequired('.hinhAnh', 'Vui lòng chọn ảnh sản phẩm'),
             Validator.isRequired('.congDung', 'Công dụng sản phẩm không được phép để trống'),

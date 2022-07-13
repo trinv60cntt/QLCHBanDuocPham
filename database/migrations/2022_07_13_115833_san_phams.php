@@ -17,6 +17,7 @@ class SanPhams extends Migration
             $table->bigIncrements('sanPham_id');
             $table->string('tenSP');
             $table->integer('soLuongTon');
+            $table->string('giaNhap');
             $table->string('donGia');
             $table->string('donViTinh');
             $table->string('hinhAnh');

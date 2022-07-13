@@ -12,8 +12,11 @@
             @csrf
             <div class="mb-6 md:w-2/5 form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên danh mục</label>
-              <input name="tenDM" value="{{ $danhmuc->tenDM }}" placeholder="Nhập tên danh mục" class="tenDM w-full px-2 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="tenDM" value="{{ old('tenDM') !== null ? old('tenDM') : $danhmuc->tenDM }}" placeholder="Nhập tên danh mục" class="tenDM w-full px-2 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
               <div class="form-message text-red-600 mt-2"></div>
+              @if(Session::has('error'))
+                <p class="text-red-600 mt-2">{{ Session::get('error') }}</p>
+              @endif
             </div>
             <div class="mb-6 md:w-2/5">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn danh mục cha</label>

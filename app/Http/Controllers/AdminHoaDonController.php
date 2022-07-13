@@ -68,6 +68,9 @@ class AdminHoaDonController extends Controller
   public function edit($hoaDon_id) {
     $hoadon = $this->hoadon->find($hoaDon_id);
     $htmlOptionNhanVien = $this->getShipper($hoadon->nhanvien_id);
+    if ($hoadon->tinhTrang == 4) {
+      return redirect()->route('hoadons.index')->with('error', 'Đơn hàng đã giao không thể cập nhật!!!');
+    }
     return view('admin.hoadon.edit', compact('hoadon', 'htmlOptionNhanVien'));
   }
 

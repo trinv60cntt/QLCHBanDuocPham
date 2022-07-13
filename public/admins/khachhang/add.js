@@ -172,11 +172,11 @@ Validator.minLength = function (selector, min, message) {
   };
 }
 
-Validator.equalLength = function (selector, min, message) {
+Validator.equalLength = function (selector, message) {
   return {
     selector: selector,
     test: function (value) {
-      return value.length = min ? undefined : message || `Vui lòng nhập tối thiểu ${min} kí tự`;
+      return value.length == 10 ? undefined : message || `Số điện thoại phải là 10 kí tự`;
     }
   };
 }

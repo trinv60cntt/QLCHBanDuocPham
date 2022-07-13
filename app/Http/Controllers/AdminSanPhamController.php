@@ -92,6 +92,7 @@ class AdminSanPhamController extends Controller
       $dataProductCreate = [
         'tenSP' => $request->tenSP,
         'soLuongTon' => $request->soLuongTon,
+        'giaNhap' => $request->giaNhap,
         'donGia' => $request->donGia,
         'donViTinh' => $request->donViTinh,
         'congDung' => $request->congDung,
@@ -146,6 +147,7 @@ class AdminSanPhamController extends Controller
       $dataProductUpdate = [
         'tenSP' => $request->tenSP,
         'soLuongTon' => $request->soLuongTon,
+        'giaNhap' => $request->giaNhap,
         'donGia' => $request->donGia,
         'donViTinh' => $request->donViTinh,
         'congDung' => $request->congDung,
@@ -170,6 +172,12 @@ class AdminSanPhamController extends Controller
 
         $get_image->move('uploads/sanpham', $new_image);
         $dataProductUpdate['hinhAnh'] = $new_image;
+      }
+      $sanpham = $this->sanpham->get();
+      foreach($sanpham as $item) {
+        if($sanPham_id != $item->sanPham_id && $item->tenSP == $request->tenSP) {
+          return back()->withInput()->with('error', 'Tên sản phẩm đã tồn tại');
+        }
       }
       $this->sanpham->find($sanPham_id)->update($dataProductUpdate);
       $sanpham = $this->sanpham->find($sanPham_id);

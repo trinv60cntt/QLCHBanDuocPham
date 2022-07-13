@@ -28,6 +28,12 @@ class DanhMucController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'tenDM' => 'unique:danh_mucs'
+    ], [
+      'tenDM.unique' => 'Danh mục đã tồn tại',
+    ]);
+
     $this->danhmuc->create([
         'tenDM' => $request->tenDM,
         'danhMucCha_id' => $request->danhMucCha_id
@@ -53,6 +59,12 @@ class DanhMucController extends Controller
 
   public function update($danhMuc_id, Request $request)
   {
+    $danhmuc = $this->danhmuc->get();
+    foreach($danhmuc as $item) {
+      if($danhMuc_id != $item->danhMuc_id && $item->tenDM == $request->tenDM) {
+        return back()->withInput()->with('error', 'Tên danh mục đã tồn tại');
+      }
+    }
     $this->danhmuc->find($danhMuc_id)->update([
         'tenDM' => $request->tenDM,
         'danhMucCha_id' => $request->danhMucCha_id,

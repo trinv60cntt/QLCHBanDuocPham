@@ -64,6 +64,9 @@
             </table>
             </form>
             @include('success.notification')
+            @if(Session::has('error'))
+            <p class="mt-2 alert alert-error">{{ Session::get('error') }}</p>
+            @endif
             <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full">

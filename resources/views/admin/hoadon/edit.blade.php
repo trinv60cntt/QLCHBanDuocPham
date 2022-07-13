@@ -42,7 +42,7 @@
                                     <input type="radio" name="tinhTrang" id="" value="0" {{ $hoadon->tinhTrang == '0' ? 'checked' : '' }}> &nbsp;Đơn hủy
                                 </div>
                                 <div>
-                                    <input type="radio" name="tinhTrang" id="" value="1" {{ $hoadon->tinhTrang == '1' ? 'checked' : '' }}> &nbsp;Chưa kiểm duyệt
+                                    <input type="radio" name="tinhTrang" id="" value="1" {{ $hoadon->tinhTrang == '1' ? 'checked' : '' }}> &nbsp;Đơn chờ kiểm
                                 </div>
                                 <div>
                                     <input type="radio" name="tinhTrang" id="" value="2" {{ $hoadon->tinhTrang == '2' ? 'checked' : '' }}> &nbsp;Đã giao cho shipper

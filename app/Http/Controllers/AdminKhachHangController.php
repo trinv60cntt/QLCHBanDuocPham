@@ -42,6 +42,11 @@ class AdminKhachHangController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'email' => 'unique:nguoidung'
+    ], [
+      'email.unique' => 'Email đã tồn tại',
+    ]);
     try {
       DB::beginTransaction();
       $dataProductCreate = [
@@ -50,7 +55,7 @@ class AdminKhachHangController extends Controller
         'ngaySinh' => $request->ngaySinh,
         'diaChi' => $request->diaChi,
         'email' => $request->email,
-        'password' => md5($request->password),
+        'password' => md5($request->matKhau),
         'sdt' => $request->sdt,
       ];
       if ($request->gioiTinh == 1) {
@@ -69,9 +74,6 @@ class AdminKhachHangController extends Controller
         $get_image->move('uploads/khachhang', $new_image);
         $dataProductCreate['hinhAnh'] = $new_image;
       }
-      
-      $khachhang = $this->khachhang->create($dataProductCreate);
-
       $hoTenKH = $request->hoKH . ' ' . $request->tenKH;
 
       $nguoidung = array();
@@ -81,6 +83,7 @@ class AdminKhachHangController extends Controller
       $nguoidung['is_online'] = 0;
       $nguoidung['last_activity'] = now();
       DB::table('nguoidung')->insertGetId($nguoidung);
+      $khachhang = $this->khachhang->create($dataProductCreate);
 
       DB::commit();
       return redirect()->route('khachhangs.index')->with('success', 'Thêm mới khách hàng thành công');
