@@ -450,7 +450,7 @@
         $(document).on('click', '.li_search_ajax', function() {
           $('#keywords').val($(this).text());
           $('#search_ajax').fadeOut();
-          $(".icon-search").trigger("click");
+          $(".icon-search").first().trigger("click");
         });
         // list-products
         $(document).on('click', '.js-handle-profile', function() {

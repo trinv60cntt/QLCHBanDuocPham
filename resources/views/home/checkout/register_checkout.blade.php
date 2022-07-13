@@ -28,11 +28,14 @@
                                 class="email block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                 placeholder="Email" />
                             <div class="form-message text-red-600 mt-2"></div>
+                            @error('email')
+                                <div class="text-red-600 mt-2">{{ $message }}</div>
+                            @enderror
                             </label>
                         <label class="form-group block text-sm pt-1">
                             <span class="text-gray-700 dark:text-gray-400">Mật khẩu</span>
-                            <input type="password" name="password" value="{{ old('password') }}"
-                                class="password block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            <input type="password" name="matKhau" value="{{ old('matKhau') }}"
+                                class="matKhau block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                 placeholder="Mật khẩu" />
                             <div class="form-message text-red-600 mt-2"></div>
                             </label>
@@ -45,7 +48,7 @@
                             </label>
                         <label class="form-group block text-sm pt-1">
                             <span class="text-gray-700 dark:text-gray-400">Tên</span>
-                            <input name="tenKH"
+                            <input name="tenKH" value="{{ old('tenKH') }}"
                                 class="tenKH block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                 placeholder="Tên" type="text" />
                             <div class="form-message text-red-600 mt-2"></div>
@@ -134,15 +137,16 @@
           errorSelector: '.form-message',
           rules: [
             Validator.isRequired('.sdt'),
+            Validator.equalLength('.sdt'),
             Validator.isRequired('.email'),
             Validator.isEmail('.email'),
 
             // Password
-            Validator.isRequired('.password'),
-            Validator.minLength('.password', 6),
-            Validator.includeOneNumber('.password'),
-            Validator.includeOneCharacter('.password'),
-            Validator.includeOneUppercase('.password'),
+            Validator.isRequired('.matKhau'),
+            Validator.minLength('.matKhau', 8),
+            Validator.includeOneNumber('.matKhau'),
+            Validator.includeOneCharacter('.matKhau'),
+            Validator.includeOneUppercase('.matKhau'),
 
             Validator.isRequired('.hoKH'),
             Validator.isRequired('.tenKH'),

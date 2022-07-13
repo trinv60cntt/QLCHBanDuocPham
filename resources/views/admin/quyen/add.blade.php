@@ -35,13 +35,18 @@
 
             <div class="mb-6 w-40p form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mã Quyền</label>
-              <input name="tenQuyen" class="tenQuyen w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="tenQuyen" value="{{ old('tenQuyen') }}"
+              class="tenQuyen w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
               <div class="form-message text-red-600 mt-2"></div>
+              @error('tenQuyen')
+              <div class="text-red-600 mt-2">{{ $message }}</div>
+              @enderror
             </div>
 
             <div class="mb-6 w-40p form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên Quyền</label>
-              <input name="moTa" class="moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
+              <input name="moTa" value="{{ old('moTa') }}"
+              class="moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input" type="text">
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 

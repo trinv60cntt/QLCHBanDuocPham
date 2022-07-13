@@ -25,6 +25,7 @@
           Validator.isRequired('.diaChi'),
 
           Validator.isRequired('.sdt'),
+          Validator.equalLength('.sdt'),
         ],
       });
 

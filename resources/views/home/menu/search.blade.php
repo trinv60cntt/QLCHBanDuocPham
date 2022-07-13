@@ -81,6 +81,7 @@
         <div class="col w-full list-products lg:w-3/4 lg:px-4">
           <h2 class="text-center text-3xl font-semibold mb-5">Kết quả tìm kiếm</h2>
           <div class="row">
+            {{-- @php dd($search_product) @endphp --}}
             @foreach ($search_product as $key => $sanpham)
               <div class="border-product-custom p-2 mr-3 sm:mr-5 mb-5 shadow-lg lg:p-3">
                 <div class="product-image">

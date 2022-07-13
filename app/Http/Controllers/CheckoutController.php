@@ -100,6 +100,11 @@ class CheckoutController extends Controller
   }
 
   public function add_customer(Request $request) {
+    $request->validate([
+      'email' => 'unique:nguoidung'
+    ], [
+      'email.unique' => 'Email đã tồn tại',
+    ]);
     $data = array();
     $data['hoKH'] = $request->hoKH;
     $data['tenKH'] = $request->tenKH;
@@ -107,7 +112,7 @@ class CheckoutController extends Controller
     $data['ngaySinh'] = $request->ngaySinh;
     $data['diaChi'] = $request->diaChi;
     $data['email'] = $request->email;
-    $data['password'] = Hash::make($request->password);
+    $data['password'] = Hash::make($request->matKhau);
     $data['sdt'] = $request->sdt;
     $data['hinhAnh'] = 'avatar.jpg';
 

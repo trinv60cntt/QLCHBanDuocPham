@@ -54,6 +54,11 @@ class AdminQuyenController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'tenQuyen' => 'unique:quyens'
+    ], [
+      'tenQuyen.unique' => 'Mã quyền đã tồn tại',
+    ]);
     $quyen = Quyen::where('tenQuyen', '=', $request->module_parent)->first();
     if ($quyen == null) {
       $quyen = Quyen::create([
@@ -81,6 +86,13 @@ class AdminQuyenController extends Controller
 
   public function update(Request $request, $quyen_id)
   {
+    $quyenvali = $this->quyen->get();
+    foreach($quyenvali as $item) {
+      if($quyen_id != $item->quyen_id && $item->tenQuyen == $request->tenQuyen) {
+        return back()->withInput()->with('error', 'Mã quyền đã tồn tại');
+      }
+    }
+
     $quyen = Quyen::where('tenQuyen', '=', $request->module_parent)->first();
     if ($quyen == null) {
       $quyen = Quyen::create([

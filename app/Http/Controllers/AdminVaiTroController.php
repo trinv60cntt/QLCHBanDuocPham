@@ -36,6 +36,12 @@ class AdminVaiTroController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'tenVT' => 'unique:vai_tros'
+    ], [
+      'tenVT.unique' => 'Mã nhóm nhân viên đã tồn tại',
+    ]);
+
     $role = $this->vaitro->create([
       'tenVT' => $request->tenVT,
       'moTa' => $request->moTa,
@@ -55,6 +61,13 @@ class AdminVaiTroController extends Controller
 
   public function update(Request $request, $vaiTro_id)
   {
+    $vaitro = $this->vaitro->get();
+    foreach($vaitro as $item) {
+      if($vaiTro_id != $item->vaiTro_id && $item->tenVT == $request->tenVT) {
+        return back()->withInput()->with('error', 'Mã nhóm nhân viên đã tồn tại');
+      }
+    }
+
     $role = $this->vaitro->find($vaiTro_id);
     $role->update([
       'tenVT' => $request->tenVT,

@@ -21,7 +21,7 @@
         rules: [
           Validator.isRequired('.oldPass'),
           Validator.isRequired('.newPass'),
-          Validator.minLength('.newPass', 6),
+          Validator.minLength('.newPass', 8),
           Validator.includeOneNumber('.newPass'),
           Validator.includeOneCharacter('.newPass'),
           Validator.includeOneUppercase('.newPass'),

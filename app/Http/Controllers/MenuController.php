@@ -103,7 +103,10 @@ class MenuController extends Controller
     $sanphams = $this->sanpham->latest()->get();
     $categorys = Danhmuc::where('danhMucCha_id', 0)->get();
 
-    $search_product = DB::table('san_phams')->where('tenSP','like','%'. $keywords .'%')->get();
+    // $search_product = DB::table('san_phams')->where('tenSP','like','%'. $keywords .'%')->get();
+    $search_product = DB::table('san_phams')->where('tenSP','like','%'. $keywords .'%')->where('san_phams.deleted_at', NULL)->get();
+
+    // dd($search_product);
 
     return view('home.menu.search', compact('sanphams', 'categorys'))->with('search_product',$search_product);
   }

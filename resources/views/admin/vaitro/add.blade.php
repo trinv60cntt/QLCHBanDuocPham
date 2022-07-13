@@ -20,6 +20,9 @@
                         value="{{ old('tenVT') }}"
                         type="text">
                     <div class="form-message text-red-600 mt-2"></div>
+                    @error('tenVT')
+                    <div class="text-red-600 mt-2">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-6 w-40p form-group">

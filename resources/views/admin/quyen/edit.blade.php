@@ -36,16 +36,19 @@
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mã Quyền</label>
               <input name="tenQuyen" placeholder="Nhập mã quyền"
                   class="@error('tenQuyen') error @enderror tenQuyen w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                  value="{{ $quyen->tenQuyen }}"
+                  value="{{ old('tenQuyen') !== null ? old('tenQuyen') : $quyen->tenQuyen }}"
                   type="text">
               <div class="form-message text-red-600 mt-2"></div>
+              @if(Session::has('error'))
+              <p class="text-red-600 mt-2">{{ Session::get('error') }}</p>
+              @endif
             </div>
 
             <div class="mb-6 w-40p form-group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên Quyền</label>
               <input name="moTa" placeholder="Nhập tên quyền"
                   class="@error('moTa') error @enderror moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                  value="{{ $quyen->moTa }}"
+                  value="{{ old('moTa') !== null ? old('moTa') : $quyen->moTa }}"
                   type="text">
               <div class="form-message text-red-600 mt-2"></div>
             </div>

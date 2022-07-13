@@ -17,16 +17,19 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mã nhóm nhân viên</label>
                     <input name="tenVT" placeholder="Nhập mã nhóm nhân vien"
                         class="@error('tenVT') error @enderror tenVT w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                        value="{{ $vaitro->tenVT }}"
+                        value="{{ old('tenVT') !== null ? old('tenVT') : $vaitro->tenVT  }}"
                         type="text">
                     <div class="form-message text-red-600 mt-2"></div>
+                    @if(Session::has('error'))
+                        <p class="text-red-600 mt-2">{{ Session::get('error') }}</p>
+                    @endif
                 </div>
 
                 <div class="mb-6 w-40p form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên nhóm nhân viên</label>
                     <input name="moTa" placeholder="Nhập tên nhóm nhân vien"
                         class="@error('moTa') error @enderror moTa w-full px-3 text-sm text-gray-700 border-1 border-black rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                        value="{{ $vaitro->moTa }}"
+                        value="{{ old('moTa') !== null ? old('moTa') : $vaitro->moTa }}"
                         type="text">
                     <div class="form-message text-red-600 mt-2"></div>
                 </div>

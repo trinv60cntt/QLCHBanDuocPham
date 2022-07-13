@@ -14,30 +14,6 @@
           $('.qty-hidden').val($('.qty-hidden-cart').val())
         }
 
-        if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
-            document.getElementById('themSL').style.pointerEvents = 'none';
-            document.getElementById('themSL').style.color = '#ccc';
-        } else {
-          document.getElementById('themSL').style.pointerEvents = 'auto';
-          document.getElementById('themSL').style.color = '#fff';
-        }
-
-        $('#themSL').on('click', function (e) {
-          $('.input-quantity').attr('value', $('.input-quantity').val());
-          if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
-            document.getElementById('themSL').style.pointerEvents = 'none';
-            document.getElementById('themSL').style.color = '#ccc';
-          }
-        })
-
-        $('#botSL').on('click', function (e) {
-          $('.input-quantity').attr('value', $('.input-quantity').val());
-          if ($('.input-quantity').val() < $('.qty-hidden').val()) {
-            document.getElementById('themSL').style.pointerEvents = 'auto';
-            document.getElementById('themSL').style.color = '#fff';
-          }
-        })
-
         function convertDateTime() {
           $('.time-comment').each(function() {
             $(this).text(moment($(this).text(), "YYYYMMDDHmm").fromNow());
@@ -141,6 +117,31 @@
             }, 200);
         }, 10);
         });
+    </script>
+    <script>
+             if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
+            document.getElementById('themSL').style.pointerEvents = 'none';
+            document.getElementById('themSL').style.color = '#ccc';
+        } else {
+          document.getElementById('themSL').style.pointerEvents = 'auto';
+          document.getElementById('themSL').style.color = '#fff';
+        }
+
+        $('#themSL').on('click', function (e) {
+          $('.input-quantity').attr('value', $('.input-quantity').val());
+          if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
+            document.getElementById('themSL').style.pointerEvents = 'none';
+            document.getElementById('themSL').style.color = '#ccc';
+          }
+        })
+
+        $('#botSL').on('click', function (e) {
+          $('.input-quantity').attr('value', $('.input-quantity').val());
+          if ($('.input-quantity').val() < $('.qty-hidden').val()) {
+            document.getElementById('themSL').style.pointerEvents = 'auto';
+            document.getElementById('themSL').style.color = '#fff';
+          }
+        })
     </script>
 @endsection
 
