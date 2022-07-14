@@ -543,6 +543,50 @@ class AdminThongKeController extends Controller
     echo $data = json_encode($chart_data);
   }
 
+  public function soLuongTon() {
+    $htmlOptionSanPham = $this->getSanPham($sanPham_id_fk = '');
+    return view('admin.thongke.soLuongTon', compact('htmlOptionSanPham'));
+  }
+
+  public function qty_filter_by_date(Request $request) {
+    $data = $request->all();
+    $productId = $data['product_id'];
+    $dashboardValue = $data['dashboard_value'];
+    $chart_data = [];
+    if($productId != "null") {
+      $between = DB::select("SELECT *
+      from san_phams
+      where sanPham_id = $productId and deleted_at IS NULL");
+    }
+
+    if($dashboardValue != "null") {
+      $between = DB::select("SELECT *
+      from san_phams
+      where soLuongTon <= '$dashboardValue' and deleted_at IS NULL");
+    }
+
+    if($productId != "null" && $dashboardValue != "null") {
+      $between = DB::select("SELECT *
+      from san_phams
+      where soLuongTon <= $dashboardValue and sanPham_id = $productId and deleted_at IS NULL");
+    }
+
+    if($productId == "null" && $dashboardValue == "null") {
+      $between = DB::select("SELECT *
+      from san_phams
+      where deleted_at IS NULL");
+    }
+
+    foreach ($between as $key => $val) {
+      $chart_data[] = array(
+        'product' => $val->tenSP,
+        'qtyTon' => $val->soLuongTon,
+      );
+    }
+
+    echo $data = json_encode($chart_data);
+  }
+
   public function theoHinhThucKD() {
     return view('admin.thongke.theoHinhThucKD');
   }

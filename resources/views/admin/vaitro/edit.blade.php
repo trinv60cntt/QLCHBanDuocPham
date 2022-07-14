@@ -41,12 +41,12 @@
                   </label>
               </div>
                 @foreach($quyenCha as $quyenChaItem)
-                <div class="mb-6 bg-purple-600 text-white rounded-lg">
+                <div class="mb-6 bg-purple-600 text-white rounded-lg card-violet">
                     <div class="p-3">
                         <label>
                             <input type="checkbox" value="" class="checkbox-wrapper">
+                            Module {{ $quyenChaItem->moTa }}
                         </label>
-                        Module {{ $quyenChaItem->moTa }}
                     </div>
                     <div class="bg-white shadow-xl text-black flex justify-between">
                     @foreach($quyenChaItem->quyenChildren as $quyenChildrenItem)
@@ -55,8 +55,8 @@
                                 <input type="checkbox" class="checkbox-children" name="quyen_id[]"
                                 {{ $quyensChecked->contains('quyen_id', $quyenChildrenItem->quyen_id) ? 'checked' : '' }}
                                 value="{{ $quyenChildrenItem->quyen_id }}">
+                                {{ $quyenChildrenItem->moTa }}
                             </label>
-                            {{ $quyenChildrenItem->moTa }}
                         </div>
                     @endforeach
                     </div>
@@ -79,7 +79,7 @@
 @endsection
 
 @section('js')
-    <script src="admins/vaitro/add.js"></script>
+    {{-- <script src="admins/vaitro/add.js"></script> --}}
     <script src="admins/khachhang/add.js"></script>
     <script>
         Validator({
@@ -101,4 +101,16 @@
 
         });
     </script>
+    <script>
+        $(function() {
+        $('.checkbox-wrapper').on('click', function() {
+            $(this).parents('.card-violet').find('.checkbox-children').prop('checked', $(this).prop('checked'));
+        });
+
+        $('.checkall').on('click', function() {
+            $(this).parents().find('.checkbox-children').prop('checked', $(this).prop('checked'));
+            $(this).parents().find('.checkbox-wrapper').prop('checked', $(this).prop('checked'));
+        });
+        });
+        </script>
 @endsection

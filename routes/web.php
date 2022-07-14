@@ -434,6 +434,17 @@ Route::prefix('admin')->group(function () {
       'uses' => 'App\Http\Controllers\AdminThongKeController@product_dashboard_filter'
     ]);
 
+    Route::get('/soluongton', [
+      'as' => 'thongkes.soLuongTon',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@soLuongTon',
+    ]);
+
+    Route::post('/qty-filter-by-date', [
+      'as' => 'thongkes.qty_filter_by_date',
+      'uses' => 'App\Http\Controllers\AdminThongKeController@qty_filter_by_date'
+    ]);
+
+
     Route::get('/theoHinhThucKD', [
       'as' => 'thongkes.theoHinhThucKD',
       'uses' => 'App\Http\Controllers\AdminThongKeController@theoHinhThucKD',
