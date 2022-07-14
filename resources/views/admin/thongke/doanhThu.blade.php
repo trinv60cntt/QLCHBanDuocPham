@@ -305,7 +305,7 @@
     $(function () {
       $("#btnExport").click(function () {
         $(".tblThongKe").table2excel({
-          filename: "SomeFile.xls",
+          filename: "ThongKeTongDoanhThu.xls",
         });
       });
     });

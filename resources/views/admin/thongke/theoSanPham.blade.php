@@ -377,7 +377,7 @@
     $(function () {
       $("#btnExport").click(function () {
         $(".tblThongKe").table2excel({
-          filename: "SomeFile.xls",
+          filename: "ThongKeDoanhThuTheoSanPham.xls",
         });
       });
     });
