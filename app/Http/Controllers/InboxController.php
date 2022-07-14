@@ -20,6 +20,12 @@ class InboxController extends Controller
         $adminLogin = NguoiDung::get();
         $khachhangs = Session::get('email');
         // dd($khachhangs);
+        if(!Session::get('khachhang_id') && $khachhangs == null) {
+            if((Auth::user() == null)) {
+                return redirect('login-checkout')->with('error', 'Vui lòng đăng nhập để thực hiện chức tư vấn trực tuyến');
+            }
+        }
+        else {
         if($khachhangs != null) {
             // dd('vao');
             $temp = $usersLogin;
@@ -33,6 +39,7 @@ class InboxController extends Controller
             if ($usersLogin->is_admin == false) {
                 $messages = Message::where('user_id', $usersLogin->id)->orWhere('receiver', $usersLogin->id)->orderBy('id', 'DESC')->get();
             }
+        }
         }
         // dd('xuong day');
         // foreach($users as $key => $user)
