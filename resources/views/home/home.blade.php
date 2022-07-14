@@ -99,16 +99,19 @@
                 <h2 class="text-xl font-semibold">Bán chạy nhất</h2>
             </div>
             <div class="slide-product mt-3 flex flex-wrap">
-                @foreach ($sanphams as $sanpham)
+                @php 
+                    $object = (object) $sanphams;
+                @endphp
+                @foreach ($object as $sanpham)
                     <div class="border-product mr-5 mb-5 shadow-lg">
                         <div class="product-image">
-                            <a href="{{ route('menus.details', ['sanPham_id' => $sanpham->sanPham_id]) }}"><img src="uploads/sanpham/{{ $sanpham->hinhAnh }}" alt="ion muoi"></a>
+                            <a href="{{ route('menus.details', ['sanPham_id' => $sanpham['sanPham_id'] ]) }}"><img src="uploads/sanpham/{{ $sanpham['hinhAnh'] }}" alt="ion muoi"></a>
                         </div>
                         <div class="product-info text-left">
-                            <h3 class="truncate2 font-bold text-lg mb-5">{{ $sanpham->tenSP }}</h3>
+                            <h3 class="truncate2 font-bold text-lg mb-5">{{ $sanpham['tenSP'] }}</h3>
                             <span
-                                class="product-price text-lg font-medium">{{ str_replace(',', '.', number_format($sanpham->donGia)) }}đ</span>
-                            / {{ $sanpham->donViTinh }}
+                                class="product-price text-lg font-medium">{{ str_replace(',', '.', number_format($sanpham['donGia'])) }}đ</span>
+                            / {{ $sanpham['donViTinh'] }}
                         </div>
                     </div>
                 @endforeach

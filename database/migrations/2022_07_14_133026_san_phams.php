@@ -24,7 +24,6 @@ class SanPhams extends Migration
             $table->string('congDung');
             $table->date('ngaySanXuat');
             $table->date('hanSuDung');
-            $table->boolean('banChay');
             $table->integer('NSX_id');
             $table->integer('danhMuc_id');
             $table->timestamps();

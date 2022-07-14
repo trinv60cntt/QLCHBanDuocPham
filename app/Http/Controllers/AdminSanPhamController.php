@@ -101,12 +101,6 @@ class AdminSanPhamController extends Controller
         'NSX_id' => $request->NSX_id,
         'danhMuc_id' => $request->danhMuc_id,
       ];
-      if ($request->banChay == 1) {
-        $dataProductCreate['banChay'] = 1;
-      }
-      else {
-        $dataProductCreate['banChay'] = 0;
-      }
 
       $get_image = $request->file('hinhAnh');
  
@@ -156,12 +150,6 @@ class AdminSanPhamController extends Controller
         'NSX_id' => $request->NSX_id,
         'danhMuc_id' => $request->danhMuc_id,
       ];
-      if ($request->banChay == 1) {
-        $dataProductUpdate['banChay'] = 1;
-      }
-      else {
-        $dataProductUpdate['banChay'] = 0;
-      }
 
       $get_image = $request->file('hinhAnh');
 

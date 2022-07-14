@@ -98,9 +98,7 @@
                                         {{-- {{ date('d/m/Y', $sanpham->created_at->timestamp) }} --}}
                                         {{ date('d/m/Y', strtotime($sanpham->created_at)) }}
                                     </td>
-                                    {{-- <td class="px-4 py-3 text-sm whitespace-nowrap">
-                                        {{ $sanpham->banChay == 1 ? 'X' : '' }}
-                                    </td> --}}
+            
                                     <td class="px-4 py-3 text-sm whitespace-nowrap name-category">
                                         {{-- {{ optional($sanpham->danhmuc)->tenDM }} --}}
                                         {{ $sanpham->tenDM }}

@@ -45,19 +45,19 @@
           $('#MyButton-hoadonoff').css('pointer-events','none');
           $('#MyButton-hoadonoff').css('background', '#ccc');
         } 
-        // else {
-        //   $('.upCart').on('input', (e) => {
-        //     const $currentInput = $(e.currentTarget);
-        //     var $qtyTon = $(e.currentTarget).parents('.tb-row-item').find('.qty-hidden');
-        //     var $priceHidden = $(e.currentTarget).parents('.tb-row-item').find('.don-gia-hidden');
-        //     var $productPriceCurrent = $(e.currentTarget).parents('.tb-row-item').find('.product-price');
-        //     if (+$currentInput.val() > $qtyTon.val()) {
-        //       $currentInput.val($qtyTon.val())
-        //     }
+        else {
+          $('.upCart').on('input', (e) => {
+            const $currentInput = $(e.currentTarget);
+            var $qtyTon = $(e.currentTarget).parents('.tb-row-item').find('.qty-hidden');
+            var $priceHidden = $(e.currentTarget).parents('.tb-row-item').find('.don-gia-hidden');
+            var $productPriceCurrent = $(e.currentTarget).parents('.tb-row-item').find('.product-price');
+            if (+$currentInput.val() > $qtyTon.val()) {
+              $currentInput.val($qtyTon.val())
+            }
 
-        //     $productPriceCurrent.text(($currentInput.val() * $priceHidden.val()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,''))
-        //   });
-        // }
+            $productPriceCurrent.text(($currentInput.val() * $priceHidden.val()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,''))
+          });
+        }
       })
 
       var sanPham_id = $('.select-product').val();
@@ -180,7 +180,7 @@
                     <h2 class="title-details text-center py-4">CHI TIẾT ĐƠN ĐẶT HÀNG</h2>
                     <hr>
                     <div class="info-products">
-                        <h4 class="title-products py-4">CÓ 1 SẢN PHẨM TRONG GIỎ HÀNG</h4>
+                        <h4 class="title-products py-4">CÁC SẢN PHẨM TRONG ĐƠN ĐẶT HÀNG</h4>
                         <hr>
                         <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
                           <div class="w-full overflow-x-auto">

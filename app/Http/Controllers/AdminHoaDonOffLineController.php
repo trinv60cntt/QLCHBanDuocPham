@@ -82,6 +82,10 @@ class AdminHoaDonOffLineController extends Controller
       $order_d_data['hoaDonOff_id'] = $order_id;
       $order_d_data['sanPham_id'] = $content[$i];
       $order_d_data['soLuong'] = $itemQuantity[$i];
+
+      $sanpham = $this->sanpham->find($content[$i]);
+      $dataProductUpdate['soLuongTon'] = $sanpham->soLuongTon - $itemQuantity[$i];
+      $sanpham->update($dataProductUpdate);
   
       DB::table('chitiethdoff')->insert($order_d_data);
     }
@@ -135,7 +139,7 @@ class AdminHoaDonOffLineController extends Controller
           class="upCart number-product w-12 text-center bg-gray-100 outline-none"
           />
         </td>
-        <td class="p-4 px-6 text-center whitespace-nowrap"><span class="product-qty">'.$productQuantity.'</span> x ' . number_format($sp->donGia, 0, ',', '.') . '</td>
+        <td class="p-4 px-6 text-center whitespace-nowrap"><span class="product-qty">' . number_format($sp->donGia, 0, ',', '.') . '</td>
         <td class="product-price p-4 px-6 text-center whitespace-nowrap">
         '.
         number_format($productQuantity * $sp->donGia, 0, ',', '.')

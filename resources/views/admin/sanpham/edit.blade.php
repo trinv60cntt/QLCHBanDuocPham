@@ -83,11 +83,6 @@
               <div class="form-message text-red-600 mt-2"></div>
             </div>
 
-            {{-- <div class="mb-6 marker:md:w-2/5 flex items-center">
-              <label for="email" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Bán chạy</label>
-              <input style="margin-left: 10px;" type="checkbox" name="banChay" value="{{ $sanpham->banChay }}" {{ $sanpham->banChay == '1' ? 'checked' : '' }} >
-            </div> --}}
-
             <div class="mb-6 md:w-2/5 form-group">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chọn nhà sản xuất</label>
               <select name="NSX_id" class="w-full bg-gray-50 border-1 border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-purple-300 form-select">
