@@ -56,26 +56,40 @@
         <canvas id="myChart" style="width:100%;max-width:600px" class="m-auto"></canvas>
       </div>
       <div class="table-details hidden">
-      <hr class="mt-4">
-      <h4 class="my-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-        DỮ LIỆU CHI TIẾT BIỂU ĐỒ DOANH THU
-      </h4>
-      <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
-        <div class="w-full overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr
-          class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
-                <th class="px-4 py-3">STT</th>
-                <th class="px-4 py-3">Hình thức kinh doanh</th>
-                <th class="px-4 py-3">Doanh thu</th>
-                <th class="px-4 py-3">Phần trăm</th>
-            </tr>
-        </thead>
-        <tbody class="wrap-table bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
-        </tbody>
-      </table>
-    </div>
+        <hr class="mt-4">
+        <div id="parentDiv" class="tblThongKe">
+          <h4 class="my-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
+            DỮ LIỆU CHI TIẾT BIỂU ĐỒ DOANH THU
+          </h4>
+          <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
+            <div class="w-full overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
+                    <th class="px-4 py-3 font-bold whitespace-nowrap">STT</th>
+                    <th class="px-4 py-3 font-bold whitespace-nowrap">Hình thức kinh doanh</th>
+                    <th class="px-4 py-3 font-bold whitespace-nowrap">Doanh thu</th>
+                    <th class="px-4 py-3 font-bold whitespace-nowrap">Phần trăm</th>
+                </tr>
+            </thead>
+            <tbody class="wrap-table bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+  </div>
+  <div class="wrap-btn hidden">
+    <div class="mt-8 flex justify-center items-center">
+      <a id="printPDF"
+       class="cursor-pointer px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+        In báo cáo
+      </a>
+        &nbsp;|&nbsp;
+      <a id="btnExport"
+      class="cursor-pointer px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+        Xuất excel
+      </a>
     </div>
   </div>
   </div>
@@ -107,12 +121,14 @@
             $('.alert-error').addClass('hidden');
             $('.wrap-chart').removeClass('hidden')
             $('.table-details').removeClass('hidden')
+            $('.wrap-btn').removeClass('hidden')
             var getKey = Object.keys(data[0]);
             var total = 0;
             for(var i = 0; i <= data.length; i++) {
               total = total + data[0][getKey[i]];
             }
             var html ="";
+            let allDtItem = 0;
             for(var i = 1; i <= data.length + 1; i++) {
               var htkd = "";
               var getKey = Object.keys(data[0]);
@@ -122,11 +138,18 @@
               else {
                 htkd = 'Tại quầy';
               }
+
               var dtItem = (data[0][getKey[i-1]]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
               var dtPer = ((parseInt(data[0][getKey[i-1]]) / total) * 100).toFixed(2);
+              allDtItem += (data[0][getKey[i-1]]);
+
               html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + htkd + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtItem + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtPer + "%" + "</td></tr>";
             }
+
             $(".wrap-table").html(html);
+            allDtItem = allDtItem.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            var total = "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap text-center font-bold' colspan='2'>Tổng cộng</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtItem + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>100%</td></tr>";
+            $(".wrap-table").append(total);
             var xValues = ["Doanh thu trực tuyến", "Doanh thu tại quầy"];
             var yValues = [data[0]['DoanhThuOnl'], data[0]['DoanhThuOff']];
             var barColors = [
@@ -175,19 +198,21 @@
             $('.table-details').addClass('hidden')
           },
           success: function (data) {
-            console.log(data);
             if (data[0].DoanhThuOff === 0 && data[0].DoanhThuOnl === 0) {
               $('.alert-error').removeClass('hidden');
             } else {
             $('.alert-error').addClass('hidden');
             $('.wrap-chart').removeClass('hidden')
             $('.table-details').removeClass('hidden')
+            $('.wrap-btn').removeClass('hidden')
+
             var getKey = Object.keys(data[0]);
             var total = 0;
             for(var i = 0; i <= data.length; i++) {
               total = total + data[0][getKey[i]];
             }
             var html ="";
+            let allDtItem = 0;
             for(var i = 1; i <= data.length + 1; i++) {
               var htkd = "";
               var getKey = Object.keys(data[0]);
@@ -197,11 +222,19 @@
               else {
                 htkd = 'Tại quầy';
               }
+
               var dtItem = (data[0][getKey[i-1]]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
               var dtPer = ((parseInt(data[0][getKey[i-1]]) / total) * 100).toFixed(2);
+              allDtItem += (data[0][getKey[i-1]]);
+
               html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + htkd + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtItem + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtPer + "%" + "</td></tr>";
             }
+
             $(".wrap-table").html(html);
+            allDtItem = allDtItem.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            var total = "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap text-center font-bold' colspan='2'>Tổng cộng</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtItem + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>100%</td></tr>";
+            $(".wrap-table").append(total);
+
             var xValues = ["Doanh thu trực tuyến", "Doanh thu tại quầy"];
             var yValues = [data[0]['DoanhThuOnl'], data[0]['DoanhThuOff']];
             var barColors = [
@@ -253,29 +286,59 @@
       });
     });
   </script>
-    <script>
-      $(document).ready(function(){
-        $('.input-date').on('change', function() {
-          if($('#datepicker').val() != '' && $('#datepicker2').val() != '') {
-            $("#btn-dashboard-filter").prop('disabled', false);
-            $(".btn-statistical").removeClass('disabled');
-          }
-          else {
-            $("#btn-dashboard-filter").prop('disabled', true);
-            $(".btn-statistical").addClass('disabled');
-          }
-        })
-      });
-
-      $('.dashboard-filter').on('change', function() {
-        if($('.dashboard-filter').val() != 'null') {
-          $("#btn-quickly-filter").prop('disabled', false);
-          $(".btn-quickly-statistical").removeClass('disabled');
+  <script>
+    $(document).ready(function(){
+      $('.input-date').on('change', function() {
+        if($('#datepicker').val() != '' && $('#datepicker2').val() != '') {
+          $("#btn-dashboard-filter").prop('disabled', false);
+          $(".btn-statistical").removeClass('disabled');
         }
         else {
-          $("#btn-quickly-filter").prop('disabled', true);
-          $(".btn-quickly-statistical").addClass('disabled');
+          $("#btn-dashboard-filter").prop('disabled', true);
+          $(".btn-statistical").addClass('disabled');
         }
       })
+    });
+
+    $('.dashboard-filter').on('change', function() {
+      if($('.dashboard-filter').val() != 'null') {
+        $("#btn-quickly-filter").prop('disabled', false);
+        $(".btn-quickly-statistical").removeClass('disabled');
+      }
+      else {
+        $("#btn-quickly-filter").prop('disabled', true);
+        $(".btn-quickly-statistical").addClass('disabled');
+      }
+    })
+  </script>
+    <script src="admins/hoadon/html2pdf.bundle.min.js"></script>
+    <script src="admins/thongke/jquery.table2excel.js" type="text/javascript"></script>
+    <script>
+      $("#printPDF").click(function() {
+          var element = document.getElementById('parentDiv');
+          console.log(element);
+          html2pdf().from(element).set({
+              margin: [30, 10, 5, 10],
+              pagebreak: {
+                  avoid: 'tr'
+              },
+              filename: 'ThongKeDoanhThuTheoHinhThucKD' + '.pdf',
+              jsPDF: {
+                  orientation: 'landscape',
+                  unit: 'pt',
+                  format: 'letter',
+                  compressPDF: true
+              }
+          }).save()
+      });
+    </script>
+      <script type="text/javascript">
+      $(function () {
+        $("#btnExport").click(function () {
+          $(".tblThongKe").table2excel({
+            filename: "SomeFile.xls",
+          });
+        });
+      });
     </script>
 @endsection

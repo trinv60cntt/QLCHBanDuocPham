@@ -55,26 +55,41 @@
       <div id="chart" style="height: 250px;"></div>
       <div class="table-details hidden">
         <hr class="mt-7">
-        <h4 class="my-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-          DỮ LIỆU CHI TIẾT BIỂU ĐỒ DOANH THU
-        </h4>
-        <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
-          <div class="w-full overflow-x-auto">
-        <table class="w-full">
-          <thead>
-            <tr
-            class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
-                  <th class="px-4 py-3">STT</th>
-                  <th class="px-4 py-3">Ngày</th>
-                  <th class="px-4 py-3 whitespace-nowrap">Doanh thu tại quầy</th>
-                  <th class="px-4 py-3 whitespace-nowrap">Doanh thu trực tuyến</th>
-                  <th class="px-4 py-3 whitespace-nowrap">Tổng doanh thu</th>
-              </tr>
-          </thead>
-          <tbody class="wrap-table bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
-          </tbody>
-        </table>
+        <div id="parentDiv" class="tblThongKe">
+          <h4 class="my-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
+            DỮ LIỆU CHI TIẾT BIỂU ĐỒ DOANH THU
+          </h4>
+          <div class="w-full mt-4 overflow-hidden rounded-lg shadow-xs">
+            <div class="w-full overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr
+              class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 text-center">
+                    <th class="px-4 py-3">STT</th>
+                    <th class="px-4 py-3">Ngày</th>
+                    <th class="px-4 py-3 whitespace-nowrap">Doanh thu tại quầy</th>
+                    <th class="px-4 py-3 whitespace-nowrap">Doanh thu trực tuyến</th>
+                    <th class="px-4 py-3 whitespace-nowrap">Tổng doanh thu</th>
+                </tr>
+            </thead>
+            <tbody class="wrap-table bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
+            </tbody>
+          </table>
+        </div>
       </div>
+      </div>
+    </div>
+    <div class="wrap-btn hidden">
+      <div class="mt-8 flex justify-center items-center">
+        <a id="printPDF"
+         class="cursor-pointer px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+          In báo cáo
+        </a>
+          &nbsp;|&nbsp;
+        <a id="btnExport"
+        class="cursor-pointer px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+          Xuất excel
+        </a>
       </div>
     </div>
   </div>
@@ -131,16 +146,29 @@
             $('.alert-error').addClass('hidden');
             $('.title-line').removeClass('hidden')
             $('.table-details').removeClass('hidden')
+            $('.wrap-btn').removeClass('hidden')
+
             chart.setData(data);
             var html ="";
+            let allDtOff = 0;
+            let allDtOnl = 0;
+            let allDtTotal = 0;
             for(var i = 0; i < data.length; i++) {
               var dtOff = (data[i].doanhThuOff).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
               var dtOnl = (data[i].doanhThuOnl).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
               var dtTotal = (data[i].sales).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+              allDtOff += data[i].doanhThuOff;
+              allDtOnl += data[i].doanhThuOnl;
+              allDtTotal += data[i].sales;
               var fmdate = formatDate(new Date(data[i].period));
               html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm'>" + fmdate + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOff + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOnl + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtTotal + "</td></tr>";
             }
             $(".wrap-table").html(html);
+            allDtOff = allDtOff.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            allDtOnl = allDtOnl.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            allDtTotal = allDtTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            var total = "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap text-center font-bold' colspan='2'>Tổng cộng</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtOff + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtOnl + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtTotal + "</td></tr>";
+            $(".wrap-table").append(total);
             }
           }
         });
@@ -180,16 +208,29 @@
             $('.alert-error').addClass('hidden');
             $('.title-line').removeClass('hidden')
             $('.table-details').removeClass('hidden')
+            $('.wrap-btn').removeClass('hidden')
+
             chart.setData(data);
             var html ="";
+            let allDtOff = 0;
+            let allDtOnl = 0;
+            let allDtTotal = 0;
             for(var i = 0; i < data.length; i++) {
               var dtOff = (data[i].doanhThuOff).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
               var dtOnl = (data[i].doanhThuOnl).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
               var dtTotal = (data[i].sales).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+              allDtOff += data[i].doanhThuOff;
+              allDtOnl += data[i].doanhThuOnl;
+              allDtTotal += data[i].sales;
               var fmdate = formatDate(new Date(data[i].period));
               html += "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap'>" + i + "</td><td class='px-4 py-3 text-sm'>" + fmdate + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOff + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtOnl + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + dtTotal + "</td></tr>";
             }
             $(".wrap-table").html(html);
+            allDtOff = allDtOff.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            allDtOnl = allDtOnl.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            allDtTotal = allDtTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.').replace(/\.00$/,'');
+            var total = "<tr class='text-gray-700 dark:text-gray-400'><td class='px-4 py-3 text-sm whitespace-nowrap text-center font-bold' colspan='2'>Tổng cộng</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtOff + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtOnl + "</td><td class='px-4 py-3 text-sm whitespace-nowrap'>" + allDtTotal + "</td></tr>";
+            $(".wrap-table").append(total);
             }
           }
         });
@@ -237,6 +278,36 @@
           $(".btn-quickly-statistical").addClass('disabled');
         }
       })
+    });
+  </script>
+  <script src="admins/hoadon/html2pdf.bundle.min.js"></script>
+  <script src="admins/thongke/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $("#printPDF").click(function() {
+        var element = document.getElementById('parentDiv');
+        console.log(element);
+        html2pdf().from(element).set({
+            margin: [30, 10, 5, 10],
+            pagebreak: {
+                avoid: 'tr'
+            },
+            filename: 'ThongKeTongDoanhThu' + '.pdf',
+            jsPDF: {
+                orientation: 'landscape',
+                unit: 'pt',
+                format: 'letter',
+                compressPDF: true
+            }
+        }).save()
+    });
+  </script>
+    <script type="text/javascript">
+    $(function () {
+      $("#btnExport").click(function () {
+        $(".tblThongKe").table2excel({
+          filename: "SomeFile.xls",
+        });
+      });
     });
   </script>
 @endsection
