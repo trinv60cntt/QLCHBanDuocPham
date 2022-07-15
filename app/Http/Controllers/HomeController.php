@@ -23,17 +23,17 @@ class HomeController extends Controller
     $data = [];
     $dau_thangnay = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
     $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-    $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.SLBanChayOff, TableB.SLBanChayOnl
+    $between = DB::select("SELECT sp.sanPham_id as \"MaSP\", sp.tenSP as \"TenSP\", TableA.SLBanChayOff, TableB.SLBanChayOnl
     from san_phams sp
     left outer join(
-      SELECT sp.sanPham_id, sum(cthdoff.soLuong) as 'SLBanChayOff'
+      SELECT sp.sanPham_id, sum(cthdoff.soLuong) as \"SLBanChayOff\"
       from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-      where sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$dau_thangnay' and '$now'
+      where sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN \"$dau_thangnay\" and \"$now\"
       group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
     left outer join(
-      SELECT sp.sanPham_id, sum(cthd.soLuong) as 'SLBanChayOnl'
+      SELECT sp.sanPham_id, sum(cthd.soLuong) as \"SLBanChayOnl\"
       from san_phams sp, hoadon hd, chitiethd cthd
-      where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangnay' and '$now'
+      where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN \"$dau_thangnay\" and \"$now\"
       group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
     ");
     foreach ($between as $key => $val) {
