@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'asset_url' => env('APP_URL', 'https://nhathuocso2.herokuapp.com/'),
+    'asset_url' => null,
     /*
     |--------------------------------------------------------------------------
     | Livewire App URL
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'app_url' => 'public',
+    'app_url' => null,
 
     /*
     |--------------------------------------------------------------------------
