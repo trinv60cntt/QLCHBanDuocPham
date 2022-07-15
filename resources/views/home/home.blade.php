@@ -92,7 +92,7 @@
             </div>
         </div>
     </section>
-
+{{-- 
     <section class="module mod-product-best-selling py-8">
         <div class="container px-3 mx-auto">
             <div class="title text-left">
@@ -117,7 +117,7 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="module mod-posts py-8">
         <div class="container px-3 mx-auto">
