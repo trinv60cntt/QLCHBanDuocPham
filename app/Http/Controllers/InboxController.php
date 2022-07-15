@@ -24,7 +24,7 @@ class InboxController extends Controller
             if((Auth::user() == null)) {
                 return redirect('login-checkout')->with('error', 'Vui lòng đăng nhập để thực hiện chức năng tư vấn trực tuyến');
             }
-        }
+        } 
         else {
         if($khachhangs != null) {
             // dd('vao');
