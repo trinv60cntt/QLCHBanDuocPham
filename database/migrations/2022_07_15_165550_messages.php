@@ -16,10 +16,9 @@ class Messages extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->longText('message')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->integer('user_id');
             $table->unsignedBigInteger('receiver');
-            $table->foreign('receiver')->references('id')->on('users');
-            $table->foreign('receiver');
+            $table->integer('receiver')->references('id')->on('users');
             $table->boolean('is_seen')->default(0);
             $table->string('file')->nullable();
             $table->string('file_name')->nullable();
