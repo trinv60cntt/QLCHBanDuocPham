@@ -22,7 +22,7 @@ class InboxController extends Controller
         // dd($khachhangs);
         if(!Session::get('khachhang_id') && $khachhangs == null) {
             if((Auth::user() == null)) {
-                return redirect('login-checkout')->with('error', 'Vui lòng đăng nhập để thực hiện chức tư vấn trực tuyến');
+                return redirect('login-checkout')->with('error', 'Vui lòng đăng nhập để thực hiện chức năng tư vấn trực tuyến');
             }
         }
         else {
