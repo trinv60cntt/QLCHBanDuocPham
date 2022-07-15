@@ -17,7 +17,6 @@ class Messages extends Migration
             $table->id();
             $table->longText('message')->nullable();
             $table->unsignedBigInteger('receiver');
-            $table->foreign('receiver');
             $table->boolean('is_seen')->default(0);
             $table->string('file')->nullable();
             $table->string('file_name')->nullable();
