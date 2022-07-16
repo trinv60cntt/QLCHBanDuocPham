@@ -119,28 +119,30 @@
         });
     </script>
     <script>
-             if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
-            document.getElementById('themSL').style.pointerEvents = 'none';
-            document.getElementById('themSL').style.color = '#ccc';
-        } else {
-          document.getElementById('themSL').style.pointerEvents = 'auto';
-          document.getElementById('themSL').style.color = '#fff';
-        }
+        setTimeout(() => {
+          if (parseInt($('.input-quantity').val()) >= parseInt($('.qty-hidden').val())) {
+              document.getElementById('themSL').style.pointerEvents = 'none';
+              document.getElementById('themSL').style.color = '#ccc';
+          } else {
+            document.getElementById('themSL').style.pointerEvents = 'auto';
+            document.getElementById('themSL').style.color = '#fff';
+          }
+        }, 600)
 
         $('#themSL').on('click', function (e) {
-          $('.input-quantity').attr('value', $('.input-quantity').val());
-          if ($('.input-quantity').val() >= $('.qty-hidden').val()) {
+          if (parseInt($('.input-quantity').val()) + 1 >= parseInt($('.qty-hidden').val())) {
             document.getElementById('themSL').style.pointerEvents = 'none';
             document.getElementById('themSL').style.color = '#ccc';
           }
         })
 
         $('#botSL').on('click', function (e) {
-          $('.input-quantity').attr('value', $('.input-quantity').val());
-          if ($('.input-quantity').val() < $('.qty-hidden').val()) {
-            document.getElementById('themSL').style.pointerEvents = 'auto';
-            document.getElementById('themSL').style.color = '#fff';
-          }
+          setTimeout(() => {
+            if (parseInt($('.input-quantity').val()) < parseInt($('.qty-hidden').val())) {
+              document.getElementById('themSL').style.pointerEvents = 'auto';
+              document.getElementById('themSL').style.color = '#fff';
+            }
+          }, 200)
         })
     </script>
 @endsection

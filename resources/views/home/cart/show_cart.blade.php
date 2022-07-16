@@ -10,7 +10,7 @@
       $(document).ready(function () {
         $('.tb-row-item').each((_i, el) => {
           const numberProduct = $(el).find('.number-product').val();
-          if(numberProduct >= $(el).find('.qty-hidden').val())
+          if(parseInt(numberProduct) >= parseInt($(el).find('.qty-hidden').val()))
           {
             $(el).find('.button-add').css('pointer-events','none');
             $(el).find('.button-add svg').css('color', '#ccc');
@@ -20,7 +20,7 @@
         $('.button-add').on('click', function (e) {
           $('.tb-row-item').each((_i, el) => {
           const numberProduct = $(el).find('.number-product').val();
-            if(numberProduct >= $(el).find('.qty-hidden').val())
+            if(parseInt(numberProduct) >= parseInt($(el).find('.qty-hidden').val()))
             {
               $(el).find('.button-add').css('pointer-events','none');
               $(el).find('.button-add svg').css('color', '#ccc');
