@@ -33,7 +33,7 @@ class HomeController extends Controller
     left outer join(
       SELECT sp.\"sanPham_id\", sum(cthd.\"soLuong\") as \"SLBanChayOnl\"
       from san_phams sp, hoadon hd, chitiethd cthd
-      where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"TinhTrang\" = \'4\' and hd.\"ngayLap\" >= \'$dau_thangnay\' and hdoff.\"ngayLap\" <= \'$now\'
+      where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = \'4\' and hd.\"ngayLap\" >= \'$dau_thangnay\' and hdoff.\"ngayLap\" <= \'$now\'
       group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
     ");
     foreach ($between as $key => $val) {
