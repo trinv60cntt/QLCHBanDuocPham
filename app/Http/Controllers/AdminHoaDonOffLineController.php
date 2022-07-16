@@ -73,7 +73,7 @@ class AdminHoaDonOffLineController extends Controller
     $order_data['created_at'] =new \DateTime();
 
     $order_id = $this->hoadonoff->create($order_data);
-
+    $order_id = $order_id->hoaDonOff_id;
     // insert order details
     $content = $request->sanPhamId;
     $itemQuantity = $request->itemQuantity;
@@ -87,7 +87,7 @@ class AdminHoaDonOffLineController extends Controller
       $sanpham = $this->sanpham->find($content[$i]);
       $dataProductUpdate['soLuongTon'] = $sanpham->soLuongTon - $itemQuantity[$i];
       $sanpham->update($dataProductUpdate);
-  
+
       DB::table('chitiethdoff')->insert($order_d_data);
     }
 
