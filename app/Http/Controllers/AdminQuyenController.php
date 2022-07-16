@@ -71,7 +71,7 @@ class AdminQuyenController extends Controller
     Quyen::create([
       'tenQuyen' => $request->tenQuyen,
       'moTa' => $request->moTa,
-      'parent_id' => $quyen->quyen_id,
+      'parent_id' => 40,
     ]);
 
     return redirect()->route('quyens.index')->with('success', 'Thêm mới quyền thành công');
