@@ -35,15 +35,22 @@ return [
 
     'mailers' => [
         'smtp' => [
-            'transport' => 'smtp',
-            'host' => env('MAIL_HOST'),
-            // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT'),
+            // 'transport' => 'smtp',
+            // 'host' => env('MAIL_HOST'),
+            // // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            // 'port' => env('MAIL_PORT'),
+            // 'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            // 'username' => env('MAIL_USERNAME'),
+            // 'password' => env('MAIL_PASSWORD'),
+            // 'timeout' => null,
+            // 'auth_mode' => null,
+            'driver'     => env('MAIL_DRIVER', 'smtp'),
+            'host'       => env('MAIL_HOST', 'smtp.gmail.com'),
+            'port'       => env('MAIL_PORT', 587),
+            // 'from'       => ['address' =>'youremail@mail.com', 'name' => 'Email_Subject'],
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
-            'auth_mode' => null,
+            'username'   => env('MAIL_USERNAME','trinv1710@gmail.com'),
+            'password'   => env('MAIL_PASSWORD','pcpnaprehaenqxwu'),
         ],
 
         'ses' => [
