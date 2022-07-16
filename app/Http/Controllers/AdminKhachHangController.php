@@ -83,7 +83,8 @@ class AdminKhachHangController extends Controller
       $nguoidung['is_admin'] = 0;
       $nguoidung['is_online'] = 0;
       $nguoidung['last_activity'] = now();
-      DB::table('nguoidung')->insertGetId($nguoidung);
+      $this->nguoidung->create($nguoidung);
+
       $khachhang = $this->khachhang->create($dataProductCreate);
 
       DB::commit();

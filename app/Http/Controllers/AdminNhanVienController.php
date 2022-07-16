@@ -106,7 +106,7 @@ class AdminNhanVienController extends Controller
       $nguoidung['is_admin'] = 1;
       $nguoidung['is_online'] = 0;
       $nguoidung['last_activity'] = now();
-      DB::table('nguoidung')->insertGetId($nguoidung);
+      $this->nguoidung->create($nguoidung);
 
       DB::commit();
       return redirect()->route('nhanviens.index')->with('success', 'Thêm mới nhân viên thành công');

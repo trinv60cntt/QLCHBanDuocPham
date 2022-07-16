@@ -11,7 +11,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Carbon\Carbon;
 use App\Models\Social;
 use App\Models\KhachHang;
+use App\Models\HoaDon;
 use App\Models\SanPham;
+use App\Models\NguoiDung;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -23,9 +25,12 @@ class CheckoutController extends Controller
 {
   public function __construct(
     SanPham $sanpham,
-    KhachHang $khachhang
+    KhachHang $khachhang,
+    NguoiDung $nguoidung,
+    HoaDon $hoadon
   ) {
     $this->sanpham = $sanpham;
+    $this->hoadon = $hoadon;
     $this->khachhang = $khachhang;
   }
 
@@ -128,7 +133,7 @@ class CheckoutController extends Controller
     $nguoidung['is_admin'] = 0;
     $nguoidung['is_online'] = 0;
     $nguoidung['last_activity'] = now();
-    DB::table('nguoidung')->insertGetId($nguoidung);
+    $this->nguoidung->create($nguoidung);
 
     Session::put('email',$request->email);
     Session::put('khachhang_id', $customer_id);
@@ -153,7 +158,8 @@ class CheckoutController extends Controller
     $order_data['tinhTrang'] = 1;
     $order_data['khachhang_id'] = $request->customer_id;
     $order_data['created_at'] =new \DateTime();
-    $order_id = DB::table('hoadon')->insertGetId($order_data);
+
+    $order_id = $this->hoadon->create($order_data);
 
     // insert order details
     $content = Cart::content();

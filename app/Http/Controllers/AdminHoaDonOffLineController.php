@@ -71,7 +71,8 @@ class AdminHoaDonOffLineController extends Controller
     $order_data['ngayLap'] = $now;
     $order_data['nhanvien_id'] = auth()->id();
     $order_data['created_at'] =new \DateTime();
-    $order_id = DB::table('hoadonoff')->insertGetId($order_data);
+
+    $order_id = $this->hoadonoff->create($order_data);
 
     // insert order details
     $content = $request->sanPhamId;
