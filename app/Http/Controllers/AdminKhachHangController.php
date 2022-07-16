@@ -8,6 +8,7 @@ use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Traits\StorageImageTrait;
+use Illuminate\Support\Facades\Hash;
 
 class AdminKhachHangController extends Controller
 {
@@ -55,7 +56,7 @@ class AdminKhachHangController extends Controller
         'ngaySinh' => $request->ngaySinh,
         'diaChi' => $request->diaChi,
         'email' => $request->email,
-        'password' => md5($request->matKhau),
+        'password' => Hash::make($request->matKhau),
         'sdt' => $request->sdt,
       ];
       if ($request->gioiTinh == 1) {
@@ -108,7 +109,7 @@ class AdminKhachHangController extends Controller
         'ngaySinh' => $request->ngaySinh,
         'diaChi' => $request->diaChi,
         'email' => $request->email,
-        'password' => md5($request->password),
+        'password' => Hash::make($request->password),
         'sdt' => $request->sdt,
       ];
       if ($request->gioiTinh == 1) {
