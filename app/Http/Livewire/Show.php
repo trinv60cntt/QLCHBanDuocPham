@@ -58,6 +58,7 @@ class Show extends Component
                                                     ->orderBy('id', 'DESC')
                                                     ->get();
         }
+        $not_seen = [];
         if((Auth::user() != null)) {
             $temp = $adminLogin;
             for ($i = 0; $i < count($temp); $i++) {
