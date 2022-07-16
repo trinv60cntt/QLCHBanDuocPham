@@ -42,11 +42,11 @@ class MenuController extends Controller
         $category_by_id = SanPham::orderBy('tenSP', 'ASC')->paginate(12)->appends(request()->query());
       }
       else {
-        $category_by_id = SanPham::orderBy('sanpham_id', 'DESC')->paginate(12);
+        $category_by_id = SanPham::orderBy('sanPham_id', 'DESC')->paginate(12);
       }
     }
     else {
-      $category_by_id = SanPham::orderBy('sanpham_id', 'DESC')->paginate(12);
+      $category_by_id = SanPham::orderBy('sanPham_id', 'DESC')->paginate(12);
     }
     return view('home.menu.index', compact('sanphams', 'categorys', 'category_by_id'));
   }
