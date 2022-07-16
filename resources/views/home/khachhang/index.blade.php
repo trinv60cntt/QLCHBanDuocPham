@@ -131,9 +131,9 @@
                               <h3 class="text-center mb-4"><b>THÔNG TIN CHI TIẾT</b></h3>
                           </td>
                       </tr>
-                      <tr class="inline ml-20 md:ml-0 md:hidden">
+                      {{-- <tr class="inline ml-20 md:ml-0 md:hidden">
                         <td><img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
-                    </tr>
+                    </tr> --}}
                       <tr class="hidden ml-20 md:ml-0 md:table-row">
                           <td rowspan="8"><img src="uploads/khachhang/{{ $khachhang->hinhAnh }}" width="300" height="300" class="mr-5"></td>
                       </tr>
