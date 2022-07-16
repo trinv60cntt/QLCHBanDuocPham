@@ -14,7 +14,7 @@ class Khachhang extends Migration
     public function up()
     {
         Schema::create('khachhang', function (Blueprint $table) {
-			$table->Increments('khachhang_id');
+			$table->bigIncrements('khachhang_id');
             $table->string('hoKH');
             $table->string('tenKH');
             $table->boolean('gioiTinh');
