@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class InboxController extends Controller
 {
-
+    public function __construct(
+        NguoiDung $nguoidung
+    ) {
+        $this->nguoidung = $nguoidung;
+    }
     public function index() {
         // Show just the users and not the admins as well
         $users = NguoiDung::where('is_admin', false)->orderBy('id', 'DESC')->get();
@@ -105,9 +109,16 @@ class InboxController extends Controller
                 abort(404);
             }
         }
+        $sender = [];
+        $nguoidung = $this->nguoidung->get();
+        foreach($nguoidung as $item) {
+            if($item->id == $id) {
+                $sender = $item;
+            }
+        }
+        // $sender = NguoiDung::findOrFail($id);
+        // dd($sender);
 
-
-        $sender = NguoiDung::findOrFail($id);
         $users = NguoiDung::with(['message' => function($query) {
             return $query->orderBy('created_at', 'DESC');
         }])->where('is_admin', false)
@@ -118,6 +129,7 @@ class InboxController extends Controller
             $messages = Message::where('user_id', $usersLogin->id)->orWhere('receiver', $usersLogin->id)->orderBy('id', 'DESC')->get();
         }
         else {
+            // dd($sender);
             $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
         }
 
