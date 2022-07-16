@@ -327,12 +327,12 @@ class AdminThongKeController extends Controller
       left outer join(
         SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
         from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-        where sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$from_date' and hdoff.\"ngayLap\" <= '$to_date'
+        where sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$from_date' and hdoff.\"ngayLap\" <= '$to_date' and hdoff.\"deleted_at\" IS NULL
         group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
       left outer join(
         SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
         from san_phams sp, hoadon hd, chitiethd cthd
-        where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$from_date' and hd.\"ngayLap\" <= '$to_date'
+        where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$from_date' and hd.\"ngayLap\" <= '$to_date' and hd.\"deleted_at\" IS NULL
         group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
       ");
     } else {
@@ -341,12 +341,12 @@ class AdminThongKeController extends Controller
       left outer join(
         SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
         from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-        where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$from_date' and hdoff.\"ngayLap\" <= '$to_date'
+        where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$from_date' and hdoff.\"ngayLap\" <= '$to_date' and hdoff.\"deleted_at\" IS NULL
         group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
       left outer join(
         SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
         from san_phams sp, hoadon hd, chitiethd cthd
-        where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$from_date' and hd.\"ngayLap\" <= '$to_date'
+        where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$from_date' and hd.\"ngayLap\" <= '$to_date' and hd.\"deleted_at\" IS NULL
         group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
       ");
     }
