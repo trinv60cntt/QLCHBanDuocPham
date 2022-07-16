@@ -395,122 +395,122 @@ class AdminThongKeController extends Controller
 
     if($data['dashboard_value'] == '7ngay') {
       if($productId == "null") {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
-        from san_phams sp
-        left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
-          from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$sub7days' and '$now'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
-        left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
-          from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$sub7days' and '$now'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
+      from san_phams sp
+      left outer join(
+        SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
+        from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
+        where sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$sub7days' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL
+        group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
+      left outer join(
+        SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
+        from san_phams sp, hoadon hd, chitiethd cthd
+        where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$sub7days' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL
+        group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       } else {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
         from san_phams sp
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
           from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$sub7days' and '$now'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$sub7days' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
           from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$sub7days' and '$now'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$sub7days' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       }
     } else if($data['dashboard_value'] == 'thangtruoc') {
       if($productId == "null") {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
-        from san_phams sp
-        left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
-          from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$dau_thangtruoc' and '$cuoi_thangtruoc'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
-        left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
-          from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangtruoc' and '$cuoi_thangtruoc'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
+      from san_phams sp
+      left outer join(
+        SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
+        from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
+        where sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$dau_thangtruoc' and hdoff.\"ngayLap\" <= '$cuoi_thangtruoc' and hdoff.\"deleted_at\" IS NULL
+        group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
+      left outer join(
+        SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
+        from san_phams sp, hoadon hd, chitiethd cthd
+        where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$dau_thangtruoc' and hd.\"ngayLap\" <= '$cuoi_thangtruoc' and hd.\"deleted_at\" IS NULL
+        group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       } else {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
         from san_phams sp
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
           from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$dau_thangtruoc' and '$cuoi_thangtruoc'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$dau_thangtruoc' and hdoff.\"ngayLap\" <= '$cuoi_thangtruoc' and hdoff.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
           from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangtruoc' and '$cuoi_thangtruoc'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$dau_thangtruoc' and hd.\"ngayLap\" <= '$cuoi_thangtruoc' and hd.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       }
     } else if($data['dashboard_value'] == 'thangnay') {
       if($productId == "null") {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
         from san_phams sp
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
           from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$dau_thangnay' and '$now'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
+          where sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$dau_thangnay' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
           from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangnay' and '$now'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+          where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$dau_thangnay' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       } else {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
         from san_phams sp
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
           from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$dau_thangnay' and '$now'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$dau_thangnay' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
           from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangnay' and '$now'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$dau_thangnay' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       }
     } else {
       if($productId == "null") {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
         from san_phams sp
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
           from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$sub365days' and '$now'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
+          where sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$sub365days' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
           from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$sub365days' and '$now'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+          where sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$sub365days' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       } else {
-        $between = DB::select("SELECT sp.sanPham_id as 'MaSP', sp.tenSP as 'TenSP', TableA.DoanhThuOff, TableB.DoanhThuOnl, TableA.LaiSuatOff, TableB.LaiSuatOnl
+        $between = DB::select("SELECT sp.\"sanPham_id\" as \"MaSP\", sp.\"tenSP\" as \"TenSP\", TableA.\"DoanhThuOff\", TableB.\"DoanhThuOnl\", TableA.\"LaiSuatOff\", TableB.\"LaiSuatOnl\"
         from san_phams sp
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthdoff.soLuong) as 'DoanhThuOff', sum(sp.giaNhap * cthdoff.soLuong) as 'LaiSuatOff'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthdoff.\"soLuong\") as \"DoanhThuOff\", sum(sp.\"giaNhap\" * cthdoff.\"soLuong\") as \"LaiSuatOff\"
           from san_phams sp, hoadonoff hdoff, chitiethdoff cthdoff
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthdoff.sanPham_id and hdoff.hoaDonOff_id = cthdoff.hoaDonOff_id and hdoff.ngayLap BETWEEN '$sub365days' and '$now'
-          group by sp.sanPham_id) as TableA on sp.sanPham_id = TableA.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthdoff.\"sanPham_id\" and hdoff.\"hoaDonOff_id\" = cthdoff.\"hoaDonOff_id\" and hdoff.\"ngayLap\" >= '$sub365days' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableA on sp.\"sanPham_id\" = TableA.\"sanPham_id\"
         left outer join(
-          SELECT sp.sanPham_id, sum(sp.donGia * cthd.soLuong) as 'DoanhThuOnl', sum(sp.giaNhap * cthd.soLuong) as 'LaiSuatOnl'
+          SELECT sp.\"sanPham_id\", sum(sp.\"donGia\" * cthd.\"soLuong\") as \"DoanhThuOnl\", sum(sp.\"giaNhap\" * cthd.\"soLuong\") as \"LaiSuatOnl\"
           from san_phams sp, hoadon hd, chitiethd cthd
-          where sp.sanPham_id = $productId and sp.sanPham_id = cthd.sanPham_id and hd.hoaDon_id = cthd.hoaDon_id and hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$sub365days' and '$now'
-          group by sp.sanPham_id) as TableB on sp.sanPham_id = TableB.sanPham_id
+          where sp.\"sanPham_id\" = '$productId' and sp.\"sanPham_id\" = cthd.\"sanPham_id\" and hd.\"hoaDon_id\" = cthd.\"hoaDon_id\" and hd.\"tinhTrang\" = '4' and hd.\"ngayLap\" >= '$sub365days' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL
+          group by sp.\"sanPham_id\") as TableB on sp.\"sanPham_id\" = TableB.\"sanPham_id\"
         ");
       }
     }
@@ -554,25 +554,25 @@ class AdminThongKeController extends Controller
     if($productId != "null") {
       $between = DB::select("SELECT *
       from san_phams
-      where sanPham_id = $productId and deleted_at IS NULL");
+      where \"sanPham_id\" = '$productId' and \"deleted_at\" IS NULL");
     }
 
     if($dashboardValue != "null") {
       $between = DB::select("SELECT *
       from san_phams
-      where soLuongTon <= '$dashboardValue' and deleted_at IS NULL");
+      where \"soLuongTon\" <= '$dashboardValue' and \"deleted_at\" IS NULL");
     }
 
     if($productId != "null" && $dashboardValue != "null") {
       $between = DB::select("SELECT *
       from san_phams
-      where soLuongTon <= $dashboardValue and sanPham_id = $productId and deleted_at IS NULL");
+      where \"soLuongTon\" <= '$dashboardValue' and \"sanPham_id\" = '$productId' and \"deleted_at\" IS NULL");
     }
 
     if($productId == "null" && $dashboardValue == "null") {
       $between = DB::select("SELECT *
       from san_phams
-      where deleted_at IS NULL");
+      where \"deleted_at\" IS NULL");
     }
 
     foreach ($between as $key => $val) {
