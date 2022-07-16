@@ -102,16 +102,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'danhmucs.index',
       'uses' => 'App\Http\Controllers\DanhMucController@index',
-      'middleware' => 'can:danhmuc-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:danhmuc-list']);
 
     Route::get('/create', [
       'as' => 'danhmucs.create',
       'uses' => 'App\Http\Controllers\DanhMucController@create',
-      'middleware' => 'can:danhmuc-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:danhmuc-add']);
 
     Route::post('/store', [
       'as' => 'danhmucs.store',
@@ -121,9 +119,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{danhMuc_id}', [
       'as' => 'danhmucs.edit',
       'uses' => 'App\Http\Controllers\DanhMucController@edit',
-      'middleware' => 'can:danhmuc-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:danhmuc-edit']);
 
     Route::post('/update/{danhMuc_id}', [
       'as' => 'danhmucs.update',
@@ -133,25 +130,22 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{danhMuc_id}', [
       'as' => 'danhmucs.delete',
       'uses' => 'App\Http\Controllers\DanhMucController@delete',
-      'middleware' => 'can:danhmuc-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:danhmuc-delete']);
   });
 
   Route::prefix('nhasanxuats')->group(function () {
     Route::get('/', [
       'as' => 'nhasanxuats.index',
       'uses' => 'App\Http\Controllers\NhaSanXuatController@index',
-      'middleware' => 'can:nhasanxuat-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhasanxuat-list']);
 
     Route::get('/create', [
       'as' => 'nhasanxuats.create',
       'uses' => 'App\Http\Controllers\NhaSanXuatController@create',
-      'middleware' => 'can:nhasanxuat-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhasanxuat-add']);
 
     Route::post('/store', [
       'as' => 'nhasanxuats.store',
@@ -161,9 +155,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{NSX_id}', [
       'as' => 'nhasanxuats.edit',
       'uses' => 'App\Http\Controllers\NhaSanXuatController@edit',
-      'middleware' => 'can:nhasanxuat-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhasanxuat-edit']);
 
     Route::post('/update/{NSX_id}', [
       'as' => 'nhasanxuats.update',
@@ -173,25 +166,22 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{NSX_id}', [
       'as' => 'nhasanxuats.delete',
       'uses' => 'App\Http\Controllers\NhaSanXuatController@delete',
-      'middleware' => 'can:nhasanxuat-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhasanxuat-delete']);
   });
 
   Route::prefix('sanphams')->group(function () {
     Route::get('/', [
       'as' => 'sanphams.index',
       'uses' => 'App\Http\Controllers\AdminSanPhamController@index',
-      'middleware' => 'can:sanpham-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:sanpham-list']);
 
     Route::get('/create', [
       'as' => 'sanphams.create',
       'uses' => 'App\Http\Controllers\AdminSanPhamController@create',
-      'middleware' => 'can:sanpham-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:sanpham-add']);
 
     Route::post('/store', [
       'as' => 'sanphams.store',
@@ -201,9 +191,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{sanPham_id}', [
       'as' => 'sanphams.edit',
       'uses' => 'App\Http\Controllers\AdminSanPhamController@edit',
-      'middleware' => 'can:sanpham-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:sanpham-edit']);
 
     Route::post('/update/{sanPham_id}', [
       'as' => 'sanphams.update',
@@ -213,9 +202,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{sanPham_id}', [
       'as' => 'sanphams.delete',
       'uses' => 'App\Http\Controllers\AdminSanPhamController@delete',
-      'middleware' => 'can:sanpham-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:sanpham-delete']);
 
     Route::post('/tim-kiem', [
       'as' => 'sanphams.search',
@@ -233,27 +221,27 @@ Route::prefix('admin')->group(function () {
       'as' => 'users.index',
       'uses' => 'App\Http\Controllers\AdminUserController@index'
     ]);
-  
+
     Route::get('/create', [
       'as' => 'users.create',
       'uses' => 'App\Http\Controllers\AdminUserController@create'
     ]);
-  
+
     Route::post('/store', [
       'as' => 'users.store',
       'uses' => 'App\Http\Controllers\AdminUserController@store'
     ]);
-  
+
     Route::get('/edit/{id}', [
       'as' => 'users.edit',
       'uses' => 'App\Http\Controllers\AdminUserController@edit'
     ]);
-  
+
     Route::post('/update/{id}', [
       'as' => 'users.update',
       'uses' => 'App\Http\Controllers\AdminUserController@update'
     ]);
-  
+
     Route::get('/delete/{id}', [
       'as' => 'users.delete',
       'uses' => 'App\Http\Controllers\AdminUserController@delete'
@@ -264,16 +252,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'hoadons.index',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@index',
-      'middleware' => 'can:hoadononl-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadononl-list']);
 
     Route::get('/edit/{hoaDon_id}', [
       'as' => 'hoadons.edit',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@edit',
-      'middleware' => 'can:hoadononl-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadononl-edit']);
 
     Route::post('/update/{hoaDon_id}', [
       'as' => 'hoadons.update',
@@ -283,22 +269,20 @@ Route::prefix('admin')->group(function () {
     Route::get('/details/{hoaDon_id}', [
       'as' => 'hoadons.details',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@details',
-      'middleware' => 'can:hoadononl-details',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadononl-details']);
 
     Route::get('/delete/{hoaDon_id}', [
       'as' => 'hoadons.delete',
       'uses' => 'App\Http\Controllers\AdminHoaDonController@delete',
-      'middleware' => 'can:hoadononl-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadononl-delete']);
 
     Route::get('/printDH/{hoaDon_id}', [
       'as' => 'hoadons.printDH',
-      'uses' => 'App\Http\Controllers\AdminHoaDonController@printDH'
+      'uses' => 'App\Http\Controllers\AdminHoaDonController@printDH',
       // 'middleware' => 'can:hoadononl-details',
-      // 'middleware' => 'CheckLoggedOut'
+      'middleware' => 'CheckLoggedOut'
     ]);
   });
 
@@ -306,16 +290,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'khachhangs.index',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@index',
-      'middleware' => 'can:khachhang-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:khachhang-list']);
 
     Route::get('/create', [
       'as' => 'khachhangs.create',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@create',
-      'middleware' => 'can:khachhang-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:khachhang-add']);
 
     Route::post('/store', [
       'as' => 'khachhangs.store',
@@ -325,9 +307,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{khachhang_id}', [
       'as' => 'khachhangs.edit',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@edit',
-      'middleware' => 'can:khachhang-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:khachhang-edit']);
 
     Route::post('/update/{khachhang_id}', [
       'as' => 'khachhangs.update',
@@ -337,14 +318,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{khachhang_id}', [
       'as' => 'khachhangs.delete',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@delete',
-      'middleware' => 'can:khachhang-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:khachhang-delete']);
 
     Route::get('/details/{khachhang_id}', [
       'as' => 'khachhangs.details',
       'uses' => 'App\Http\Controllers\AdminKhachHangController@details',
-      // 'middleware' => 'can:hoadononl-details'
+      'middleware' => 'CheckLoggedOut'
     ]);
   });
 
@@ -352,16 +332,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'nhanviens.index',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@index',
-      'middleware' => 'can:nhanvien-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhanvien-list']);
 
     Route::get('/create', [
       'as' => 'nhanviens.create',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@create',
-      'middleware' => 'can:nhanvien-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhanvien-add']);
 
     Route::post('/store', [
       'as' => 'nhanviens.store',
@@ -371,9 +349,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{id}', [
       'as' => 'nhanviens.edit',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@edit',
-      'middleware' => 'can:nhanvien-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhanvien-edit']);
 
     Route::post('/update/{id}', [
       'as' => 'nhanviens.update',
@@ -383,9 +360,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{id}', [
       'as' => 'nhanviens.delete',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@delete',
-      'middleware' => 'can:nhanvien-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhanvien-delete']);
 
     Route::post('/tim-kiem', [
       'as' => 'nhanviens.search',
@@ -395,7 +371,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/details/{id}', [
       'as' => 'nhanviens.details',
       'uses' => 'App\Http\Controllers\AdminNhanVienController@details',
-      // 'middleware' => 'can:hoadononl-details'
+      'middleware' => 'CheckLoggedOut'
     ]);
   });
 
@@ -403,9 +379,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'thongkes.doanhThu',
       'uses' => 'App\Http\Controllers\AdminThongKeController@doanhThu',
-      'middleware' => 'can:tktongdoanhthu-index',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:tktongdoanhthu-index']);
 
     Route::post('/filter-by-date', [
       'as' => 'thongkes.filter_by_date',
@@ -420,9 +395,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/theosanpham', [
       'as' => 'thongkes.theoSanPham',
       'uses' => 'App\Http\Controllers\AdminThongKeController@theoSanPham',
-      'middleware' => 'can:tktheosanpham-index',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:tktheosanpham-index']);
 
     Route::post('/product-filter-by-date', [
       'as' => 'thongkes.product_filter_by_date',
@@ -448,9 +422,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/theoHinhThucKD', [
       'as' => 'thongkes.theoHinhThucKD',
       'uses' => 'App\Http\Controllers\AdminThongKeController@theoHinhThucKD',
-      'middleware' => 'can:tktheohinhthuckinhdoanh-index',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:tktheohinhthuckinhdoanh-index']);
 
     Route::post('/type-bussiness-filter-by-date', [
       'as' => 'thongkes.type_bussiness_filter_by_date',
@@ -467,16 +440,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'vaitros.index',
       'uses' => 'App\Http\Controllers\AdminVaiTroController@index',
-      'middleware' => 'can:nhomnhanvien-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhomnhanvien-list']);
 
     Route::get('/create', [
       'as' => 'vaitros.create',
       'uses' => 'App\Http\Controllers\AdminVaiTroController@create',
-      'middleware' => 'can:nhomnhanvien-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhomnhanvien-add']);
 
     Route::post('/store', [
       'as' => 'vaitros.store',
@@ -486,9 +457,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{vaiTro_id}', [
       'as' => 'vaitros.edit',
       'uses' => 'App\Http\Controllers\AdminVaiTroController@edit',
-      'middleware' => 'can:nhomnhanvien-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhomnhanvien-edit']);
 
     Route::post('/update/{vaiTro_id}', [
       'as' => 'vaitros.update',
@@ -498,9 +468,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{vaiTro_id}', [
       'as' => 'vaitros.delete',
       'uses' => 'App\Http\Controllers\AdminVaiTroController@delete',
-      'middleware' => 'can:nhomnhanvien-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:nhomnhanvien-delete']);
 
   });
 
@@ -508,16 +477,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'quyens.index',
       'uses' => 'App\Http\Controllers\AdminQuyenController@index',
-      'middleware' => 'can:quyen-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:quyen-list']);
 
     Route::get('/create', [
       'as' => 'quyens.create',
       'uses' => 'App\Http\Controllers\AdminQuyenController@create',
-      'middleware' => 'can:quyen-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:quyen-add']);
 
     Route::post('/store', [
       'as' => 'quyens.store',
@@ -527,9 +494,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{quyen_id}', [
       'as' => 'quyens.edit',
       'uses' => 'App\Http\Controllers\AdminQuyenController@edit',
-      'middleware' => 'can:quyen-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:quyen-edit']);
 
     Route::post('/update/{quyen_id}', [
       'as' => 'quyens.update',
@@ -539,9 +505,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/delete/{quyen_id}', [
       'as' => 'quyens.delete',
       'uses' => 'App\Http\Controllers\AdminQuyenController@delete',
-      'middleware' => 'can:quyen-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:quyen-delete']);
 
   });
 
@@ -549,9 +514,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'binhluans.index',
       'uses' => 'App\Http\Controllers\AdminBinhLuanController@index',
-      'middleware' => 'can:binhluan-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:binhluan-list']);
 
     Route::post('/reply-comment', [
       'as' => 'binhluans.replyComment',
@@ -574,16 +538,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [
       'as' => 'hoadonoffline.index',
       'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@index',
-      'middleware' => 'can:hoadonoff-list',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadonoff-list']);
 
     Route::get('/create', [
       'as' => 'hoadonoffline.create',
       'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@create',
-      'middleware' => 'can:hoadonoff-add',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadonoff-add']);
 
     Route::post('/store', [
       'as' => 'hoadonoffline.store',
@@ -598,9 +560,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{hoaDonOff_id}', [
       'as' => 'hoadonoffline.edit',
       'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@edit',
-      'middleware' => 'can:hoadonoff-edit',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadonoff-edit']);
 
     Route::post('/update/{hoaDonOff_id}', [
       'as' => 'hoadonoffline.update',
@@ -610,22 +571,19 @@ Route::prefix('admin')->group(function () {
     Route::get('/details/{hoaDonOff_id}', [
       'as' => 'hoadonoffline.details',
       'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@details',
-      'middleware' => 'can:hoadonoff-details',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadonoff-details']);
 
     Route::get('/delete/{hoaDonOff_id}', [
       'as' => 'hoadonoffline.delete',
       'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@delete',
-      'middleware' => 'can:hoadonoff-delete',
       'middleware' => 'CheckLoggedOut'
-    ]);
+    ])->middleware(['can:hoadonoff-delete']);
 
     Route::get('/printDH/{hoaDonOff_id}', [
       'as' => 'hoadonoffline.printDH',
-      'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@printDH'
-      // 'middleware' => 'can:hoadononl-details',
-      // 'middleware' => 'CheckLoggedOut'
+      'uses' => 'App\Http\Controllers\AdminHoaDonOffLineController@printDH',
+      'middleware' => 'CheckLoggedOut'
     ]);
 
   });
@@ -659,7 +617,7 @@ Route::prefix('admin')->group(function () {
       'as' => 'canhans.luuMatKhau',
       'uses' => 'App\Http\Controllers\AdminCaNhanController@luuMatKhau'
     ]);
-    
+
   });
 });
 
