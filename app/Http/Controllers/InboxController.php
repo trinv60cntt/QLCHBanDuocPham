@@ -109,14 +109,14 @@ class InboxController extends Controller
                 abort(404);
             }
         }
-        $sender = [];
-        $nguoidung = $this->nguoidung->get();
-        foreach($nguoidung as $item) {
-            if($item->id == $id) {
-                $sender = $item;
-            }
-        }
-        // $sender = NguoiDung::findOrFail($id);
+        // $sender = [];
+        // $nguoidung = $this->nguoidung->get();
+        // foreach($nguoidung as $item) {
+        //     if($item->id == $id) {
+        //         $sender = $item;
+        //     }
+        // }
+        $sender = NguoiDung::findOrFail($id);
         // dd($sender);
 
         $users = NguoiDung::with(['message' => function($query) {
@@ -130,8 +130,8 @@ class InboxController extends Controller
         }
         else {
             // dd('2');
-            // $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
-            $messages = Message::where('user_id', 4)->get();
+            $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
+            // $messages = Message::where('user_id', 4)->get();
             // dd($messages);
         }
 

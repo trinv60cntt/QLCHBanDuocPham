@@ -70,7 +70,7 @@ class Show extends Component
             $not_seen = \App\Models\Message::where('user_id', $this->sender->id)->where('receiver', $adminLogin->id);
         }
         // dd($not_seen);
-        // $not_seen->update(['is_seen' => true]);
+        $not_seen->update(['is_seen' => true]);
     }
 
     public function mount()
