@@ -86,11 +86,11 @@ class MenuController extends Controller
         ->orderBy('tenSP', 'ASC')->paginate(6)->appends(request()->query());
       }
       else {
-        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)->orderBy('sanpham_id', 'DESC')->get();
+        $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)->orderBy('sanPham_id', 'DESC')->get();
       }
     }
     else {
-      $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)->orderBy('sanpham_id', 'DESC')->get();
+      $category_by_id = SanPham::with('DanhMuc')->where('danhMuc_id', $danhMuc_id)->orderBy('sanPham_id', 'DESC')->get();
     }
     // dd($category_by_id);
     return view('home.menu.list', compact('sanphams', 'categorys', 'category_by_id'));
