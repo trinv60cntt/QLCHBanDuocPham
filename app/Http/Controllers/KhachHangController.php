@@ -30,7 +30,6 @@ class KhachHangController extends Controller
   {
     // dd(Session::get('khachhang_id'));
     $khachhang_id = Session::get('khachhang_id');
-    dd($khachhang_id);
     $khachhang = $this->khachhang->find($khachhang_id);
     return view('home.khachhang.index', compact('khachhang'));
   }
