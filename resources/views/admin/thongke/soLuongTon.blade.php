@@ -16,7 +16,7 @@
   <!-- Remove everything INSIDE this div to a really blank page -->
   <div class="container px-6 mx-auto py-4">
       <h4 class="mb-4 text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-        THỐNG KÊ SỐ LƯỢNG TỒN TỪNG SẢN PHẨM THEO TỪNG NGÀY/THÁNG/NĂM
+        THỐNG KÊ SỐ LƯỢNG TỒN THEO TỪNG SẢN PHẨM
       </h4>
       <hr class="mb-4">
       <form autocomplete="off">

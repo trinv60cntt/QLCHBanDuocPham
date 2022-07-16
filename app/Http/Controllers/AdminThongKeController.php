@@ -593,12 +593,12 @@ class AdminThongKeController extends Controller
     $data = $request->all();
     $from_date = $data['from_date'];
     $to_date = $data['to_date'];
-    $totalOnline = DB::select("SELECT sum(hd.tongTien) as 'DoanhThuOnl'
+    $totalOnline = DB::select("SELECT sum(hd.\"tongTien\") as \"DoanhThuOnl\"
     from hoadon hd
-    where hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$from_date' and '$to_date'");
-    $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
+    where hd.\"TinhTrang\" = '4' and hd.\"ngayLap\" >= '$from_date' and hd.\"ngayLap\" <= '$to_date' and hd.\"deleted_at\" IS NULL");
+    $totalOffline = DB::select("SELECT sum(hdoff.\"tongTien\") as \"DoanhThuOff\"
     from hoadonoff hdoff
-    where hdoff.ngayLap BETWEEN '$from_date' and '$to_date'");
+    where hdoff.\"ngayLap\" >= '$from_date' and hdoff.\"ngayLap\" <= '$to_date' and hdoff.\"deleted_at\" IS NULL");
     if($totalOnline[0]->DoanhThuOnl == null) {
       $totalOnline[0]->DoanhThuOnl = 0;
     }
@@ -628,33 +628,33 @@ class AdminThongKeController extends Controller
     $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
     if($data['dashboard_value'] == '7ngay') {
-      $totalOnline = DB::select("SELECT sum(hd.tongTien) as 'DoanhThuOnl'
+      $totalOnline = DB::select("SELECT sum(hd.\"tongTien\") as \"DoanhThuOnl\"
       from hoadon hd
-      where hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$sub7days' and '$now'");
-      $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
+      where hd.\"TinhTrang\" = '4' and hd.\"ngayLap\" >= '$sub7days' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL");
+      $totalOffline = DB::select("SELECT sum(hdoff.\"tongTien\") as \"DoanhThuOff\"
       from hoadonoff hdoff
-      where hdoff.ngayLap BETWEEN '$sub7days' and '$now'");
+      where hdoff.\"ngayLap\" >= '$sub7days' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL");
     } else if($data['dashboard_value'] == 'thangtruoc') {
-      $totalOnline = DB::select("SELECT sum(hd.tongTien) as 'DoanhThuOnl'
+      $totalOnline = DB::select("SELECT sum(hd.\"tongTien\") as \"DoanhThuOnl\"
       from hoadon hd
-      where hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangtruoc' and '$cuoi_thangtruoc'");
-      $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
+      where hd.\"TinhTrang\" = '4' and hd.\"ngayLap\" >= '$dau_thangtruoc' and hd.\"ngayLap\" <= '$cuoi_thangtruoc' and hd.\"deleted_at\" IS NULL");
+      $totalOffline = DB::select("SELECT sum(hdoff.\"tongTien\") as \"DoanhThuOff\"
       from hoadonoff hdoff
-      where hdoff.ngayLap BETWEEN '$dau_thangtruoc' and '$cuoi_thangtruoc'");
+      where hdoff.\"ngayLap\" >= '$dau_thangtruoc' and hdoff.\"ngayLap\" <= '$cuoi_thangtruoc' and hdoff.\"deleted_at\" IS NULL");
     }  else if($data['dashboard_value'] == 'thangnay') {
-      $totalOnline = DB::select("SELECT sum(hd.tongTien) as 'DoanhThuOnl'
+      $totalOnline = DB::select("SELECT sum(hd.\"tongTien\") as \"DoanhThuOnl\"
       from hoadon hd
-      where hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$dau_thangnay' and '$now'");
-      $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
+      where hd.\"TinhTrang\" = '4' and hd.\"ngayLap\" >= '$dau_thangnay' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL");
+      $totalOffline = DB::select("SELECT sum(hdoff.\"tongTien\") as \"DoanhThuOff\"
       from hoadonoff hdoff
-      where hdoff.ngayLap BETWEEN '$dau_thangnay' and '$now'");
+      where hdoff.\"ngayLap\" >= '$dau_thangnay' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL");
     } else {
-      $totalOnline = DB::select("SELECT sum(hd.tongTien) as 'DoanhThuOnl'
+      $totalOnline = DB::select("SELECT sum(hd.\"tongTien\") as \"DoanhThuOnl\"
       from hoadon hd
-      where hd.TinhTrang = 4 and hd.ngayLap BETWEEN '$sub365days' and '$now'");
-      $totalOffline = DB::select("SELECT sum(hdoff.tongTien) as 'DoanhThuOff'
+      where hd.\"TinhTrang\" = '4' and hd.\"ngayLap\" >= '$sub365days' and hd.\"ngayLap\" <= '$now' and hd.\"deleted_at\" IS NULL");
+      $totalOffline = DB::select("SELECT sum(hdoff.\"tongTien\") as \"DoanhThuOff\"
       from hoadonoff hdoff
-      where hdoff.ngayLap BETWEEN '$sub365days' and '$now'");
+      where hdoff.\"ngayLap\" >= '$sub365days' and hdoff.\"ngayLap\" <= '$now' and hdoff.\"deleted_at\" IS NULL");
     }
 
     date_default_timezone_set('UTC');
