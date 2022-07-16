@@ -14,6 +14,7 @@ use App\Models\KhachHang;
 use App\Models\HoaDon;
 use App\Models\SanPham;
 use App\Models\NguoiDung;
+use App\Models\ChiTietHD;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -27,11 +28,14 @@ class CheckoutController extends Controller
     SanPham $sanpham,
     KhachHang $khachhang,
     NguoiDung $nguoidung,
-    HoaDon $hoadon
+    HoaDon $hoadon,
+    ChiTietHD $chitiethd
   ) {
     $this->sanpham = $sanpham;
     $this->hoadon = $hoadon;
     $this->khachhang = $khachhang;
+    $this->chitiethd = $chitiethd;
+    $this->nguoidung = $nguoidung;
   }
 
   public function login_checkout() {
@@ -160,7 +164,7 @@ class CheckoutController extends Controller
     $order_data['created_at'] =new \DateTime();
 
     $order_id = $this->hoadon->create($order_data);
-
+    $order_id = $order_id->hoaDon_id;
     // insert order details
     $content = Cart::content();
     foreach($content as $v_content) {
