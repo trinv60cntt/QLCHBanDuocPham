@@ -22,9 +22,11 @@ session_start();
 class CheckoutController extends Controller
 {
   public function __construct(
-    SanPham $sanpham
+    SanPham $sanpham,
+    KhachHang $khachhang
   ) {
     $this->sanpham = $sanpham;
+    $this->khachhang = $khachhang;
   }
 
   public function login_checkout() {
@@ -116,7 +118,7 @@ class CheckoutController extends Controller
     $data['sdt'] = $request->sdt;
     $data['hinhAnh'] = 'avatar.jpg';
 
-    $customer_id = DB::table('khachhang')->insertGetId($data);
+    $customer_id = $this->khachhang->create($data);
 
     $hoTenKH = $request->hoKH . ' ' . $request->tenKH;
 
