@@ -129,8 +129,8 @@ class InboxController extends Controller
             $messages = Message::where('user_id', $usersLogin->id)->orWhere('receiver', $usersLogin->id)->orderBy('id', 'DESC')->get();
         }
         else {
+            dd('2');
             // $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
-            // dd($messages);
             $messages = Message::where('user_id', $sender)->get();
         }
 
