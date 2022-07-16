@@ -42,13 +42,15 @@ class AdminVaiTroController extends Controller
       'tenVT.unique' => 'Mã nhóm nhân viên đã tồn tại',
     ]);
 
-    $this->vaitro->create([
+    $role = $this->vaitro->create([
       'tenVT' => $request->tenVT,
       'moTa' => $request->moTa,
     ]);
+    // $role = $role->vaiTro_id;
+    // dd($role);
+    $role->quyens()->attach($request->quyen_id);
 
-    // $role->quyens()->attach($request->quyen_id);
-
+    // $role->quyens()->sync($request->quyen_id);
     
     return redirect()->route('vaitros.index')->with('success', 'Thêm mới nhóm nhân viên thành công');
   }
