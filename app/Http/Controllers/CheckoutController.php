@@ -194,6 +194,9 @@ class CheckoutController extends Controller
     $password_account = $request->password_account;
     $flag = false;
     $result = DB::table('khachhang')->where('email', $email)->first();
+    if ($result == null) {
+      return back()->withInput()->with('error', '• Tài khoản hoặc mật khẩu chưa đúng');
+    }
     if($password_account) {
       if(Hash::check($password_account, $result->password)) {
         $flag = true;
