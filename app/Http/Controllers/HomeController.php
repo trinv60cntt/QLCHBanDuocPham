@@ -18,7 +18,7 @@ class HomeController extends Controller
   }
 
   public function index() {
-    $sanPhamCovid = SanPham::where('danhMuc_id', 11)->latest()->take(6)->get();
+    $sanPhamCovid = SanPham::where('danhMuc_id', 6)->latest()->take(6)->get();
 
     $data = [];
     $dau_thangnay = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
