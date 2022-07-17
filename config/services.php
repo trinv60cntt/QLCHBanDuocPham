@@ -31,8 +31,8 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '3249836351913920',
-        'client_secret' => 'ee4a4e4b76e3ac3939a7f1aaca7fb6c2',
+        'client_id' => '413746917299660',
+        'client_secret' => '942330e0da838dc511932e623f993adf',
         'redirect' => 'https://nhathuocso2.herokuapp.com/login-checkout/callback'
     ],
 
