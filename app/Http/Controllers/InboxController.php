@@ -128,12 +128,12 @@ class InboxController extends Controller
         if($khachhangs != null) {
             $messages = Message::where('user_id', $usersLogin->id)->orWhere('receiver', $usersLogin->id)->orderBy('id', 'DESC')->get();
         }
-        else {
-            // dd('2');
-            $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
-            // $messages = Message::where('user_id', 4)->get();
-            // dd($messages);
-        }
+        // else {
+        //     // dd('2');
+        //     $messages = Message::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
+        //     // $messages = Message::where('user_id', 4)->get();
+        //     // dd($messages);
+        // }
 
         if((Auth::user() != null)) {
             $temp = $adminLogin;
