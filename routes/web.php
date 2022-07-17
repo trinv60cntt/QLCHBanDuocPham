@@ -706,3 +706,7 @@ Route::get('/Add-Cart/{id}', 'App\Http\Controllers\AdminHoaDonOffLineController@
 
 Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
 Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
+
+
+
+Route::get('/tintuc', 'App\Http\Controllers\HomeController@tintuc');

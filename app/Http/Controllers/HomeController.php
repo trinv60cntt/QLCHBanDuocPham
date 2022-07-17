@@ -107,4 +107,8 @@ class HomeController extends Controller
     }
   }
 
+  public function tintuc() {
+    return view('home.tintuc');
+  }
+
 }

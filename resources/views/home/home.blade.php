@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="col w-1/2 px-2 lg:w-1/3">
-                    <a href="#">
+                    <a href="{{ route('menus.index') }}">
                         <div class="category-item" style="background-image: url('assets/img/bg-thuoc.png')">
                             <div class="category-overlay text-center">
                                 <p class="text-white">Thuốc</p>
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="col w-1/2 px-2 lg:w-1/3">
-                    <a href="#">
+                    <a href="{{ route('menus.index') }}">
                         <div class="category-item" style="background-image: url('assets/img/bg-covid.png')">
                             <div class="category-overlay text-center">
                                 <p class="text-white">Tủ thuốc Covid</p>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col w-1/2 px-2 lg:w-1/3">
-                    <a href="#">
+                    <a href="{{ route('menus.index') }}">
                         <div class="category-item" style="background-image: url('assets/img/bg-chamsoccanhan.png')">
                             <div class="category-overlay text-center">
                                 <p class="text-white">Chăm sóc cá nhân</p>
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="col w-1/2 px-2 lg:w-1/3">
-                    <a href="#">
+                    <a href="{{ route('menus.index') }}">
                         <div class="category-item" style="background-image: url('assets/img/bg-chamsocsacdep.png')">
                             <div class="category-overlay text-center">
                                 <p class="text-white">Chăm sóc sắc đẹp</p>
@@ -128,7 +128,7 @@
             <div class="posts-list mt-3 flex flex-wrap">
                 <div class="border-posts mr-5 mb-5">
                     <div class="product-image">
-                        <a href="#"><img src="/assets/img/xit-khoang.png" alt="ion muoi" class="img-border"></a>
+                        <a href="{{ URL::to('/tintuc') }}"><img src="/assets/img/xit-khoang.png" alt="ion muoi" class="img-border"></a>
                     </div>
                     <div class="product-info text-left p-4">
                         <h3 class="truncate2 font-bold text-lg mb-5">Mách bạn gái cách dùng xịt khoáng tiết kiệm</h3>
@@ -138,7 +138,7 @@
 
                 <div class="border-posts mr-5 mb-5">
                     <div class="product-image">
-                        <a href="#"><img src="/assets/img/xit-khoang.png" alt="ion muoi" class="img-border"></a>
+                        <a href="{{ URL::to('admin/forgot') }}"><img src="/assets/img/xit-khoang.png" alt="ion muoi" class="img-border"></a>
                     </div>
                     <div class="product-info text-left p-4">
                         <h3 class="truncate2 font-bold text-lg mb-5">Mách bạn gái cách dùng xịt khoáng tiết kiệm</h3>
@@ -149,7 +149,7 @@
 
                 <div class="border-posts mr-5 mb-5">
                     <div class="product-image">
-                        <a href="#"><img src="/assets/img/xit-khoang.png" alt="ion muoi" class="img-border"></a>
+                        <a href="{{ URL::to('admin/forgot') }}"><img src="/assets/img/xit-khoang.png" alt="ion muoi" class="img-border"></a>
                     </div>
                     <div class="product-info text-left p-4">
                         <h3 class="truncate2 font-bold text-lg mb-5">Mách bạn gái cách dùng xịt khoáng tiết kiệm</h3>

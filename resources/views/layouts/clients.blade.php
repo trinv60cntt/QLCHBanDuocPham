@@ -88,7 +88,7 @@
                 </li>
                 <li class="mr-3">
                     <a class="inline-block text-gray-600 no-underline hover:underline py-2 px-4"
-                        href="#">Tin tức</a>
+                        href="{{ URL::to('/tintuc') }}">Tin tức</a>
                 </li>
             </ul>
         </div>
