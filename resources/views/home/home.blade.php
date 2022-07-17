@@ -18,7 +18,7 @@
             </div>
             <div class="row flex flex-wrap justify-center mt-4">
                 <div class="col w-1/2 px-2 lg:w-1/3">
-                    <a href="#">
+                    <a href="{{ route('menus.index') }}">
                         <div class="category-item" style="background-image: url('assets/img/bg-tpcn.png')">
                             <div class="category-overlay text-center">
                                 <p class="text-white">Thực phẩm chức năng</p>
