@@ -40,6 +40,6 @@ return [
     'google' => [
         'client_id' => '122829892320-s4it40cnup73dp4b53o7p3b54q2euvam.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'http://localhost:8000/google/callback'
+        'redirect' => 'https://nhathuocso2.herokuapp.com/google/callback'
     ],
 ];
