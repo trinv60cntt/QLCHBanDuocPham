@@ -157,7 +157,7 @@
                                       echo 'Đã giao hàng';
                                       break;
                                   case 4:
-                                      echo 'Đã nhận tiền từ shipper';
+                                      echo 'Đơn hàng hoàn tất';
                                   break;
                                   default:
                                       echo 'Đơn hủy';
