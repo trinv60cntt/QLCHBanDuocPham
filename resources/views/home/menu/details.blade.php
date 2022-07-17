@@ -280,6 +280,15 @@
         <div class="box-title text-xl">Đánh Giá & Nhận Xét</div>
         <div class="bg-blue-200 lg:p-4">
           <div class="">
+            <?php
+            $customer_id = Session::get('khachhang_id');
+            $hoKH = Session::get('hoKH');
+            $tenKH = Session::get('tenKH');
+            $hinhAnh = Session::get('hinhAnh');
+            // dd($hinhAnh);
+            // dd($customer_id);
+            if($customer_id != NULL) {
+          ?>
             <p class="text-sm"><b>Bạn chấm sản phẩm này bao nhiêu sao?</b></p>
             <ul class="flex">
               @for($count = 1; $count <= 5; $count++)
@@ -302,6 +311,9 @@
                 </li>
               @endfor
             </ul>
+            <?php 
+          }
+        ?>
             <form>
             <input placeholder="Nhập họ và tên"
             value=""
